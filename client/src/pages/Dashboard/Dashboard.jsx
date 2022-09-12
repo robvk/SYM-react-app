@@ -1,17 +1,15 @@
-import React, { useEffect, useState, useContext, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import style from "./Dashboard.module.css";
 import appStyle from "../../App.module.css";
 import { useNavigate } from "react-router-dom";
 import DashboardActive from "./DashboardActive";
 import DashboardAvailable from "./DashboardAvailable";
-import QueriesContext from "../../context/QueriesContext";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [isDriver, setIsDriver] = useState(false);
   const [isClickedToAvailable, setIsClickedToAvailable] = useState(true);
   const [pageToShow, setPageToShow] = useState(null);
-  const { setQueries } = useContext(QueriesContext);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -29,13 +27,11 @@ function Dashboard() {
 
   function getAvailableJobsHandler() {
     setIsClickedToAvailable(true);
-    setQueries({});
     setPageToShow(<DashboardAvailable />);
   }
 
   function getActiveJobsHandler() {
     setIsClickedToAvailable(false);
-    setQueries({});
     setPageToShow(<DashboardActive />);
   }
 

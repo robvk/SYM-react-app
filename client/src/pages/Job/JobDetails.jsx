@@ -21,7 +21,6 @@ import { useState, useContext } from "react";
 import Loading from "../../components/Loading/Loading";
 import NotifierContext from "../../context/NotifierContext";
 import UserInfoContext from "../../context/UserInfoContext";
-import useCategories from "../../hooks/useCategories";
 
 const JobDetails = () => {
   const { setIsDriver, isDriver } = useContext(UserInfoContext);
@@ -29,7 +28,6 @@ const JobDetails = () => {
   const [isAccepted, setIsAccepted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isSaveClicked, setIsSaveClicked] = useState(false);
-  const categories = useCategories();
 
   const [jobDetails, setJobDetails] = useState({
     item: "",
@@ -188,22 +186,7 @@ const JobDetails = () => {
       {statusbar}
       {jobDetails.item && (
         <form className={styles.formClass} name="dropRequest" ref={form}>
-          <div className={styles.select}>
-            <select
-              name="category"
-              disabled={isLocked}
-              onChange={changeHandler}
-              required
-            >
-              <option value="">{jobDetails.category}</option>
-              {categories.map((category, i) => (
-                <option key={i} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
-
+          
           <div className={styles.jobView}>
             <InputStyled
               name="item"

@@ -12,12 +12,10 @@ import {
   faNoteSticky,
   faRuler,
 } from "@fortawesome/free-solid-svg-icons";
-import useCategories from "../../hooks/useCategories";
 
 const JobView = ({ jobHandler }) => {
   const [inputs, setInputs] = useState({});
   const form = React.useRef();
-  const categories = useCategories();
 
   const changeHandler = (e) => {
     const el = e.target;
@@ -36,17 +34,6 @@ const JobView = ({ jobHandler }) => {
   return (
     <form className={styles.formClass} name="dropRequest" ref={form}>
       <h2 className={appStyles.h1Desktop}>Create a new drop request</h2>
-
-      <div className={styles.select}>
-        <select name="category" id="cars" onChange={changeHandler} required>
-          <option value="">--Please choose a Category--</option>
-          {categories.map((category, i) => (
-            <option key={i} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <div className={styles.jobView}>
         <InputStyled

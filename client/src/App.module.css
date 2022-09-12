@@ -53,7 +53,6 @@
 }
 
 .container {
-  background-image: url("assets/images/van.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -62,7 +61,6 @@
 }
 
 html {
-  background-image: url("assets/images/van.jpg");
   background-color: var(--highlight);
   background-repeat: no-repeat;
   background-attachment: fixed;
