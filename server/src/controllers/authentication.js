@@ -10,9 +10,9 @@ export const authenticate = async (req, res) => {
       return res.status(400).send({ message: error.details[0].message });
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ username: req.body.username });
     if (!user) {
-      return res.status(401).send({ message: "Invalid email or Password" });
+      return res.status(401).send({ message: "Invalid username" });
     }
 
     const validPassword = await bcrypt.compare(
@@ -21,18 +21,18 @@ export const authenticate = async (req, res) => {
     );
 
     if (!validPassword) {
-      return res.status(401).send({ message: "Invalid email or Password" });
+      return res.status(401).send({ message: "Invalid username or password" });
     }
 
     const token = user.generateAuthToken();
     return res.status(200).send({
       id: user._id,
       data: token,
-      initials: `${user.name[0]}. ${user.surname[0]}.`,
-      isDriver: user.vehicleInfo.plate ? true : false,
+      username: user.username,
       success: true,
       message: "Logged In",
     });
+
     // generate this token and send this information after a successful sign up also
   } catch (error) {
     res.status(500).send({ message: "internal server error" });
@@ -41,8 +41,8 @@ export const authenticate = async (req, res) => {
 
 const validate = (data) => {
   const schema = Joi.object({
-    email: Joi.string().email().required().label("Email"),
-    password: Joi.string().required().label("Password"),
+    username: Joi.string().required().label("username"),
+    password: Joi.string().required().label("password"),
   });
   return schema.validate(data);
 };

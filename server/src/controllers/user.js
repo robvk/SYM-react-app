@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import User, { validateUser, validateUserUpdate } from "../models/User.js";
 import { logError } from "../util/logging.js";
-import makeFirstLetterUpper from "../util/makeFirstLetterUpper.js";
 
 export const getUsers = async (req, res) => {
   try {
@@ -23,16 +22,8 @@ export const getUser = async (req, res) => {
     res.status(200).json({
       success: true,
       result: {
-        name: user.name,
-        surname: user.surname,
+        username: user.username,
         email: user.email,
-        vehicleInfo: {
-          contact: user.vehicleInfo.contact,
-          plate: user.vehicleInfo.plate,
-          width: user.vehicleInfo.width,
-          length: user.vehicleInfo["length"],
-          height: user.vehicleInfo.height,
-        },
       },
     });
   } catch (error) {
@@ -44,29 +35,28 @@ export const getUser = async (req, res) => {
 };
 
 // Find Accepted Drivers
-export const getAcceptedDrivers = async (req, res) => {
-  const { delivererIDs } = req.body;
+export const getTaggers = async (req, res) => {
+  const { taggersID } = req.body;
 
   try {
-    const drivers = [];
-    for (let i = 0; i < delivererIDs.length; i++) {
-      const user = await User.findOne({ _id: delivererIDs[i] });
-      const driverInfo = {
-        name: user.name,
-        contact: user.vehicleInfo.contact,
+    const taggers = [];
+    for (let i = 0; i < taggersID.length; i++) {
+      const user = await User.findOne({ _id: taggersID[i] });
+      const tagger = {
+        username: user.username,
       };
-      drivers.push(driverInfo);
+      taggers.push(tagger);
     }
 
     res.status(200).json({
       success: true,
-      result: drivers,
+      result: taggers,
     });
   } catch (error) {
     logError(error);
     res
       .status(500)
-      .json({ success: false, msg: "Unable to get user, try again later" });
+      .json({ success: false, msg: "Unable to get taggers, try again later" });
   }
 };
 
@@ -81,25 +71,18 @@ export const updateUser = async (req, res) => {
       });
     }
 
-    user.name = req.body.user.name
-      ? makeFirstLetterUpper(req.body.user.name)
-      : user.name;
-    user.surname = req.body.user.surname
-      ? makeFirstLetterUpper(req.body.user.surname)
-      : user.surname;
+    user.username = req.body.user.username
+      ? req.body.user.username
+      : user.username;
     user.email = req.body.user.email
       ? req.body.user.email.toLowerCase()
       : user.email;
-    user.vehicleInfo = req.body.user.vehicleInfo
-      ? req.body.user.vehicleInfo
-      : user.vehicleInfo;
     user.password = req.body.user.password
       ? req.body.user.password
       : user.password;
 
     const userToValidate = {
-      name: user.name,
-      surname: user.surname,
+      username: user.username,
       email: user.email,
     };
 
@@ -114,16 +97,8 @@ export const updateUser = async (req, res) => {
       message: "User profile updated successfully",
       success: true,
       result: {
-        name: user.name,
-        surname: user.surname,
+        username: user.username,
         email: user.email,
-        vehicleInfo: {
-          contact: user.vehicleInfo.contact,
-          plate: user.vehicleInfo.plate,
-          width: user.vehicleInfo.width,
-          length: user.vehicleInfo["length"],
-          height: user.vehicleInfo.height,
-        },
       },
     });
   } catch (error) {
@@ -166,10 +141,9 @@ export const createUser = async (req, res) => {
     }
 
     const email = await User.findOne({ email: user.email });
-    if (email) {
-      return res
-        .status(409)
-        .send({ message: "user with given email already exist!" });
+    const username = await User.findOne({ username: user.username });
+    if (email || username) {
+      return res.status(409).send({ message: "user already exists!" });
     }
     const { error } = validateUser(user);
     if (error) {
@@ -191,29 +165,5 @@ export const createUser = async (req, res) => {
     res
       .status(500)
       .send({ message: "internal server error while creating user" });
-  }
-};
-
-export const addCar = async (req, res) => {
-  try {
-    const { vehicleInfo } = req.body;
-    const user = await User.findOne({ _id: vehicleInfo._id });
-    user.vehicleInfo.contact = vehicleInfo.contact;
-    user.vehicleInfo.plate = vehicleInfo.plate;
-    user.vehicleInfo.width = vehicleInfo.width;
-    user.vehicleInfo.height = vehicleInfo.height;
-    user.vehicleInfo["length"] = vehicleInfo["length"];
-    await user.save();
-    res.status(200).send({
-      message: "success",
-      success: true,
-      result: {
-        isDriver: user.vehicleInfo.plate ? true : false,
-      },
-    });
-  } catch (error) {
-    res.status(500).send({
-      message: "internal server error while trying to add vehicle info!",
-    });
   }
 };

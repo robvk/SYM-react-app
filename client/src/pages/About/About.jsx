@@ -4,10 +4,6 @@ import appStyle from "../../App.module.css";
 import DeliveryIcon from "../../assets/icons/deliveryIcon.svg";
 import useFetch from "../../hooks/useFetch";
 
-// Graph
-import DemoPie from "../../components/Graphs/PieChart";
-import DemoBar from "../../components/Graphs/BarChart";
-
 const About = () => {
   const [availableJobAmount, setAvailableJobAmount] = useState();
   const [takenJobAmount, setTakenJobAmount] = useState();
@@ -42,7 +38,7 @@ const About = () => {
         <div className={styles.container}>
           <div className={styles.titleContainer}>
             <p className={appStyle.h2Desktop}>
-              <img src={DeliveryIcon} />
+              <img src={DeliveryIcon} alt="Delivery icon" />
               Deliver faster and safer with Droppy
             </p>
           </div>
@@ -137,15 +133,8 @@ const About = () => {
         <h1 className={appStyle.h1Desktop}>Latest Statistics</h1>
         <div className={styles.container}>
           <div className={styles.graphContainer}>
-            <div className={styles.graph}>
-              <DemoBar senders={sendersAmount} deliverers={deliverersAmount} />
-            </div>
-            <div className={styles.graph}>
-              <DemoPie
-                availableJobs={availableJobAmount}
-                activeJobs={takenJobAmount}
-              />
-            </div>
+            <div className={styles.graph}></div>
+            <div className={styles.graph}></div>
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 import express from "express";
 import { countJobs } from "../controllers/graphs.js";
 
-const jobRouter = express.Router();
+const statementRouter = express.Router();
 
-jobRouter.get("/values", countJobs);
+statementRouter.get("/values", countJobs);
 
-export default jobRouter;
+export default statementRouter;

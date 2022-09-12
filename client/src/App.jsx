@@ -4,11 +4,6 @@ import Nav from "./components/Header/Nav";
 import Home from "./pages/Home/Home";
 import AddCar from "./pages/Signup/AddCar";
 import Signup from "./pages/Signup/Signup";
-
-// import UserList from "./pages/User/UserList";
-
-import { motion } from "framer-motion";
-import styles from "./App.module.css";
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
@@ -21,26 +16,17 @@ import About from "./pages/About/About";
 import ProfilePage from "./pages/Profile/ProfilePage";
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState("");
-  // const [isDriver, setIsDriver] = useState(null);
-  const { token, isDriver, setIsDriver } = useContext(UserInfoContext);
+  const { token } = useContext(UserInfoContext);
 
   useEffect(() => {
     setUser(localStorage.getItem("token"));
-    localStorage.getItem("isDriver") === "true"
-      ? setIsDriver(true)
-      : setIsDriver(false);
-  }, [token, isDriver]);
-
-  const openHandler = () => {
-    setIsOpen(!isOpen);
-  };
+  }, [token]);
 
   //Delete JobView temporary route
   return (
-    <motion.div className={styles.container} animate={{ x: isOpen ? 240 : 0 }}>
-      <Nav opened={openHandler} />
+    <>
+      <Nav />
       <Notifier />
       <Routes>
         {!user && <Route path="/" element={<Home />} />}
@@ -49,7 +35,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<JobDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
-        {user && !isDriver && (
+        {user && (
           <Route path="/jobs/create" element={<CreateJobController />} />
         )}
         {user && <Route path="/dashboard" element={<Dashboard />} />}
@@ -57,7 +43,7 @@ const App = () => {
         {user && <Route path="/profile/:id" element={<ProfilePage />} />}
       </Routes>
       <Footer />
-    </motion.div>
+    </>
   );
 };
 

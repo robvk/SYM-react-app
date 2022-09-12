@@ -1,27 +1,11 @@
-import Job from "../models/Job.js";
-import User from "../models/User.js";
+import Statement from "../models/Statement.js";
 import { logError } from "../util/logging.js";
 
-export const countJobs = async (req, res) => {
+export const countStatements = async (req, res) => {
   try {
-    const total = await Job.countDocuments({});
-
-    const available = await Job.countDocuments({
-      delivererIDs: [],
-    });
-    const senders = await User.countDocuments({});
-    const deliverers = await User.countDocuments({
-      vehicleInfo: { $ne: null },
-    });
-
-    const taken = total - available;
-
+    const total = await Statement.countDocuments({});
     const result = {
-      numOfTotalJobs: total,
-      numOfAvailableJobs: available,
-      numOfTakenJobs: taken,
-      numOfSenders: senders,
-      numOfDeliverers: deliverers,
+      numOfTotalStatements: total,
     };
 
     res.status(200).json({ success: true, result: result });

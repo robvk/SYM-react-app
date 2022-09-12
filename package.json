@@ -36,12 +36,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HackYourFuture/final-project-template.git"
+    "url": "git+https://github.com/EdwardAbboud/SYM-react-app.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HackYourFuture/final-project-template/issues"
+    "url": "https://github.com/EdwardAbboud/SYM-react-app/issues"
   },
   "homepage": "https://github.com/HackYourFuture/final-project-template#readme",
   "devDependencies": {
@@ -51,7 +51,6 @@
     "husky": "^7.0.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "concurrently": "^6.4.0"
   }
 }
