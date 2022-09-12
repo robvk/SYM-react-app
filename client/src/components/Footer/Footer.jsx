@@ -3,15 +3,6 @@ import { Link } from "react-router-dom";
 import Logo from "../../components/Logo";
 import appStyle from "../../App.module.css";
 import styles from "./Footer.module.css";
-import {
-  FaFacebook,
-  FaLinkedinIn,
-  FaTwitter,
-  FaInstagramSquare,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaEnvelopeOpen,
-} from "react-icons/fa";
 import UserInfoContext from "./../../context/UserInfoContext";
 
 const Footer = () => {
@@ -47,7 +38,6 @@ const Footer = () => {
     <div className={styles.container}>
       <div className={styles.row}>
         <div className={styles.singleCta}>
-          <FaMapMarkerAlt className={styles.ctaIcon} />
           <div className={styles.ctaText}>
             <h4 className={appStyle.h2Desktop}>Find us</h4>
             <span>7412 RT, Amsterdam, Netherland</span>
@@ -55,7 +45,6 @@ const Footer = () => {
         </div>
 
         <div className={styles.singleCta}>
-          <FaPhoneAlt className={styles.ctaIcon} />
           <div className={styles.ctaText}>
             <h4 className={appStyle.h2Desktop}>Call us</h4>
             <span>98765432100</span>
@@ -63,7 +52,6 @@ const Footer = () => {
         </div>
 
         <div className={styles.singleCta}>
-          <FaEnvelopeOpen className={styles.ctaIcon} />
           <div className={styles.ctaText}>
             <h4 className={appStyle.h2Desktop}>Mail us</h4>
             <span>info@droppy.com</span>
@@ -117,16 +105,12 @@ const Footer = () => {
           <h4 className={appStyle.h2Desktop}>follow us</h4>
           <div className={styles.socialLinks}>
             <Link to={"/"}>
-              <FaFacebook className={styles.facebook} />
             </Link>
             <Link to={"/"} className={styles.twitter}>
-              <FaTwitter />
             </Link>
             <Link to={"/"} className={styles.instagram}>
-              <FaInstagramSquare />
             </Link>
             <Link to={"/"} className={styles.link}>
-              <FaLinkedinIn />
             </Link>
           </div>
         </div>

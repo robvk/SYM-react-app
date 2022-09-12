@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./InputStyled.module.css";
-import { motion } from "framer-motion";
 
 const InputStyled = ({
   name,
@@ -40,9 +39,9 @@ const InputStyled = ({
 
   return (
     <div className={styles.inputDiv}>
-      <motion.label animate={{ y: focused ? -2 : 0 }}>
+      <label>
         {icon} <span>{name}</span>
-      </motion.label>
+      </label>
       {multiline ? (
         <textarea {...inputProps}></textarea>
       ) : (

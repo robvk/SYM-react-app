@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
-import TEST_ID from "./Home.testid";
-
+// React
+import React from "react";
+import { useEffect, useState } from "react";
+// Hooks
+import useFetch from "../../hooks/useFetch";
 // Style
 import style from "./Home.module.css";
-import appStyle from "../../App.module.css";
-
-import InformationCard from "./InformationCard";
-// Icons
-import truck from "../../assets/icons/truck-icon.svg";
-import carry from "../../assets/icons/carry-icon.svg";
-import plus from "../../assets/icons/plus-icon.svg";
-import Button from "../../components/Button";
-import Logo from "../../components/Logo";
-import { Link } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import CountUp from "react-countup";
-
-import { FaUser, FaCar, FaClipboardCheck } from "react-icons/fa";
+import envelop from "../../assets/icons/message-icon.svg";
+import password from "../../assets/icons/lock-icon.svg";
+import person from "../../assets/icons/person-icon.svg";
+import { useRef } from "react";
 
 const Home = () => {
   const [totalJobAmount, setTotalJobAmount] = useState();
@@ -29,7 +21,7 @@ const Home = () => {
     setDeliverersAmount(onReceived.result.numOfDeliverers);
   };
 
-  const { performFetch, cancelFetch } = useFetch("/graphs/values", onSuccess);
+  const { performFetch, cancelFetch } = useFetch("/data/values", onSuccess);
 
   useEffect(() => {
     performFetch({
@@ -40,79 +32,80 @@ const Home = () => {
     });
     return cancelFetch;
   }, []);
+
+  const emailInputRef = useRef();
+  const usernameInputRef = useRef();
+  const passwordInputRef = useRef();
+  const confirmPasswordInputRef = useRef();
+
+  const signUpHandler = (e) => {
+    e.preventDefault();
+
+    // const enteredEmail = emailInputRef.current.value;
+    // const enteredUsername = usernameInputRef.current.value;
+    // const enteredPassword = passwordInputRef.current.value;
+    // const enteredConfirmPassword = confirmPasswordInputRef.current.value;
+
+    const userData = {
+      email: emailInputRef.current.value,
+      username: usernameInputRef.current.value,
+      password: passwordInputRef.current.value,
+      confirmPasswordInputRef: confirmPasswordInputRef.current.value,
+    };
+
+    props.onUserSignUp(userData);
+  };
+
   return (
-    <div data-testid={TEST_ID.container}>
-      <div className={style.homePage}>
-        <div className={style.logoContainer}>
-          <Logo />
-        </div>
-
-        <p className={appStyle.h2Desktop}>
-          Looking for help to move some stuff?
-        </p>
-        <div className={style.singleButton}>
-          <Button path="/user/create">GET STARTED</Button>
-        </div>
-
-        <div className={appStyle.bodyDesktop}>
-          Already have an account? <Link to="/login">Log in</Link>
-        </div>
-        <div className={style.allCards}>
-          <InformationCard
-            src={truck}
-            text={"Easy to use, Just post your item and wait for offers."}
-          />
-          <InformationCard
-            src={carry}
-            text={
-              "If you ask nicely the driver may even help to carry your items."
-            }
-          />
-          <InformationCard
-            src={plus}
-            text={"Add your car to your profile to sign up as a driver today!"}
-          />
-        </div>
-        <div className={style.statContainer}>
-          <div className={style.row}>
-            <div className={style.col}>
-              <FaClipboardCheck className={style.statIcon} />
-              <div className={style.counter}>
-                <CountUp end={totalJobAmount} className={appStyle.h2Desktop} />
-                <div className={style.statsLine}></div>
-                <p className={`${appStyle.h2Desktop} ${style.statsText}`}>
-                  Jobs
-                </p>
-              </div>
-            </div>
-            <div className={style.col}>
-              <FaUser className={style.statIcon} />
-              <div className={style.counter}>
-                <CountUp
-                  end={sendersAmount + deliverersAmount}
-                  className={appStyle.h2Desktop}
-                />
-                <div className={style.statsLine}></div>
-                <p className={`${appStyle.h2Desktop} ${style.statsText}`}>
-                  Users
-                </p>
-              </div>
-            </div>
-            <div className={style.col}>
-              <FaCar className={style.statIcon} />
-              <div className={style.counter}>
-                <CountUp
-                  end={deliverersAmount}
-                  className={appStyle.h2Desktop}
-                />
-                <div className={style.statsLine}></div>
-                <p className={`${appStyle.h2Desktop} ${style.statsText}`}>
-                  Drivers
-                </p>
-              </div>
-            </div>
+    <div>
+      <div className={style.formDiv}>
+        <form onSubmit={signUpHandler}>
+          <div className={style.inputDiv}>
+            <img src={envelop} alt="envelop icon" />
+            <input
+              placeholder="email"
+              type="email"
+              required
+              id="email"
+              ref={emailInputRef}
+              aria-label="email"
+            />
           </div>
-        </div>
+          <div className={style.inputDiv}>
+            <img src={person} alt="person icon" />
+            <input
+              placeholder="username"
+              type="text"
+              required
+              id="username"
+              ref={usernameInputRef}
+              aria-label="username"
+            />
+          </div>
+          <div className={style.inputDiv}>
+            <img src={password} alt="password icon" />
+            <input
+              placeholder="password"
+              type="password"
+              required
+              id="password"
+              ref={passwordInputRef}
+              aria-label="password"
+            />
+          </div>
+          <div className={style.inputDiv}>
+            <img src={password} alt="password icon" />
+            <input
+              placeholder="confirm password"
+              type="password"
+              required
+              id="confirmPassword"
+              ref={confirmPasswordInputRef}
+              aria-label="password"
+            />
+          </div>
+          <button>Sign up!</button>
+        </form>
       </div>
     </div>
   );

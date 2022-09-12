@@ -4,18 +4,10 @@ import Button from "../../components/Button";
 import InputStyled from "../../components/InputStyled";
 import styles from "./JobDetails.module.css";
 import appStyles from "../../App.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import Error from "../../components/Error/Error";
 
-import {
-  faBox,
-  faContactBook,
-  faLocationPin,
-  faNoteSticky,
-  faRuler,
-} from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useState, useContext } from "react";
 import Loading from "../../components/Loading/Loading";
@@ -186,13 +178,11 @@ const JobDetails = () => {
       {statusbar}
       {jobDetails.item && (
         <form className={styles.formClass} name="dropRequest" ref={form}>
-          
           <div className={styles.jobView}>
             <InputStyled
               name="item"
               required
               disabled={isLocked}
-              icon={<FontAwesomeIcon icon={faBox} />}
               defaultValue={jobDetails.item}
               placeholder="Dining chair"
               data-err="Please enter a proper item name at least 3 characters"
@@ -205,7 +195,6 @@ const JobDetails = () => {
                 name="width"
                 required
                 disabled={isLocked}
-                icon={<FontAwesomeIcon icon={faRuler} />}
                 placeholder="23"
                 defaultValue={jobDetails.width}
                 data-err="Please enter a number of centimeters"
@@ -217,7 +206,6 @@ const JobDetails = () => {
                 name="height"
                 disabled={isLocked}
                 required
-                icon={<FontAwesomeIcon icon={faRuler} />}
                 placeholder="23"
                 defaultValue={jobDetails.height}
                 data-err="Please enter a number of centimeters"
@@ -228,7 +216,6 @@ const JobDetails = () => {
                 name="length"
                 required
                 disabled={isLocked}
-                icon={<FontAwesomeIcon icon={faRuler} />}
                 placeholder="23"
                 defaultValue={jobDetails.length}
                 data-err="Please enter a number of centimeters"
@@ -241,7 +228,6 @@ const JobDetails = () => {
                 name="fromPostCode"
                 disabled={isLocked}
                 required
-                icon={<FontAwesomeIcon icon={faLocationPin} />}
                 placeholder="1234AB"
                 defaultValue={jobDetails.fromPostCode}
                 data-err="Please enter the correct format of Dutch zip-code"
@@ -253,7 +239,6 @@ const JobDetails = () => {
                 name="toPostCode"
                 disabled={isLocked}
                 required
-                icon={<FontAwesomeIcon icon={faLocationPin} />}
                 placeholder="4567BC"
                 defaultValue={jobDetails.toPostCode}
                 data-err="Please enter the correct format of Dutch zip-code"
@@ -274,7 +259,6 @@ const JobDetails = () => {
               name="phoneNo"
               required
               disabled={isLocked}
-              icon={<FontAwesomeIcon icon={faContactBook} />}
               placeholder="0612345678"
               defaultValue={jobDetails.phoneNo}
               type="tel"
@@ -286,7 +270,6 @@ const JobDetails = () => {
               name="description"
               disabled={isLocked}
               required
-              icon={<FontAwesomeIcon icon={faNoteSticky} />}
               placeholder="Describe your item here"
               defaultValue={jobDetails.description}
               multiline

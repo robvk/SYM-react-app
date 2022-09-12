@@ -4,14 +4,6 @@ import Button from "../../components/Button";
 import InputStyled from "../../components/InputStyled";
 import styles from "./JobView.module.css";
 import appStyles from "../../App.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBox,
-  faContactBook,
-  faLocationPin,
-  faNoteSticky,
-  faRuler,
-} from "@fortawesome/free-solid-svg-icons";
 
 const JobView = ({ jobHandler }) => {
   const [inputs, setInputs] = useState({});
@@ -38,7 +30,6 @@ const JobView = ({ jobHandler }) => {
       <div className={styles.jobView}>
         <InputStyled
           name="item"
-          icon={<FontAwesomeIcon icon={faBox} />}
           placeholder="Dining chair"
           required
           data-err="Please enter an item name between 3 and 50 characters"
@@ -48,7 +39,6 @@ const JobView = ({ jobHandler }) => {
         <div className={styles.sizes}>
           <InputStyled
             name="width"
-            icon={<FontAwesomeIcon icon={faRuler} />}
             placeholder="23cm"
             required
             data-err="Please enter a number of centimeters"
@@ -57,7 +47,6 @@ const JobView = ({ jobHandler }) => {
           ></InputStyled>
           <InputStyled
             name="height"
-            icon={<FontAwesomeIcon icon={faRuler} />}
             placeholder="23cm"
             required
             data-err="Please enter a number of centimeters"
@@ -66,7 +55,6 @@ const JobView = ({ jobHandler }) => {
           ></InputStyled>
           <InputStyled
             name="length"
-            icon={<FontAwesomeIcon icon={faRuler} />}
             placeholder="23cm"
             required
             data-err="Please enter a number of centimeters"
@@ -77,7 +65,6 @@ const JobView = ({ jobHandler }) => {
         <div className={styles.sizes}>
           <InputStyled
             name="fromPostCode"
-            icon={<FontAwesomeIcon icon={faLocationPin} />}
             placeholder="1523DE"
             required
             data-err="Please enter the correct format of Dutch zip-code"
@@ -86,7 +73,6 @@ const JobView = ({ jobHandler }) => {
           ></InputStyled>
           <InputStyled
             name="toPostCode"
-            icon={<FontAwesomeIcon icon={faLocationPin} />}
             placeholder="1523DE"
             required
             data-err="Please enter the correct format of Dutch zip-code"
@@ -102,7 +88,6 @@ const JobView = ({ jobHandler }) => {
         ></InputStyled>
         <InputStyled
           name="phoneNo"
-          icon={<FontAwesomeIcon icon={faContactBook} />}
           placeholder="0612345678"
           type="tel"
           data-err="Please enter a phone number like 0612345678"
@@ -112,7 +97,6 @@ const JobView = ({ jobHandler }) => {
         ></InputStyled>
         <InputStyled
           name="description"
-          icon={<FontAwesomeIcon icon={faNoteSticky} />}
           placeholder="Describe your item here"
           multiline
           onChange={changeHandler}

@@ -2,16 +2,14 @@
 
 # Class 36 final project
 
-This is the final project for the HackYourFuture curriculum we did as a class using the MERN stack by following the agile methodology with our team and a group of mentors. A quick guide to what we built:
+Every user is able to create a post. This post will have two inputs the beginning and then the statement finishing the sentence. The statements will be sorted by most up-voted. If any other user should like that statement they can create another tag-line to it and it will be added to the thread. A statement (thread) should have an expiration date if not updated (commented on) for about 24h, it should be deleted. Each user is able to create their own new thread or comment on an existing one. The comments will also be sorted by most liked (by default). the user might want to have the option to post anonymously.
 
-Droppy is an initiative to help people move their items from point A to point B. Lately there has been growth in the amount of apps that connect people together to share products and services. We wanted to use the same logic to allow communities around the netherlands to use this app to move their items around and get help doing so. Whether it's big, medium or small items, the user can log in and create a request for help. This request will then be visible to any user with vehicle information attached and can be accept the job. Once the job has been accepted the 'creator' of the job can see all the drivers that are willing to help them out and they are then encouraged to follow up away from the app.
-
-Check out a deployed version below.
-[Deployed version](https://c36-project.herokuapp.com/dashboard)
+<!-- Check out a deployed version below.
+[Deployed version](https://c36-project.herokuapp.com/dashboard) -->
 
 # Screenshots
 
-<div>
+<!-- <div>
     <p>Screenshot 1/6</p>
     <img src="https://github.com/HackYourFuture/class36-project/blob/develop/client/src/assets/Screenshots/ss-1.png"/>
     <p>Screenshot 2/6</p>
@@ -24,7 +22,7 @@ Check out a deployed version below.
     <img src="https://github.com/HackYourFuture/class36-project/blob/develop/client/src/assets/Screenshots/ss-5.png"/>
     <p>Screenshot 6/6</p>
     <img src="https://github.com/HackYourFuture/class36-project/blob/develop/client/src/assets/Screenshots/ss-6.png"/>
-</div>
+</div> -->
 
 ## 1. Setup
 

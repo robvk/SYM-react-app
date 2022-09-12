@@ -3,16 +3,6 @@ import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 // Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faRuler,
-  faUser,
-  faEnvelope,
-  faPhone,
-  faCar,
-  faPen,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
 // Style
 import style from "./ProfilePage.module.css";
 import appStyle from "../../App.module.css";
@@ -213,12 +203,12 @@ const ProfilePage = () => {
         <div className={style.buttonDiv}>
           <div className={style.singleButton}>
             <Button buttonHandler={editHandler}>
-              <FontAwesomeIcon icon={faPen} /> {!editHelper ? "Edit" : "Cancel"}
+              {!editHelper ? "Edit" : "Cancel"}
             </Button>
           </div>
           <div className={style.singleButton}>
             <Button class="buttonBorder" buttonHandler={deleteHandler}>
-              <FontAwesomeIcon icon={faTrashCan} /> Delete
+              Delete
             </Button>
           </div>
         </div>
@@ -238,14 +228,12 @@ const ProfilePage = () => {
                   <h5 className={appStyle.boldBodyDesktop}>Personal Details</h5>
                 </div>
                 <div className={style.infoLine}>
-                  <FontAwesomeIcon icon={faUser} />
                   <p className={appStyle.boldBodyDesktop}>First Name: </p>
                   <div className={style.results}>
                     <p className={appStyle.bodyDesktop}>{userDetails.name}</p>
                   </div>
                 </div>
                 <div className={style.infoLine}>
-                  <FontAwesomeIcon icon={faUser} />
                   <p className={appStyle.boldBodyDesktop}>Last Name: </p>
                   <div className={style.results}>
                     <p className={appStyle.bodyDesktop}>
@@ -254,7 +242,6 @@ const ProfilePage = () => {
                   </div>
                 </div>
                 <div className={style.infoLine}>
-                  <FontAwesomeIcon icon={faEnvelope} />
                   <p className={appStyle.boldBodyDesktop}>Email: </p>
                   <div className={style.results}>
                     <p className={appStyle.bodyDesktop}>{userDetails.email}</p>
@@ -270,7 +257,6 @@ const ProfilePage = () => {
                       </h5>
                     </div>
                     <div className={style.infoLine}>
-                      <FontAwesomeIcon icon={faPhone} />
                       <p className={appStyle.boldBodyDesktop}>Phone: </p>
                       <div className={style.results}>
                         <p className={appStyle.bodyDesktop}>
@@ -279,7 +265,6 @@ const ProfilePage = () => {
                       </div>
                     </div>
                     <div className={style.infoLine}>
-                      <FontAwesomeIcon icon={faCar} />
                       <p className={appStyle.boldBodyDesktop}>Plate Number: </p>
                       <div className={style.results}>
                         <p className={appStyle.bodyDesktop}>
@@ -293,7 +278,6 @@ const ProfilePage = () => {
                       </h6>
                     </div>
                     <div className={style.infoLine}>
-                      <FontAwesomeIcon icon={faRuler} />
                       <p className={appStyle.boldBodyDesktop}>Width: </p>
                       <div className={style.results}>
                         <p className={appStyle.bodyDesktop}>
@@ -302,7 +286,6 @@ const ProfilePage = () => {
                       </div>
                     </div>
                     <div className={style.infoLine}>
-                      <FontAwesomeIcon icon={faRuler} />
                       <p className={appStyle.boldBodyDesktop}>Height: </p>
                       <div className={style.results}>
                         <p className={appStyle.bodyDesktop}>
@@ -311,7 +294,6 @@ const ProfilePage = () => {
                       </div>
                     </div>
                     <div className={style.infoLine}>
-                      <FontAwesomeIcon icon={faRuler} />
                       <p className={appStyle.boldBodyDesktop}>Length: </p>
                       <div className={style.results}>
                         <p className={appStyle.bodyDesktop}>

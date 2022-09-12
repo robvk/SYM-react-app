@@ -4,14 +4,6 @@ import Button from "../../components/Button";
 import style from "./EditProfileForm.module.css";
 import appStyle from "../../App.module.css";
 // Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faRuler,
-  faUser,
-  faEnvelope,
-  faPhone,
-  faCar,
-} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -69,7 +61,6 @@ export default function EditProfileForm(props) {
           <div>
             <label className={appStyle.bodyDesktop}>First Name</label>
             <div className={style.inputDiv}>
-              <FontAwesomeIcon icon={faUser} />
               <input
                 type="text"
                 required
@@ -86,7 +77,6 @@ export default function EditProfileForm(props) {
           <div>
             <label className={appStyle.bodyDesktop}>Last Name</label>
             <div className={style.inputDiv}>
-              <FontAwesomeIcon icon={faUser} />
               <input
                 type="text"
                 required
@@ -103,7 +93,6 @@ export default function EditProfileForm(props) {
           <div>
             <label className={appStyle.bodyDesktop}>Email</label>
             <div className={style.inputDiv}>
-              <FontAwesomeIcon icon={faEnvelope} />
               <input
                 type="email"
                 required
@@ -131,7 +120,6 @@ export default function EditProfileForm(props) {
             <div>
               <label className={appStyle.bodyDesktop}>Phone Number</label>
               <div className={style.inputDiv}>
-                <FontAwesomeIcon icon={faPhone} />
                 <input
                   type="text"
                   required={addCar}
@@ -150,7 +138,6 @@ export default function EditProfileForm(props) {
             <div>
               <label className={appStyle.bodyDesktop}>Plate Number</label>
               <div className={style.inputDiv}>
-                <FontAwesomeIcon icon={faCar} />
                 <input
                   type="text"
                   id="plate"
@@ -172,7 +159,6 @@ export default function EditProfileForm(props) {
                 <div className={style.dimensionDiv}>
                   <label className={appStyle.bodyDesktop}>Width (cm)</label>
                   <div className={style.inputDimension}>
-                    <FontAwesomeIcon icon={faRuler} />
                     <input
                       type="number"
                       pattern="^[0-9]{1,}"
@@ -192,7 +178,6 @@ export default function EditProfileForm(props) {
                 <div className={style.dimensionDiv}>
                   <label className={appStyle.bodyDesktop}>Height (cm)</label>
                   <div className={style.inputDimension}>
-                    <FontAwesomeIcon icon={faRuler} />
                     <input
                       type="number"
                       min="0"
@@ -212,7 +197,6 @@ export default function EditProfileForm(props) {
                 <div className={style.dimensionDiv}>
                   <label className={appStyle.bodyDesktop}>Length (cm)</label>
                   <div className={style.inputDimension}>
-                    <FontAwesomeIcon icon={faRuler} />
                     <input
                       type="number"
                       min="0"

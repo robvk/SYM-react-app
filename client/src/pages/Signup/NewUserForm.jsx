@@ -2,8 +2,6 @@ import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Button from "../../components/Button";
 import style from "./NewUserForm.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function NewUserForm(props) {
   const emailInputRef = useRef();
@@ -77,9 +75,7 @@ export default function NewUserForm(props) {
         </div>
         <div className={style["btn-next"]}>
           <div className={style.singleButton}>
-            <Button type="submit">
-              Next <FontAwesomeIcon icon={faArrowRight} />
-            </Button>
+            <Button type="submit">Next</Button>
           </div>
         </div>
       </form>

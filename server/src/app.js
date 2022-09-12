@@ -22,6 +22,6 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", userRouter);
 app.use("/api/authentication", authRouter);
 app.use("/api/statements", statementRouter);
-app.use("/api/graphs", graphsRouter);
+app.use("/api/data", graphsRouter);
 
 export default app;

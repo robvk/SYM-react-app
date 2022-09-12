@@ -1,7 +1,6 @@
 import React, { useLayoutEffect, useEffect, useState } from "react";
 import styles from "./About.module.css";
 import appStyle from "../../App.module.css";
-import DeliveryIcon from "../../assets/icons/deliveryIcon.svg";
 import useFetch from "../../hooks/useFetch";
 
 const About = () => {
@@ -38,7 +37,6 @@ const About = () => {
         <div className={styles.container}>
           <div className={styles.titleContainer}>
             <p className={appStyle.h2Desktop}>
-              <img src={DeliveryIcon} alt="Delivery icon" />
               Deliver faster and safer with Droppy
             </p>
           </div>

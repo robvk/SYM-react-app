@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Header/Nav";
 import Home from "./pages/Home/Home";
-import AddCar from "./pages/Signup/AddCar";
-import Signup from "./pages/Signup/Signup";
+import AddCar from "./pages/SignUp/AddCar";
+import SignUp from "./pages/SignUp/SignUp";
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
@@ -23,14 +23,17 @@ const App = () => {
     setUser(localStorage.getItem("token"));
   }, [token]);
 
-  //Delete JobView temporary route
   return (
     <>
       <Nav />
       <Notifier />
       <Routes>
-        {!user && <Route path="/" element={<Home />} />}
-        {!user && <Route path="/user/create" element={<Signup />}></Route>}
+        {!user ? (
+          <Route path="/" element={<Home />} />
+        ) : (
+          <Route path="/dashboard" element={<Dashboard />} />
+        )}
+        {!user && <Route path="/user/create" element={<SignUp />}></Route>}
         <Route path="/user/create/add-car" element={<AddCar />} />
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<JobDetails />} />}

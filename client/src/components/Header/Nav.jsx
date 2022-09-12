@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
 import Logo from "../Logo";
@@ -47,8 +47,8 @@ const Nav = () => {
   );
 };
 
-Nav.propTypes = {
-  opened: PropTypes.func.isRequired,
-};
+// Nav.propTypes = {
+//   opened: PropTypes.func.isRequired,
+// };
 
 export default Nav;
