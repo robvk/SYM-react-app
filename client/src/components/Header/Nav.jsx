@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 // import PropTypes from "prop-types";
 
 import { Link } from "react-router-dom";
-import Logo from "../Logo";
+// import Logo from "../Logo";
 import styles from "./Nav.module.css";
 import appStyle from "../../App.module.css";
 import UserInfoContext from "../../context/UserInfoContext";
@@ -18,7 +18,7 @@ const Nav = () => {
     <ul>
       <li className={styles.logoNav}>
         <Link key="0" to={token ? "/dashboard" : "/"}>
-          <Logo />
+          {/* <Logo /> */}
         </Link>
       </li>
       <li className={appStyle.h1Desktop}>

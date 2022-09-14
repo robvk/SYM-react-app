@@ -1,49 +1,54 @@
+.light-theme {
+  --font: #34435e;
+  --font-light: #f2f8f8;
+  --background: #f2f8f8;
+  --green: #9fc892;
+  --red: #e96e5d;
+  --highlight: #d2d6ef;
+  --shadow: #34435e;
+}
+
+.dark-theme {
+  --font-light: #34435e;
+  --font: #f2f8f8;
+  --background: #34435e;
+  --green: #9fc892;
+  --red: #e96e5d;
+  --highlight: #d2d6ef;
+  --shadow: #d2d6ef;
+}
+
 :root {
   --nav-height: 80px;
-  --font-dark: #022b3a;
-  --font-light: #ffffff;
-  --shadow: #022b3a;
-  --highlight: #022b3a;
-  --highlight-light: #1f7a8c;
-  --background-opacity: rgba(255, 255, 255, 0.337);
-  --beige: #e1e5f2;
-  --white: #ffffff;
 }
 
-.h1Desktop {
-  font-family: "Teko", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 38px;
-  line-height: 69px;
-  letter-spacing: 0.02em;
+.navLinks {
+  font-family: "Kanit", sans-serif;
+  font-size: 20px;
 }
 
-.h2Desktop {
-  font-family: "Ubuntu", sans-serif;
-  font-style: normal;
+.headerOne {
+  font-family: "Anonymous Pro", monospace;
   font-weight: 700;
   font-size: 30px;
-  line-height: 34px;
-  letter-spacing: -0.02em;
 }
 
-.bodyDesktop {
-  font-family: "Ubuntu", sans-serif;
-  font-style: normal;
-  font-weight: 300;
+.headerTwo {
+  font-family: "Anonymous Pro", monospace;
+  font-weight: 400;
+  font-size: 25px;
+}
+
+.body {
+  font-family: "Anonymous Pro", monospace;
+  font-weight: 400;
   font-size: 20px;
-  line-height: 23px;
-  letter-spacing: -0.02em;
 }
 
-.boldBodyDesktop {
-  font-family: "Ubuntu", sans-serif;
-  font-style: normal;
+.boldBody {
+  font-family: "Anonymous Pro", monospace;
   font-weight: 700;
   font-size: 20px;
-  line-height: 23px;
-  letter-spacing: -0.02em;
 }
 
 * {
@@ -61,7 +66,7 @@
 }
 
 html {
-  background-color: var(--highlight);
+  background-color: var(--background);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -69,23 +74,27 @@ html {
 }
 
 @media screen and (max-width: 450px) {
-  .h1Desktop {
+  .headerOne {
     font-size: 28px;
   }
 
-  .h2Desktop {
+  .headerTwo {
     font-size: 20px;
     line-height: 23px;
   }
 
-  .bodyDesktop {
+  .body {
     font-size: 13px;
     line-height: 15px;
   }
 
-  .boldBodyDesktop {
+  .boldBody {
     font-size: 13px;
     line-height: 15px;
+  }
+
+  .navLinks {
+    font-size: 18px;
   }
 }
 

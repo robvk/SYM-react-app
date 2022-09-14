@@ -1,13 +1,13 @@
 import express from "express";
 import {
   createStatement,
-  deleteStatement,
-  updateStatement,
-} from "../controllers/statementsManipulating.js";
+  // deleteStatement,
+  // updateStatement,
+} from "../controllers/statementManipulating.js";
 import {
   getAllStatements,
   getOneStatement,
-} from "../controllers/statementsGet.js";
+} from "../controllers/statementGet.js";
 
 const statementRouter = express.Router();
 
@@ -15,9 +15,9 @@ statementRouter.get("/", getAllStatements);
 
 statementRouter.get("/:id", getOneStatement);
 
-statementRouter.delete("/:id", deleteStatement);
+// statementRouter.delete("/:id", deleteStatement);
 
-statementRouter.patch("/:id", updateStatement);
+// statementRouter.patch("/:id", updateStatement);
 
 // statementRouter.put("/:id", acceptCancelJob);
 

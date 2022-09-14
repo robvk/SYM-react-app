@@ -1,0 +1,10 @@
+.inputDiv {
+}
+
+.notFilled {
+  border: red 2px solid;
+}
+
+.filled {
+  border: green 2px solid;
+}

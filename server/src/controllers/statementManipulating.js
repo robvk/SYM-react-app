@@ -1,4 +1,4 @@
-import Statement, { validateStatement } from "../models/Job.js";
+import Statement, { validateStatement } from "../models/Statement.js";
 // import { logError } from "../util/logging.js";
 import makeFirstLetterUpper from "../util/makeFirstLetterUpper.js";
 

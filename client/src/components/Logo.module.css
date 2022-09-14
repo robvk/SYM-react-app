@@ -1,6 +1,5 @@
-.logo {
-  width: 450px;
-  filter: drop-shadow(3px 5px 0px rgba(0, 0, 0, 0.25));
+.logoDiv {
+  width: 100%;
   margin: 50px 0px 30px;
 }
 
@@ -10,8 +9,7 @@
 
 /* Media Queries */
 @media screen and (max-width: 1280px) {
-  .logo {
-    width: 350px;
+  .logoDiv {
     margin: 50px 0px 20px 0px;
   }
 }

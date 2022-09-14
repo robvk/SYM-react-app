@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Header/Nav";
 import Home from "./pages/Home/Home";
-import AddCar from "./pages/SignUp/AddCar";
+// import AddCar from "./pages/SignUp/AddCar";
 import SignUp from "./pages/SignUp/SignUp";
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
@@ -31,17 +31,16 @@ const App = () => {
         {!user ? (
           <Route path="/" element={<Home />} />
         ) : (
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/home" element={<Dashboard />} />
         )}
         {!user && <Route path="/user/create" element={<SignUp />}></Route>}
-        <Route path="/user/create/add-car" element={<AddCar />} />
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<JobDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
         {user && (
           <Route path="/jobs/create" element={<CreateJobController />} />
         )}
-        {user && <Route path="/dashboard" element={<Dashboard />} />}
+        {user && <Route path="/home" element={<Dashboard />} />}
         <Route path="/about" element={<About />} />
         {user && <Route path="/profile/:id" element={<ProfilePage />} />}
       </Routes>

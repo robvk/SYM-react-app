@@ -128,9 +128,11 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// Create user
 export const createUser = async (req, res) => {
   try {
     const { user } = req.body;
+    console.log("We are trying to create a user");
     if (typeof user !== "object") {
       res.status(400).json({
         success: false,

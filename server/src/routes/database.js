@@ -1,8 +1,8 @@
 import express from "express";
-import { countJobs } from "../controllers/graphs.js";
+import { countStatements } from "../controllers/database.js";
 
 const statementRouter = express.Router();
 
-statementRouter.get("/values", countJobs);
+statementRouter.get("/values", countStatements);
 
 export default statementRouter;

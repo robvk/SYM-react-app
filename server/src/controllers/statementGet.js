@@ -1,4 +1,4 @@
-import Statement from "../models/Job.js";
+import Statement from "../models/Statement.js";
 import { logError } from "../util/logging.js";
 
 export const getAllStatements = async (req, res) => {
