@@ -1,12 +1,11 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 import AppWrapper from "./AppWrapper";
 import App from "./App";
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <AppWrapper>
     <App />
-  </AppWrapper>,
-  document.getElementById("root")
+  </AppWrapper>
 );

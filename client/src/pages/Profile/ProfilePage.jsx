@@ -10,7 +10,6 @@ import appStyle from "../../App.module.css";
 import Toggle from "../../components/Toggle";
 import Button from "../../components/Button";
 import Error from "../../components/Error/Error";
-import Loading from "../../components/Loading/Loading";
 import DefaultProfilePhoto from "../../components/DefaultProfilePhoto";
 // Hook
 import useFetch from "../../hooks/useFetch";

@@ -3,11 +3,13 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 // Style
 import style from "./Home.module.css";
+import appStyle from "../../App.module.css";
 import envelop from "../../assets/icons/message-icon.svg";
 import password from "../../assets/icons/lock-icon.svg";
 import person from "../../assets/icons/person-icon.svg";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
+import { Link } from "react-router-dom";
 
 const SignUpForm = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -154,6 +156,9 @@ const SignUpForm = (props) => {
             >
               Sign up
             </Button>
+            <div className={`${appStyle.body} ${style.login}`}>
+              Have an account? <Link to="/login">Log in</Link>
+            </div>
           </div>
         </form>
       </div>

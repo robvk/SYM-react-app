@@ -4,7 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import style from "./Dashboard.module.css";
 import Pagination from "./Pagination";
 import Error from "../../components/Error/Error";
-import Loading from "../../components/Loading/Loading";
+import ProgressBar from "../../components/ProgressBar";
 
 function DashboardAvailable() {
   const [jobs, setJobs] = useState([]);
@@ -33,7 +33,7 @@ function DashboardAvailable() {
 
   return (
     <>
-      {isLoading && <Loading />}
+      {isLoading && <ProgressBar />}
       {error != null && <Error error={error} />}
       <div className={style.cardsDiv}>
         <ul>

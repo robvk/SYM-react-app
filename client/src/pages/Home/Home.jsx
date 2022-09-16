@@ -1,8 +1,7 @@
 // React
 import React, { useContext } from "react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import Loading from "../../components/Loading/Loading";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import UserInfoContext from "../../context/UserInfoContext";
 // Hooks
 import useFetch from "../../hooks/useFetch";
@@ -13,23 +12,15 @@ import appStyle from "../../App.module.css";
 import SignUpForm from "./SignUpForm";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
+import bgImage from "../../assets/images/background-image.jpg";
 
 const Home = () => {
-  const [totalJobAmount, setTotalJobAmount] = useState();
-  const [sendersAmount, setSendersAmount] = useState();
-  const [deliverersAmount, setDeliverersAmount] = useState();
-
   const navigate = useNavigate();
 
   const { setToken, setUserID } = useContext(UserInfoContext);
 
   // Call back from backend
   const onSuccess = (onReceived) => {
-    if (onReceived.result.type === "database")
-      setTotalJobAmount(onReceived.result.numOfTotalJobs);
-    setSendersAmount(onReceived.result.numOfSenders);
-    setDeliverersAmount(onReceived.result.numOfDeliverers);
-
     setToken(onReceived.result.token);
     setUserID(onReceived.result.userID);
     navigate("/home", {
@@ -37,8 +28,6 @@ const Home = () => {
     });
   };
 
-  const { performFetch: fetchDatabase, cancelFetch: cancelFetchDatabase } =
-    useFetch("/data/values", onSuccess);
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/user/create",
     onSuccess
@@ -55,27 +44,23 @@ const Home = () => {
     });
   };
 
-  // Fetch database nums + cancel fetch requests
   useEffect(() => {
-    fetchDatabase({
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    return cancelFetchDatabase, cancelFetch;
+    return cancelFetch;
   }, []);
 
   return (
-    <div>
-      {isLoading && <ProgressBar />}
-
-      <SignUpForm onUserSignUp={onUserSignUp} />
-
-      <div className={appStyle.body}>
-        Already have an account? <Link to="/login">Log in</Link>
+    <div className={style.homeContainer}>
+      <ProgressBar loading={isLoading} />
+      <div className={style.bgImageContainer}>
+        <img src={bgImage} className={style.bgImage} />
       </div>
-      {error != null && <Error error={error} />}
+      <div className={style.formContainer}>
+        <div className={style.glassBox}>
+          <h2 className={appStyle.headerOne}>DO YOU HAVE ANYTHING TO SAY?</h2>
+          <SignUpForm onUserSignUp={onUserSignUp} />
+        </div>
+        {error != null && <Error error={error} />}
+      </div>
     </div>
   );
 };
