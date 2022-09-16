@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../components/Loading/Loading";
 import JobView from "./JobView";
 import Error from "../../components/Error/Error";
 

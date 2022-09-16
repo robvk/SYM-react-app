@@ -1,0 +1,11 @@
+.box {
+  color: var(--font);
+}
+
+.loadingDiv {
+  padding: 5px;
+}
+
+.bar {
+  height: 5px !important;
+}

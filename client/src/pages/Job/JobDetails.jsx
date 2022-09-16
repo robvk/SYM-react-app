@@ -10,7 +10,6 @@ import Error from "../../components/Error/Error";
 
 import { useEffect } from "react";
 import { useState, useContext } from "react";
-import Loading from "../../components/Loading/Loading";
 import NotifierContext from "../../context/NotifierContext";
 import UserInfoContext from "../../context/UserInfoContext";
 

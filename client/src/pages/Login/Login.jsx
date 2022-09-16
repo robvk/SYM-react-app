@@ -6,7 +6,6 @@ import UserInfoContext from "../../context/UserInfoContext";
 import { Link, useNavigate } from "react-router-dom";
 import appStyles from "../../App.module.css";
 import Error from "../../components/Error/Error";
-import Loading from "../../components/Loading/Loading";
 
 function Login() {
   const emailInputRef = useRef();

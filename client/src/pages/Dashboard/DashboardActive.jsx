@@ -4,7 +4,6 @@ import useFetch from "../../hooks/useFetch";
 import style from "./Dashboard.module.css";
 import Pagination from "./Pagination";
 import Error from "../../components/Error/Error";
-import Loading from "../../components/Loading/Loading";
 
 function DashboardActive() {
   const [jobs, setJobs] = useState([]);
