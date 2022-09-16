@@ -76,11 +76,11 @@ html {
 
 @media screen and (max-width: 450px) {
   .headerOne {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .headerTwo {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 23px;
   }
 
