@@ -15,6 +15,9 @@ import UserInfoContext from "./context/UserInfoContext";
 import About from "./pages/About/About";
 import ProfilePage from "./pages/Profile/ProfilePage";
 
+// Style
+import style from "./App.module.css";
+
 const App = () => {
   const [user, setUser] = useState("");
   const { token } = useContext(UserInfoContext);
@@ -24,7 +27,7 @@ const App = () => {
   }, [token]);
 
   return (
-    <>
+    <div className={style.lightTheme}>
       <Nav />
       <Notifier />
       <Routes>
@@ -45,7 +48,7 @@ const App = () => {
         {user && <Route path="/profile/:id" element={<ProfilePage />} />}
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 };
 

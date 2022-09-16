@@ -8,10 +8,10 @@ const UserInfoContext = createContext({
   setUsername: () => {},
   StatementsOfUser: {},
   setStatementsOfUser: () => {},
-  vehicleInfo: {},
-  setVehicleInfo: () => {},
   token: "",
   setToken: () => {},
+  userID: "",
+  setUserID: () => {},
 });
 
 export function UserInfoContextProvider(props) {
@@ -19,6 +19,7 @@ export function UserInfoContextProvider(props) {
   const [username, setUsername] = useState("");
   const [StatementsOfUser, setStatementsOfUser] = useState({});
   const [token, setToken] = useState("");
+  const [userID, setUserID] = useState("");
 
   const context = {
     email,
@@ -29,6 +30,8 @@ export function UserInfoContextProvider(props) {
     setStatementsOfUser,
     token,
     setToken,
+    userID,
+    setUserID,
   };
 
   return (

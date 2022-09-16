@@ -6,13 +6,15 @@ import style from "./Home.module.css";
 import envelop from "../../assets/icons/message-icon.svg";
 import password from "../../assets/icons/lock-icon.svg";
 import person from "../../assets/icons/person-icon.svg";
+import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 const SignUpForm = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isEmailFilled, setIsEmailFilled] = useState();
   const [isUsernameFilled, setIsUsernameFilled] = useState();
-  // const [isPassowrdFilled, setIsPassowrdFilled] = useState();
-  // const [isConfirmPasswordFilled, setIsConfirmPasswordFilled] = useState();
+  const [isPasswordFilled, setIsPasswordFilled] = useState();
+  const [isConfirmPasswordFilled, setIsConfirmPasswordFilled] = useState();
   const emailInputRef = useRef();
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
@@ -24,7 +26,6 @@ const SignUpForm = (props) => {
     const enteredEmail = emailInputRef.current.value;
     const enteredUsername = usernameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    // const enteredConfirmPassword = confirmPasswordInputRef.current.value;
 
     const userData = {
       email: enteredEmail,
@@ -35,107 +36,125 @@ const SignUpForm = (props) => {
     props.onUserSignUp(userData);
   };
 
-  const passwordCheck = () => {
+  const passwordMatch = () => {
     if (
-      passwordInputRef.current.value !== confirmPasswordInputRef.current.value
+      passwordInputRef.current.value !==
+        confirmPasswordInputRef.current.value ||
+      !passwordInputRef.current.value
     ) {
       setIsDisabled(true);
+      setIsConfirmPasswordFilled(style.notFilled);
     } else {
       setIsDisabled(false);
+      setIsConfirmPasswordFilled("");
     }
-
-    // if (!e.target.value) {
-    // }
   };
 
   const emailChecker = (e) => {
     if (!e.target.value) {
       setIsEmailFilled(style.notFilled);
     } else {
-      setIsEmailFilled(style.filled);
+      setIsEmailFilled("");
     }
   };
   const usernameChecker = (e) => {
     if (!e.target.value) {
       setIsUsernameFilled(style.notFilled);
     } else {
-      setIsUsernameFilled(style.filled);
+      setIsUsernameFilled("");
     }
   };
-  // const valueChecker = (setTarget, e) => {
-  //   if (!e.target.value) {
-  //     setTarget(style.notFilled);
-  //   } else {
-  //     setTarget(style.filled);
-  //   }
-  // };
-  // const valueChecker = (setTarget, e) => {
-  //   if (!e.target.value) {
-  //     setTarget(style.notFilled);
-  //   } else {
-  //     setTarget(style.filled);
-  //   }
-  // };
+
+  const passwordChecker = (e) => {
+    passwordMatch();
+    if (!e.target.value) {
+      setIsPasswordFilled(style.notFilled);
+    } else {
+      setIsPasswordFilled("");
+    }
+  };
+
+  const confirmPasswordChecker = (e) => {
+    if (
+      !e.target.value ||
+      confirmPasswordInputRef.current.value !== passwordInputRef.current.value
+    ) {
+      setIsDisabled(true);
+      setIsConfirmPasswordFilled(style.notFilled);
+    } else {
+      setIsDisabled(false);
+      setIsConfirmPasswordFilled("");
+    }
+  };
 
   return (
     <div>
       <div className={style.formDiv}>
         <form onSubmit={signUpHandler}>
-          <div className={style.inputDiv}>
-            <img src={envelop} />
-            <input
-              placeholder="email"
-              type="email"
-              required
-              id="email"
-              ref={emailInputRef}
-              aria-label="email"
-              onChange={emailChecker}
-              onClick={emailChecker}
-              className={isEmailFilled}
-            />
+          <Input
+            label="email"
+            src={envelop}
+            placeholder="johndoe@email.com"
+            type="email"
+            required
+            id="email"
+            reference={emailInputRef}
+            ariaLabel="email"
+            onChange={emailChecker}
+            onClick={emailChecker}
+            isFilled={isEmailFilled}
+          />
+
+          <Input
+            label="username"
+            src={person}
+            placeholder="JDsays"
+            type="text"
+            required
+            id="username"
+            reference={usernameInputRef}
+            ariaLabel="username"
+            onChange={usernameChecker}
+            onClick={usernameChecker}
+            isFilled={isUsernameFilled}
+          />
+
+          <Input
+            label="password"
+            placeholder="••••••••"
+            src={password}
+            type="password"
+            required
+            id="password"
+            reference={passwordInputRef}
+            ariaLabel="password"
+            onClick={passwordChecker}
+            onChange={passwordChecker}
+            isFilled={isPasswordFilled}
+          />
+
+          <Input
+            label="confirm password"
+            placeholder="••••••••"
+            src={password}
+            type="password"
+            required
+            id="confirmPassword"
+            reference={confirmPasswordInputRef}
+            ariaLabel="password"
+            onClick={confirmPasswordChecker}
+            onChange={confirmPasswordChecker}
+            isFilled={isConfirmPasswordFilled}
+          />
+          <div className={style.singleButton}>
+            <Button
+              type="submit"
+              disabled={isDisabled}
+              class={isDisabled ? "buttonDisabled" : ""}
+            >
+              Sign up
+            </Button>
           </div>
-          <div className={style.inputDiv}>
-            <img src={person} alt="person icon" />
-            <input
-              placeholder="username"
-              type="text"
-              required
-              id="username"
-              ref={usernameInputRef}
-              aria-label="username"
-              onChange={usernameChecker}
-              onClick={usernameChecker}
-              className={isUsernameFilled}
-            />
-          </div>
-          <div className={style.inputDiv}>
-            <img src={password} alt="password icon" />
-            <input
-              placeholder="password"
-              type="password"
-              required
-              id="password"
-              ref={passwordInputRef}
-              aria-label="password"
-              onChange={passwordCheck}
-            />
-          </div>
-          <div className={style.inputDiv}>
-            <img src={password} alt="password icon" />
-            <input
-              placeholder="confirm password"
-              type="password"
-              required
-              id="confirmPassword"
-              ref={confirmPasswordInputRef}
-              aria-label="password"
-              onChange={passwordCheck}
-            />
-          </div>
-          <button type="submit" disabled={isDisabled}>
-            Sign up!
-          </button>
         </form>
       </div>
     </div>

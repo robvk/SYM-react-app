@@ -1,14 +1,15 @@
-.light-theme {
+.lightTheme {
   --font: #34435e;
   --font-light: #f2f8f8;
   --background: #f2f8f8;
   --green: #9fc892;
   --red: #e96e5d;
-  --highlight: #d2d6ef;
+  /* --highlight: #d2d6ef; */
+  --highlight: #d2d6ef84;
   --shadow: #34435e;
 }
 
-.dark-theme {
+.darkTheme {
   --font-light: #34435e;
   --font: #f2f8f8;
   --background: #34435e;
@@ -42,13 +43,13 @@
 .body {
   font-family: "Anonymous Pro", monospace;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .boldBody {
   font-family: "Anonymous Pro", monospace;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 * {
@@ -84,12 +85,12 @@ html {
   }
 
   .body {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 15px;
   }
 
   .boldBody {
-    font-size: 13px;
+    font-size: 14px;
     line-height: 15px;
   }
 

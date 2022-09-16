@@ -8,10 +8,24 @@ import style from "./Button.module.css";
 export default function Button(props) {
   let buttonClass;
 
-  if (props.class === "buttonBorder") {
-    buttonClass = style.buttonBorder;
-  } else {
-    buttonClass = style.button;
+  // if (props.class === "buttonBorder") {
+  //   buttonClass = style.buttonBorder;
+  // } else {
+  //   buttonClass = style.button;
+  // }
+
+  switch (props.class) {
+    case "buttonBorder":
+      buttonClass = style.buttonBorder;
+      break;
+    case "buttonDisabled":
+      buttonClass = style.buttonDisabled;
+      break;
+    case "":
+      buttonClass = style.button;
+      break;
+    default:
+      buttonClass = style.button;
   }
 
   if (props.path) {
@@ -21,6 +35,7 @@ export default function Button(props) {
           <button
             className={buttonClass}
             onClick={props.buttonHandler}
+            disabled={props.disabled}
             {...props.rest}
           >
             {props.children}
@@ -34,6 +49,7 @@ export default function Button(props) {
         <button
           className={buttonClass}
           onClick={props.buttonHandler}
+          disabled={props.disabled}
           {...props.rest}
         >
           {props.children}
@@ -52,4 +68,5 @@ Button.propTypes = {
 
   children: PropTypes.node.isRequired,
   class: PropTypes.string,
+  disabled: PropTypes.bool,
 };
