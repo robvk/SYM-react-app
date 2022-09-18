@@ -9,11 +9,12 @@
   display: flex;
   justify-content: center;
   margin: auto;
-  width: 35vw;
+  width: 30vw;
 }
 
 .bgImageContainer {
   max-width: 100%;
+  max-height: 100%;
   overflow: hidden;
   position: absolute;
   z-index: -1;
@@ -46,7 +47,7 @@
 }
 
 .glassBox {
-  padding: 50px 0px 100px;
+  padding: 40px 0px 80px;
   margin: 5%;
   background-color: rgba(242, 248, 248, 0.708);
   border-radius: 5px;
@@ -73,16 +74,16 @@
 }
 @media screen and (max-width: 1450px) {
   .formDiv {
-    min-width: 40vw;
+    min-width: 45vw;
   }
 }
 @media screen and (max-width: 1200px) {
   .formDiv {
-    min-width: 50vw;
+    min-width: 55vw;
   }
 }
 @media screen and (max-width: 900px) {
   .formDiv {
-    min-width: 60vw;
+    min-width: 62vw;
   }
 }
