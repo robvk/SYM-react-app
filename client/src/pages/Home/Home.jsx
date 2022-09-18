@@ -49,17 +49,19 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={style.homeContainer}>
+    <div>
       <ProgressBar loading={isLoading} />
-      <div className={style.bgImageContainer}>
-        <img src={bgImage} className={style.bgImage} />
-      </div>
-      <div className={style.formContainer}>
-        <div className={style.glassBox}>
-          <h2 className={appStyle.headerOne}>DO YOU HAVE ANYTHING TO SAY?</h2>
-          <SignUpForm onUserSignUp={onUserSignUp} />
+      <div className={style.homeContainer}>
+        <div className={style.bgImageContainer}>
+          <img src={bgImage} className={style.bgImage} />
         </div>
-        {error != null && <Error error={error} />}
+        <div className={style.formContainer}>
+          <div className={style.glassBox}>
+            <h2 className={appStyle.headerOne}>DO YOU HAVE ANYTHING TO SAY?</h2>
+            <SignUpForm onUserSignUp={onUserSignUp} />
+          </div>
+          {error != null && <Error error={error} />}
+        </div>
       </div>
     </div>
   );

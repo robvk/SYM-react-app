@@ -1,11 +1,5 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
 .container {
-  background-color: var(--highlight);
-  padding: 0 0 2rem 0;
+  background-color: rgb(242, 248, 248);
 }
 
 .row {
@@ -17,34 +11,6 @@
   padding: 2rem 0;
 }
 
-.singleCta {
-  padding: 0 15px;
-}
-
-.ctaIcon {
-  color: var(--white);
-  font-size: 30px;
-  float: left;
-  margin-top: 8px;
-}
-.ctaText {
-  padding-left: 15px;
-  display: inline-block;
-  color: var(--font-light);
-}
-.ctaText h4 {
-  color: var(--white);
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 2px;
-  text-transform: uppercase;
-}
-.footerDivider {
-  max-width: 70%;
-  margin: 0 auto;
-  color: var(--background);
-}
-
 .footerCol {
   flex: 25%;
   padding: 0 15px;
@@ -52,95 +18,79 @@
 
 .footerCol ul {
   list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.footerCol h4 {
+.footerWidget {
+  display: flex;
+  height: 150px;
+}
+
+.footerCol ul li a {
   font-size: 20px;
-  color: var(--white);
-  text-transform: uppercase;
-  margin-bottom: 35px;
-  font-weight: 600;
-  position: relative;
-}
-.footerCol h4::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  background-color: var(--background);
-  height: 2px;
-  box-sizing: border-box;
-  width: 65px;
-}
-
-.footerCol ul li:not(:last-child) {
-  margin-bottom: 10px;
-}
-
-.footerCol ul li a,
-.copyright p {
-  font-size: 16px;
   text-transform: capitalize;
-
   text-decoration: none;
-  font-weight: 300;
-  color: var(--font-light);
-  display: block;
+  font-weight: 700;
+  color: var(--font);
   transition: all 0.3s ease;
 }
 
-.footerCol ul li a:hover {
-  color: var(--white);
-  padding-left: 8px;
+.footerCol ul li {
+  transition: 0.3s;
+  border-bottom: 2px solid transparent;
 }
 
-.footerCol .socialLinks a {
-  display: inline-block;
-  height: 40px;
-  width: 40px;
-  background-color: rgba(255, 255, 255, 0.2);
-  margin: 0 10px 10px 0;
-  padding: 5px 0;
-  text-align: center;
-  line-height: 40px;
-  border-radius: 50%;
-  color: var(--white);
-  transition: all 0.5s ease;
-}
-.footerCol .socialLinks a:hover {
-  color: var(--highlight);
-  background-color: var(--white);
-}
-
-.footerCol .socialLinks .facebook,
-.twitter,
-.instagram,
-.link {
-  font-size: 30px;
+.footerCol ul li:hover {
+  transform: scale(1.05);
+  border-bottom: 2px solid var(--font);
 }
 
 .footerLogo {
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px;
 }
-.footerLogo svg {
-  width: 100%;
-  color: var(--white);
+
+.footerLogo p {
+  width: 20vw;
+  margin-left: 10px;
+  color: var(--font);
+  margin-bottom: 10px;
 }
+
+.logoContainer {
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoContainer svg {
+  height: 150px;
+  margin-top: -13px;
+}
+
 .footerText p {
-  margin-bottom: 14px;
-  font-size: 14px;
-  color: var(--font-light);
-  line-height: 28px;
+  margin-bottom: 0px;
+  font-size: 16px;
+  color: var(--font);
 }
 
 .copyright {
-  color: var(--font-light);
+  color: var(--font);
   text-align: center;
   padding-top: 2rem;
+  padding-bottom: 2rem;
+  background-color: transparent;
 }
 
 .footerCol ul li a {
   width: fit-content;
+  color: var(--font);
+  background-color: transparent;
 }
 
 /*responsive*/
@@ -149,23 +99,40 @@
     flex-direction: column;
     max-width: 95%;
   }
-  .footerCol,
-  .singleCta {
-    width: 50%;
-    margin-bottom: 30px;
+
+  .footerWidget {
+    flex-direction: column;
+    height: auto;
   }
 
-  .footerDivider {
-    max-width: 95%;
+  .logoContainer {
+    margin: auto;
+    width: auto;
+  }
+
+  .footerLogo p {
+    text-align: center;
+  }
+
+  .footerLogo,
+  .footerText {
+    max-width: fit-content;
+  }
+
+  .container {
+    background-color: rgb(242, 248, 248);
   }
 }
 @media (max-width: 574px) {
   .row {
-    flex-direction: column;
+    flex-direction: column-reverse;
     max-width: 95%;
   }
-  .footerCol,
-  .singleCta {
+
+  .footerCol ul {
+    margin: 15px auto 0px;
+  }
+  .footerCol {
     width: 100%;
   }
 
@@ -173,7 +140,31 @@
     max-width: 95%;
   }
 
-  .footerLogo {
-    margin: 0px auto 30px;
+  .footerLogo,
+  .footerLogo p,
+  .footerWidget p {
+    margin: auto;
+    margin-bottom: 30px;
+    max-width: 80vw;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .footerCol ul {
+    width: 90vw;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footerCol.footerWidget {
+    width: 95vw;
+    margin: auto;
+  }
+
+  .footerLogo p {
+    width: 400px;
   }
 }

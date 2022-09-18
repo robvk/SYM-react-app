@@ -6,11 +6,12 @@ import styles from "./Footer.module.css";
 import UserInfoContext from "./../../context/UserInfoContext";
 
 const Footer = () => {
-  const { setToken } = useContext(UserInfoContext);
+  const { setToken, userID } = useContext(UserInfoContext);
 
   function scrollTop() {
     window.scrollTo(0, 0);
   }
+
   let landingDashboard = "/";
   let loginLogout = {
     to: "/login",
@@ -21,14 +22,13 @@ const Footer = () => {
   if (localStorage.getItem("token")) {
     landingDashboard = "/dashboard";
     signUpProfile = {
-      to: `/profile/${localStorage.getItem("userID")}`,
+      to: `/profile/${userID}`,
       name: "Profile",
     };
     loginLogout = {
       to: "/",
       name: "Log out",
       onClick: () => {
-        localStorage.clear();
         setToken("");
       },
     };
@@ -37,56 +37,31 @@ const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <div className={styles.singleCta}>
-          <div className={styles.ctaText}>
-            <h4 className={appStyle.h2Desktop}>Find us</h4>
-            <span>7412 RT, Amsterdam, Netherland</span>
-          </div>
-        </div>
-
-        <div className={styles.singleCta}>
-          <div className={styles.ctaText}>
-            <h4 className={appStyle.h2Desktop}>Call us</h4>
-            <span>98765432100</span>
-          </div>
-        </div>
-
-        <div className={styles.singleCta}>
-          <div className={styles.ctaText}>
-            <h4 className={appStyle.h2Desktop}>Mail us</h4>
-            <span>info@droppy.com</span>
-          </div>
-        </div>
-      </div>
-
-      <hr className={styles.footerDivider} />
-
-      <div className={styles.row}>
         <div className={styles.footerCol}>
           <div className={styles.footerWidget}>
-            <div className={styles.footerLogo}>
+            <div className={styles.logoContainer}>
               <Logo />
             </div>
-            <div className={styles.footerText}>
-              <p className={appStyle.bodyDesktop}>
-                Droppy is a pay for delivery application ,the app is designed
-                and built by the students of HackYourFuture programme ( class36
-                ) as a graduation project.
-              </p>
+            <div className={styles.footerLogo}>
+              <p className={appStyle.headerOne}>STATE YOUR MIND</p>
+              <div className={styles.footerText}>
+                <p className={appStyle.headerOne}>
+                  Make a statement and let the world respond!
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
         <div className={styles.footerCol}>
-          <h4 className={appStyle.h2Desktop}>Quick links</h4>
-          <ul className={appStyle.bodyDesktop}>
+          <ul className={appStyle.body}>
             <li>
               <Link to={landingDashboard} onClick={scrollTop}>
                 Home
               </Link>
             </li>
             <li>
-              <Link to={"/about"}>about us</Link>
+              <Link to={"/about"}>About</Link>
             </li>
             <li>
               <Link to={signUpProfile.to} onClick={scrollTop}>
@@ -100,28 +75,11 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-
-        <div className={styles.footerCol}>
-          <h4 className={appStyle.h2Desktop}>follow us</h4>
-          <div className={styles.socialLinks}>
-            <Link to={"/"}>
-            </Link>
-            <Link to={"/"} className={styles.twitter}>
-            </Link>
-            <Link to={"/"} className={styles.instagram}>
-            </Link>
-            <Link to={"/"} className={styles.link}>
-            </Link>
-          </div>
-        </div>
       </div>
 
-      <hr />
-
       <div className={styles.copyright}>
-        <p className={appStyle.bodyDesktop}>
-          &copy;{new Date().getFullYear()} Droppy LTD | All rights reserved |
-          Terms Of Service | Privacy
+        <p className={appStyle.body}>
+          &copy; {new Date().getFullYear()} State Your Mind
         </p>
       </div>
     </div>
