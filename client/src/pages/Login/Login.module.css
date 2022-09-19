@@ -1,39 +1,106 @@
-.login {
-  width: 95vw;
+.formContainer {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  margin: 5% auto;
+  flex-direction: column;
+  height: calc(100vh - 80px);
 }
 
-.loginInput {
-  background: var(--white);
-  width: 450px;
-  margin: 10px 0px 20px;
-  font-size: 23px;
-  height: 54px;
-  border-radius: 5px;
-  color: var(--font-dark);
-  border: 2px solid var(--highlight);
-  outline: inherit;
-  transition: 0.4s;
-  padding: 5px;
+.formDiv {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 25vw;
+}
+
+.bgImageContainer {
+  max-width: 100%;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.bgImage {
+  min-width: 250%;
+  rotate: 180deg;
+  -webkit-animation: mover 120s infinite alternate;
+  animation: mover 120s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+  0% {
+    transform: translate(0%, 0%);
+  }
+
+  100% {
+    transform: translate(calc(100% - 100vw), 30%);
+  }
+}
+@keyframes mover {
+  0% {
+    transform: translate(0%, 0%);
+  }
+
+  100% {
+    transform: translate(calc(100% - 100vw), 30%);
+  }
+}
+
+.glassBox {
+  padding: 30px 0px 60px;
+  margin: 5%;
+  background-color: rgba(242, 248, 248, 0.708);
+  border-radius: 10px;
+}
+
+.glassBox h2 {
+  font-size: 24px;
+  color: var(--font);
 }
 
 .singleButton {
-  width: 450px;
-  margin-top: 0px;
+  width: 300px;
 }
 
-@media screen and (max-width: 740px) {
-  .loginInput {
-    width: 330px;
-  }
+.notFilled {
+  border-bottom: red 1px solid !important;
+  box-shadow: 0px 2px 0px red;
+  transition: 1s;
+}
 
-  .singleButton {
-    width: 330px;
-    margin-top: 10px;
+.login {
+  text-align: center;
+  font-size: 14px;
+  color: var(--font);
+}
+
+.login a {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.login a:hover {
+  color: var(--font);
+}
+
+@media screen and (max-width: 720px) {
+  .formDiv {
+    width: 90vw;
+  }
+}
+@media screen and (max-width: 1450px) {
+  .formDiv {
+    min-width: 30vw;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .formDiv {
+    min-width: 35vw;
+  }
+}
+@media screen and (max-width: 900px) {
+  .formDiv {
+    min-width: 50vw;
   }
 }

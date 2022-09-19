@@ -156,9 +156,9 @@ const SignUpForm = (props) => {
             >
               Sign up
             </Button>
-            <div className={`${appStyle.body} ${style.login}`}>
-              Have an account? <Link to="/login">Log in</Link>
-            </div>
+          </div>
+          <div className={`${appStyle.body} ${style.login}`}>
+            Have an account? <Link to="/login">Log in</Link>
           </div>
         </form>
       </div>

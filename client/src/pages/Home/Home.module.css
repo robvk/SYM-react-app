@@ -3,18 +3,19 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: calc(100vh - 80px);
 }
 
 .formDiv {
   display: flex;
   justify-content: center;
   margin: auto;
-  width: 30vw;
+  width: 27vw;
 }
 
 .bgImageContainer {
   max-width: 100%;
-  max-height: 100%;
+  height: calc(100vh - 80px);
   overflow: hidden;
   position: absolute;
   z-index: -1;
@@ -47,10 +48,15 @@
 }
 
 .glassBox {
-  padding: 40px 0px 80px;
+  padding: 30px 0px 60px;
   margin: 5%;
   background-color: rgba(242, 248, 248, 0.708);
-  border-radius: 5px;
+  border-radius: 10px;
+}
+
+.glassBox h2 {
+  font-size: 24px;
+  color: var(--font);
 }
 
 .singleButton {
@@ -65,6 +71,17 @@
 
 .login {
   text-align: center;
+  font-size: 14px;
+  color: var(--font);
+}
+
+.login a {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.login a:hover {
+  color: var(--font);
 }
 
 @media screen and (max-width: 720px) {
@@ -74,12 +91,12 @@
 }
 @media screen and (max-width: 1450px) {
   .formDiv {
-    min-width: 45vw;
+    min-width: 37vw;
   }
 }
 @media screen and (max-width: 1200px) {
   .formDiv {
-    min-width: 55vw;
+    min-width: 40vw;
   }
 }
 @media screen and (max-width: 900px) {
