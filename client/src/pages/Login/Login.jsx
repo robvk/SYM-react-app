@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useContext, useLayoutEffect } from "react";
-import Button from "../../components/Button";
+import React, { useEffect, useContext, useLayoutEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import style from "./Login.module.css";
 import UserInfoContext from "../../context/UserInfoContext";
-import { Link, useNavigate } from "react-router-dom";
-import appStyles from "../../App.module.css";
+import { useNavigate } from "react-router-dom";
+import appStyle from "../../App.module.css";
 import Error from "../../components/Error/Error";
+import { setCookie } from "../../hooks/useCookie";
+import LogInForm from "./LoginForm";
+import ProgressBar from "../../components/ProgressBar";
+import bgImage from "../../assets/images/background-image.jpg";
 
 function Login() {
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const { setIsDriver, setToken } = useContext(UserInfoContext);
+  const { setToken } = useContext(UserInfoContext);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
@@ -18,13 +19,12 @@ function Login() {
   });
 
   const onSuccess = (res) => {
-    localStorage.setItem("token", res.data);
-    const isDriver = res.isDriver;
-    localStorage.setItem("isDriver", `${isDriver}`);
-    localStorage.setItem("userID", res.id);
-    setIsDriver(isDriver);
+    setCookie("token", res.data, 7);
+    setCookie("userID", res.id, 7);
+    // localStorage.setItem("token", res.data);
+    // localStorage.setItem("userID", res.id);
     setToken(res.data);
-    navigate("/dashboard", {
+    navigate("/home", {
       replace: true,
     });
   };
@@ -37,55 +37,31 @@ function Login() {
     return cancelFetch;
   }, []);
 
-  function submitHandler(e) {
-    e.preventDefault();
-    const email = emailInputRef.current.value;
-    const password = passwordInputRef.current.value;
-
+  function onUserLogIn(user) {
     performFetch({
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: user.email, password: user.password }),
     });
   }
 
   return (
-    <div className={style.login}>
-      <h1 className={appStyles.h1Desktop}>Log in</h1>
-      <form onSubmit={submitHandler}>
-        <div>
-          <input
-            name="email"
-            required
-            ref={emailInputRef}
-            type="email"
-            aria-label="email"
-            placeholder="Email"
-            className={style.loginInput}
-          />
+    <div>
+      <ProgressBar loading={isLoading} />
+      <div className={style.loginContainer}>
+        <div className={style.bgImageContainer}>
+          <img src={bgImage} className={style.bgImage} />
         </div>
-        <div>
-          <input
-            name="password"
-            required
-            ref={passwordInputRef}
-            type="password"
-            aria-label="password"
-            placeholder="Password"
-            className={style.loginInput}
-          />
+        <div className={style.formContainer}>
+          <div className={style.glassBox}>
+            <h2 className={appStyle.headerOne}>WELCOME BACK, LOG IN!</h2>
+            <LogInForm onUserLogIn={onUserLogIn} />
+          </div>
         </div>
-        <div className={style.singleButton}>
-          <Button type="submit">Log in</Button>
-        </div>
-      </form>
-      <div className={appStyles.bodyDesktop}>
-        Don&apos;t have an account? <Link to="/user/create">Sign up</Link>
+        {error != null && <Error error={error} />}
       </div>
-      {isLoading && <Loading />}
-      {error != null && <Error error={error} />}
     </div>
   );
 }

@@ -10,9 +10,9 @@ export const authenticate = async (req, res) => {
       return res.status(400).send({ message: error.details[0].message });
     }
 
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(401).send({ message: "Invalid username" });
+      return res.status(401).send({ message: "Invalid email" });
     }
 
     const validPassword = await bcrypt.compare(
@@ -21,14 +21,14 @@ export const authenticate = async (req, res) => {
     );
 
     if (!validPassword) {
-      return res.status(401).send({ message: "Invalid username or password" });
+      return res.status(401).send({ message: "Password is incorrect" });
     }
 
     const token = user.generateAuthToken();
     return res.status(200).send({
       id: user._id,
       data: token,
-      username: user.username,
+      email: user.email,
       success: true,
       message: "Logged In",
     });
@@ -41,7 +41,7 @@ export const authenticate = async (req, res) => {
 
 const validate = (data) => {
   const schema = Joi.object({
-    username: Joi.string().required().label("username"),
+    email: Joi.string().email().required().label("email"),
     password: Joi.string().required().label("password"),
   });
   return schema.validate(data);

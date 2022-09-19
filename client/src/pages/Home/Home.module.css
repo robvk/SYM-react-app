@@ -56,6 +56,7 @@
 
 .glassBox h2 {
   font-size: 24px;
+  color: var(--font);
 }
 
 .singleButton {
@@ -71,6 +72,7 @@
 .login {
   text-align: center;
   font-size: 14px;
+  color: var(--font);
 }
 
 .login a {
