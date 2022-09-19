@@ -59,8 +59,8 @@ const Home = () => {
           <div className={style.glassBox}>
             <h2 className={appStyle.headerOne}>MAKE A STATEMENT</h2>
             <SignUpForm onUserSignUp={onUserSignUp} />
+            <Error error={error} />
           </div>
-          {error != null && <Error error={error} />}
         </div>
       </div>
     </div>

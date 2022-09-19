@@ -58,9 +58,9 @@ function Login() {
           <div className={style.glassBox}>
             <h2 className={appStyle.headerOne}>WELCOME BACK, LOG IN!</h2>
             <LogInForm onUserLogIn={onUserLogIn} />
+            <Error error={error} />
           </div>
         </div>
-        {error != null && <Error error={error} />}
       </div>
     </div>
   );
