@@ -18,9 +18,9 @@ const Footer = () => {
     name: "Login",
     onClick: scrollTop,
   };
-  let signUpProfile = { to: "/user/create", name: "Sign up" };
+  let signUpProfile = { to: "/", name: "Sign up" };
   if (token) {
-    landingDashboard = "/dashboard";
+    landingDashboard = "/home";
     signUpProfile = {
       to: `/profile/${userID}`,
       name: "Profile",
