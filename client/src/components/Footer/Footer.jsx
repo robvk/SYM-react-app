@@ -6,7 +6,7 @@ import styles from "./Footer.module.css";
 import UserInfoContext from "./../../context/UserInfoContext";
 
 const Footer = () => {
-  const { setToken, userID } = useContext(UserInfoContext);
+  const { setToken, token, userID } = useContext(UserInfoContext);
 
   function scrollTop() {
     window.scrollTo(0, 0);
@@ -15,11 +15,11 @@ const Footer = () => {
   let landingDashboard = "/";
   let loginLogout = {
     to: "/login",
-    name: "Log in",
+    name: "Login",
     onClick: scrollTop,
   };
   let signUpProfile = { to: "/user/create", name: "Sign up" };
-  if (localStorage.getItem("token")) {
+  if (token) {
     landingDashboard = "/dashboard";
     signUpProfile = {
       to: `/profile/${userID}`,
@@ -55,20 +55,20 @@ const Footer = () => {
 
         <div className={styles.footerCol}>
           <ul className={appStyle.body}>
-            <li>
+            <li className={appStyle.body}>
               <Link to={landingDashboard} onClick={scrollTop}>
                 Home
               </Link>
             </li>
-            <li>
+            <li className={appStyle.body}>
               <Link to={"/about"}>About</Link>
             </li>
-            <li>
+            <li className={appStyle.body}>
               <Link to={signUpProfile.to} onClick={scrollTop}>
                 {signUpProfile.name}
               </Link>
             </li>
-            <li>
+            <li className={appStyle.body}>
               <Link to={loginLogout.to} onClick={loginLogout.onClick}>
                 {loginLogout.name}
               </Link>
@@ -76,6 +76,8 @@ const Footer = () => {
           </ul>
         </div>
       </div>
+
+      <hr />
 
       <div className={styles.copyright}>
         <p className={appStyle.body}>

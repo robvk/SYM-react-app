@@ -10,11 +10,12 @@
   transition: 1s;
   border-radius: 5px;
   height: 40px;
-  background: var(--highlight);
+  background: var(--background);
 }
 
 .input label {
-  margin-left: 5px;
+  margin: 5px;
+  font-size: 16px;
 }
 
 .input input {
@@ -23,7 +24,7 @@
   border: none;
   outline: none;
   margin: 0px;
-  background: transparent;
+  background: var(--background);
   font-size: 16px;
 }
 
@@ -31,4 +32,11 @@
   height: 20px;
   width: 20px;
   margin: auto 5px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--background) inset !important;
 }
