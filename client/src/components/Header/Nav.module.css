@@ -119,4 +119,70 @@
 }
 
 @media screen and (max-width: 700px) {
+  .logoNav a {
+    padding: 0px !important;
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    width: 60px;
+  }
+
+  .logoDiv {
+    padding: 2.5px 5px 5px;
+  }
+
+  .topNav {
+    overflow: hidden;
+    background-color: var(--font);
+    position: relative;
+  }
+
+  .topNav #myLinks {
+    display: none;
+  }
+
+  .topNav a {
+    color: var(--font-light);
+    padding: 14px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+  }
+
+  .topNav a:hover,
+  .topNav a:focus,
+  .topNav a:active {
+    background-color: var(--font);
+    color: var(--font-light);
+  }
+
+  .topNav a.icon {
+    background: var(--font);
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    margin-right: 10px;
+    padding-top: 15px;
+  }
+
+  .topNav a.icon:active {
+    background-color: var(--font) !important;
+  }
+
+  .topNav a.icon svg {
+    transform: scale(1.7);
+  }
+
+  /* Add a grey background color on mouse-over */
+  .topNav a:hover {
+    background-color: var(--font);
+    color: var(--font-light);
+  }
+
+  .active {
+    background-color: var(--font);
+    color: var(--font-light);
+  }
 }

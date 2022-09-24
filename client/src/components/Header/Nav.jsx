@@ -1,9 +1,15 @@
 // React
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Components
 import Logo from "../Logo";
-import { VscAdd, VscAccount, VscChevronDown } from "react-icons/vsc";
+import {
+  VscAdd,
+  VscAccount,
+  VscChevronDown,
+  VscMenu,
+  VscClose,
+} from "react-icons/vsc";
 // Style
 import style from "./Nav.module.css";
 import appStyle from "../../App.module.css";
@@ -18,6 +24,8 @@ const Nav = () => {
   const { width } = useWindowDimensions();
   const { token, setToken, setUserID } = useContext(UserInfoContext);
 
+  const [isOpen, setIsOpen] = useState("none");
+
   useEffect(() => {
     setToken(getCookie("token"));
   }, [setToken]);
@@ -27,6 +35,10 @@ const Nav = () => {
     deleteCookie("userID");
     setToken("");
     setUserID("");
+  };
+
+  const mobileNavigator = () => {
+    isOpen === "block" ? setIsOpen("none") : setIsOpen("block");
   };
 
   return (
@@ -90,7 +102,29 @@ const Nav = () => {
           </div>
         </ul>
       )}
-      {width <= 700 && <p>Mobile!</p>}
+      {width <= 700 && (
+        <div className={appStyle.navLinks}>
+          <div className={style.topNav}>
+            <div className={style.logoNav}>
+              <Link className={style.active} key="0" to={token ? "/home" : "/"}>
+                <div className={style.logoDiv}>
+                  <Logo />
+                </div>
+              </Link>
+            </div>
+
+            <div id="myLinks" style={{ display: isOpen }}>
+              <a href="#news">News</a>
+              <a href="#contact">Contact</a>
+              <a href="#about">About</a>
+            </div>
+
+            <a href="#" className={style.icon} onClick={mobileNavigator}>
+              {isOpen === "block" ? <VscClose /> : <VscMenu />}
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
