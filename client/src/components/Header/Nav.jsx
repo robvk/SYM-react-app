@@ -1,20 +1,33 @@
+// React
 import React, { useContext, useEffect } from "react";
-// import PropTypes from "prop-types";
-
 import { Link } from "react-router-dom";
+// Components
 import Logo from "../Logo";
+import { VscAdd, VscAccount, VscChevronDown } from "react-icons/vsc";
+// Style
 import style from "./Nav.module.css";
 import appStyle from "../../App.module.css";
+
+// Contexts
 import UserInfoContext from "../../context/UserInfoContext";
+// Hooks
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { deleteCookie, getCookie } from "../../hooks/useCookie";
 
 const Nav = () => {
   const { width } = useWindowDimensions();
-  const { token, setToken } = useContext(UserInfoContext);
+  const { token, setToken, setUserID } = useContext(UserInfoContext);
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
+    setToken(getCookie("token"));
   }, [setToken]);
+
+  const logOut = () => {
+    deleteCookie("token");
+    deleteCookie("userID");
+    setToken("");
+    setUserID("");
+  };
 
   return (
     <div>
@@ -31,6 +44,13 @@ const Nav = () => {
             </li>
           </div>
           <div className={style.allLinks}>
+            {token && (
+              <li className={style.plus}>
+                <Link key="0" to="#">
+                  <VscAdd />
+                </Link>
+              </li>
+            )}
             <li className={appStyle.navLinks}>
               <Link key="1" to={token ? "/home" : "/"}>
                 <span>Home</span>
@@ -41,18 +61,32 @@ const Nav = () => {
                 <span>About</span>
               </Link>
             </li>
-            {token && (
+            {!token ? (
               <li className={appStyle.navLinks}>
-                <Link key="3" to={`/profile/${localStorage.getItem("userID")}`}>
-                  <span>Profile</span>
+                <Link key="3" to="/login">
+                  <span>Login</span>
                 </Link>
               </li>
+            ) : (
+              <li className={appStyle.navLinks}>
+                <div className={style.dropdown}>
+                  <div className={style.username}>
+                    <VscAccount />
+                    <p className={style.dropBtn}>Mr. User</p>
+                    <VscChevronDown />
+                  </div>
+
+                  <div className={style.dropdownContent}>
+                    <Link key="4" to={`/profile/${getCookie("userID")}`}>
+                      <span>Profile</span>
+                    </Link>
+                    <Link onClick={logOut} key="5" to="/">
+                      <span>Logout</span>
+                    </Link>
+                  </div>
+                </div>
+              </li>
             )}
-            <li className={appStyle.navLinks}>
-              <Link key="4" to={token ? "/" : "/login"}>
-                <span>{token ? "Sign out" : "Login"}</span>
-              </Link>
-            </li>
           </div>
         </ul>
       )}
@@ -60,9 +94,5 @@ const Nav = () => {
     </div>
   );
 };
-
-// Nav.propTypes = {
-//   opened: PropTypes.func.isRequired,
-// };
 
 export default Nav;

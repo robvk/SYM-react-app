@@ -1,5 +1,4 @@
 .navContainer {
-  /* margin-bottom: 6px; */
   display: flex;
   list-style: none;
   justify-content: space-between;
@@ -10,6 +9,23 @@
 
 .allLinks {
   display: flex;
+  margin-right: 10px;
+}
+
+.plus svg {
+  margin-bottom: -4px;
+}
+
+.username {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.username svg {
+  background-color: transparent;
+  color: var(--font-light);
+  margin: 5px;
+  height: 16px;
 }
 
 .navContainer a {
@@ -40,7 +56,6 @@
 }
 
 .navContainer li:hover {
-  /* background-color: var(--shadow); */
   border-top: 2px solid var(--font-light);
 }
 
@@ -61,5 +76,47 @@
   width: 50px;
 }
 
-@media screen and (min-width: 840px) {
+/* Drop down items */
+.dropBtn {
+  background-color: transparent;
+  color: var(--font-light);
+  border: none;
+  cursor: default;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: auto;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  padding: 15px 5px 5px;
+  background-color: var(--font);
+  width: 100%;
+  min-width: 90px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdownContent a {
+  color: var(--font-light);
+  padding: 5px 5px;
+  margin: auto;
+  text-decoration: none;
+  text-align: left;
+  display: block;
+}
+
+.dropdownContent a:hover {
+  color: var(--highlight);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+@media screen and (max-width: 700px) {
 }
