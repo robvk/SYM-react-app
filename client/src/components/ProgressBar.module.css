@@ -1,9 +1,10 @@
 .box {
-  color: var(--font);
+  color: var(--font-light);
 }
 
 .loadingDiv {
-  padding: 5px;
+  padding: 5px 0px;
+  background: var(--font);
 }
 
 .bar {
