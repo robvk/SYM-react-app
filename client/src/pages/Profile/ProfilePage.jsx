@@ -7,41 +7,31 @@ import { useParams } from "react-router-dom";
 import style from "./ProfilePage.module.css";
 import appStyle from "../../App.module.css";
 // Component
-import Toggle from "../../components/Toggle";
 import Button from "../../components/Button";
 import Error from "../../components/Error/Error";
-import DefaultProfilePhoto from "../../components/DefaultProfilePhoto";
+import ProgressBar from "../../components/ProgressBar";
 // Hook
 import useFetch from "../../hooks/useFetch";
 import NotifierContext from "../../context/NotifierContext";
 import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
+import { deleteCookie, getCookie } from "../../hooks/useCookie";
 
 const ProfilePage = () => {
-  const { setIsDriver, isDriver, setToken } = useContext(UserInfoContext);
+  const { setToken } = useContext(UserInfoContext);
 
   const [userDetails, setUserDetails] = useState({
-    name: "",
-    surname: "",
     email: "",
-    vehicleInfo: {
-      contact: "",
-      plate: "",
-      width: "",
-      length: "",
-      height: "",
-    },
+    username: "",
   });
 
-  const [hasDriverDetails, setHasDriverDetails] = useState(false);
-  const [isChecked, setIsChecked] = useState(isDriver);
   const [deleteHelper, setDeleteHelper] = useState(false);
   const [editHelper, setEditHelper] = useState(false);
   const { id } = useParams();
   const { notifier } = useContext(NotifierContext);
 
   // Check if the user's ID matches the profile
-  if (id !== localStorage.getItem("userID")) {
+  if (id !== getCookie("userID")) {
     return (
       <div className={style.notYourProfile}>
         <h2 className={appStyle.h1Desktop}>
@@ -53,15 +43,13 @@ const ProfilePage = () => {
 
   const onSuccess = (onReceived) => {
     if (onReceived.isDelete) {
-      localStorage.clear();
+      deleteCookie("userID");
+      deleteCookie("token");
       setToken("");
       return;
     }
-    onReceived.result.vehicleInfo.contact
-      ? setHasDriverDetails(true)
-      : setHasDriverDetails(false);
 
-    if (userDetails.name === "") {
+    if (userDetails.username === "") {
       setUserDetails(onReceived.result);
     }
 
@@ -75,7 +63,7 @@ const ProfilePage = () => {
   );
 
   useEffect(() => {
-    if (id === localStorage.getItem("userID")) {
+    if (id === getCookie("userID")) {
       performFetch({
         method: "GET",
         headers: {
@@ -84,34 +72,7 @@ const ProfilePage = () => {
       });
       return cancelFetch;
     }
-  }, [isChecked, userDetails]);
-
-  // set the initial state of the toggle
-  useEffect(() => {
-    setIsChecked(isDriver);
-  }, [isDriver]);
-
-  let statusbar;
-  if (error) {
-    statusbar = <Error error={error} />;
-  } else if (isLoading) {
-    statusbar = (
-      <>
-        <Loading />
-      </>
-    );
-  }
-
-  const handleToggle = (e) => {
-    const value = e.target.checked;
-    if (value) {
-      localStorage.setItem("isDriver", "true");
-      setIsDriver(true);
-    } else {
-      localStorage.setItem("isDriver", "false");
-      setIsDriver(false);
-    }
-  };
+  }, [userDetails]);
 
   let deletePrompt = (
     <div className={style.deletePrompt}>
@@ -156,26 +117,8 @@ const ProfilePage = () => {
 
   const editUserHandler = (userData) => {
     const newUSerDetails = {
-      name: userData.name,
-      surname: userData.surname,
+      username: userData.username,
       email: userData.email,
-      vehicleInfo: {
-        contact: userData.vehicleInfo.contact
-          ? userData.vehicleInfo.contact
-          : userDetails.vehicleInfo.contact,
-        plate: userData.vehicleInfo.plate
-          ? userData.vehicleInfo.plate
-          : userDetails.vehicleInfo.plate,
-        width: userData.vehicleInfo.width
-          ? userData.vehicleInfo.width
-          : userDetails.vehicleInfo.width,
-        length: userData.vehicleInfo.length
-          ? userData.vehicleInfo.length
-          : userDetails.vehicleInfo.length,
-        height: userData.vehicleInfo.height
-          ? userData.vehicleInfo.height
-          : userDetails.vehicleInfo.height,
-      },
     };
 
     performFetch({
@@ -193,127 +136,12 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <div className={style.profilePage}>
-        <div className={style.topBar}></div>
-        <div className={style.userDefault}>
-          <h2 className={appStyle.h1Desktop}>Profile</h2>
-          <DefaultProfilePhoto />
-        </div>
-        <div className={style.buttonDiv}>
-          <div className={style.singleButton}>
-            <Button buttonHandler={editHandler}>
-              {!editHelper ? "Edit" : "Cancel"}
-            </Button>
-          </div>
-          <div className={style.singleButton}>
-            <Button class="buttonBorder" buttonHandler={deleteHandler}>
-              Delete
-            </Button>
-          </div>
-        </div>
-        {statusbar}
-        {deleteHelper ? deletePrompt : ""}
-        {hasDriverDetails && (
-          <div className={style.toggle}>
-            <p className={appStyle.boldBodyDesktop}>Driver mode</p>
-            <Toggle isChecked={isChecked} handleToggle={handleToggle} />
-          </div>
-        )}
-        <div>
-          {!editHelper && (
-            <div className={style.allDetails}>
-              <div className={style.userInfo}>
-                <div className={style.details}>
-                  <h5 className={appStyle.boldBodyDesktop}>Personal Details</h5>
-                </div>
-                <div className={style.infoLine}>
-                  <p className={appStyle.boldBodyDesktop}>First Name: </p>
-                  <div className={style.results}>
-                    <p className={appStyle.bodyDesktop}>{userDetails.name}</p>
-                  </div>
-                </div>
-                <div className={style.infoLine}>
-                  <p className={appStyle.boldBodyDesktop}>Last Name: </p>
-                  <div className={style.results}>
-                    <p className={appStyle.bodyDesktop}>
-                      {userDetails.surname}
-                    </p>
-                  </div>
-                </div>
-                <div className={style.infoLine}>
-                  <p className={appStyle.boldBodyDesktop}>Email: </p>
-                  <div className={style.results}>
-                    <p className={appStyle.bodyDesktop}>{userDetails.email}</p>
-                  </div>
-                </div>
-              </div>
-              <div className={style.DriverInfoDiv}>
-                {isDriver && (
-                  <div className={style.driverInfo}>
-                    <div className={style.details}>
-                      <h5 className={appStyle.boldBodyDesktop}>
-                        Vehicle Details
-                      </h5>
-                    </div>
-                    <div className={style.infoLine}>
-                      <p className={appStyle.boldBodyDesktop}>Phone: </p>
-                      <div className={style.results}>
-                        <p className={appStyle.bodyDesktop}>
-                          {userDetails.vehicleInfo.contact}
-                        </p>
-                      </div>
-                    </div>
-                    <div className={style.infoLine}>
-                      <p className={appStyle.boldBodyDesktop}>Plate Number: </p>
-                      <div className={style.results}>
-                        <p className={appStyle.bodyDesktop}>
-                          {userDetails.vehicleInfo.plate}
-                        </p>
-                      </div>
-                    </div>
-                    <div className={`${style.details} ${style.space}`}>
-                      <h6 className={appStyle.boldBodyDesktop}>
-                        Available Car Space
-                      </h6>
-                    </div>
-                    <div className={style.infoLine}>
-                      <p className={appStyle.boldBodyDesktop}>Width: </p>
-                      <div className={style.results}>
-                        <p className={appStyle.bodyDesktop}>
-                          {userDetails.vehicleInfo.width} cm
-                        </p>
-                      </div>
-                    </div>
-                    <div className={style.infoLine}>
-                      <p className={appStyle.boldBodyDesktop}>Height: </p>
-                      <div className={style.results}>
-                        <p className={appStyle.bodyDesktop}>
-                          {userDetails.vehicleInfo.height} cm
-                        </p>
-                      </div>
-                    </div>
-                    <div className={style.infoLine}>
-                      <p className={appStyle.boldBodyDesktop}>Length: </p>
-                      <div className={style.results}>
-                        <p className={appStyle.bodyDesktop}>
-                          {userDetails.vehicleInfo.length} cm
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-          {editHelper && (
-            <EditProfileForm
-              hasDriverDetails={hasDriverDetails}
-              user={userDetails}
-              onSaveDetails={editUserHandler}
-            />
-          )}
-        </div>
-      </div>
+      <ProgressBar loading={isLoading} />
+      <Error error={error} />
+
+      {editHelper && (
+        <EditProfileForm user={userDetails} onSaveDetails={editUserHandler} />
+      )}
     </div>
   );
 };

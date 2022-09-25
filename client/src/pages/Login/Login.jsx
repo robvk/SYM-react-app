@@ -21,8 +21,6 @@ function Login() {
   const onSuccess = (res) => {
     setCookie("token", res.data, 7);
     setCookie("userID", res.id, 7);
-    // localStorage.setItem("token", res.data);
-    // localStorage.setItem("userID", res.id);
     setToken(res.data);
     setUserID(res.id);
     navigate("/home", {
