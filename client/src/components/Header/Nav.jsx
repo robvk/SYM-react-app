@@ -35,6 +35,7 @@ const Nav = () => {
     deleteCookie("userID");
     setToken("");
     setUserID("");
+    width <= 700 && mobileNavigator();
   };
 
   const mobileNavigator = () => {
@@ -114,9 +115,39 @@ const Nav = () => {
             </div>
 
             <div id="myLinks" style={{ display: isOpen }}>
-              <a href="#news">News</a>
-              <a href="#contact">Contact</a>
-              <a href="#about">About</a>
+              {token && (
+                <Link onClick={mobileNavigator} key="0" to="#">
+                  <p>New Statement</p>
+                </Link>
+              )}
+              <Link
+                onClick={mobileNavigator}
+                key="1"
+                to={token ? "/home" : "/"}
+              >
+                <span>Home</span>
+              </Link>
+              <Link onClick={mobileNavigator} key="2" to={"/about"}>
+                <span>About</span>
+              </Link>
+              {!token ? (
+                <Link onClick={mobileNavigator} key="3" to="/login">
+                  <span>Login</span>
+                </Link>
+              ) : (
+                <div>
+                  <Link
+                    onClick={mobileNavigator}
+                    key="4"
+                    to={`/profile/${getCookie("userID")}`}
+                  >
+                    <span>Profile</span>
+                  </Link>
+                  <Link onClick={logOut} key="5" to="/">
+                    <span>Logout</span>
+                  </Link>
+                </div>
+              )}
             </div>
 
             <a href="#" className={style.icon} onClick={mobileNavigator}>
