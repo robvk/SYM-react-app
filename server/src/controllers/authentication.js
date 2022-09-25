@@ -29,6 +29,7 @@ export const authenticate = async (req, res) => {
       id: user._id,
       data: token,
       email: user.email,
+      username: user.username,
       success: true,
       message: "Logged In",
     });

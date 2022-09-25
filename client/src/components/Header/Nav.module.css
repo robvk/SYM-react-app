@@ -1,186 +1,187 @@
-.nav {
-  height: var(--nav-height);
-  pointer-events: none;
-}
-
-.nav i {
-  cursor: pointer;
-}
-
-.navNormal {
+.navContainer {
   display: flex;
-  align-items: center;
-  height: var(--nav-height);
-  position: fixed;
-  padding: 10px 10px;
-  background-color: var(--highlight);
-  width: 100%;
-  z-index: 3;
-  box-shadow: 0px 1px 2px black;
-}
-
-.navNormal {
-  pointer-events: all;
-}
-
-.burger {
-  z-index: 11;
-}
-
-.navDesktop {
-  display: flex;
-  align-items: center;
-  height: var(--nav-height);
-  width: 100%;
-  justify-content: flex-start;
-  position: fixed;
-  padding: 10px 10px;
-  background-color: var(--highlight);
-}
-
-.drawer {
-  width: 240px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  transform: translateX(-100%);
-  height: 100vh;
-  z-index: 3;
-  background-color: var(--font-dark);
-}
-
-.nav ul li {
   list-style: none;
+  justify-content: space-between;
+  height: 50px;
+  background-color: var(--font);
+  width: 100%;
+}
+
+.allLinks {
+  display: flex;
+  margin-right: 10px;
+}
+
+.plus svg {
+  margin-bottom: -4px;
+}
+
+.username {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.username svg {
+  background-color: transparent;
+  color: var(--font-light);
+  margin: 5px;
+  height: 16px;
+}
+
+.navContainer a {
   text-decoration: none;
-  pointer-events: all;
   color: var(--font-light);
 }
 
-.nav a {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-.nav svg {
-  color: var(--white);
-  height: var(--nav-height);
-  padding: 10px 0;
-  align-self: center;
-}
-
-.drawer a div {
+.navContainer li {
   display: flex;
-  width: 100%;
-  justify-content: space-around;
-  padding: 10px;
-  max-width: 240px;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid transparent;
+  margin: 0px 10px;
+  padding-top: 2px;
 }
 
-.drawer span {
-  margin: 0px;
+.logoNav a {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: flex-start;
+  align-items: center;
+  height: 50px;
 }
 
-.drawer a {
-  max-width: 240px;
+.logoNav {
+  border-top: 2px solid transparent !important;
 }
 
-.drawer li {
-  max-width: 240px;
+.navContainer li:hover {
+  border-top: 2px solid var(--font-light);
 }
 
-.drawer svg {
-  max-width: 240px;
-}
-
-.drawer a div svg {
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  color: var(--white);
+.logoDiv div {
+  margin: 0%;
 }
 
 .logoDiv {
-  width: 160px;
+  height: 50px;
+  width: 50px;
 }
 
-.bodyDesktop {
-  font-size: 13px;
-  line-height: 15px;
+.logoNav h1 {
+  margin-left: 8px;
 }
 
-.centerLogo {
-  min-width: 20%;
+.logoNav svg {
+  width: 50px;
+}
+
+/* Drop down items */
+.dropBtn {
+  background-color: transparent;
+  color: var(--font-light);
+  border: none;
+  cursor: default;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: auto;
+}
+
+.dropdownContent {
+  display: none;
   position: absolute;
-  right: 50%;
-  top: 50%;
-  transform: translate(50%, -50%);
-}
-
-.centerLogo svg {
+  padding: 15px 5px 5px;
+  background-color: var(--font);
   width: 100%;
+  min-width: 90px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
-@media screen and (min-width: 840px) {
-  .drawer {
+.dropdownContent a {
+  color: var(--font-light);
+  padding: 5px 5px;
+  margin: auto;
+  text-decoration: none;
+  text-align: left;
+  display: block;
+}
+
+.dropdownContent a:hover {
+  color: var(--highlight);
+}
+
+.dropdown:hover .dropdownContent {
+  display: block;
+}
+
+@media screen and (max-width: 700px) {
+  .logoNav a {
+    padding: 0px !important;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    height: var(--nav-height);
-    width: 100%;
-    justify-content: flex-start;
-    position: fixed;
-    padding: 10px 10px;
-    background-color: var(--highlight);
-    transform: none;
+    margin-left: 10px;
+    width: 60px;
   }
 
-  .nav ul {
-    display: flex;
-    width: 100%;
-    gap: 20px;
-    margin-right: 15%;
+  .logoDiv {
+    padding: 2.5px 5px 5px;
   }
 
-  .nav ul li {
-    color: var(--white);
-    cursor: pointer;
+  .topNav {
+    overflow: hidden;
+    background-color: var(--font);
+    position: relative;
   }
 
-  .nav svg {
-    color: var(--white);
-    width: 160px;
-    height: var(--nav-height);
-    padding: 10px 0;
-    align-self: center;
+  .topNav #myLinks {
+    display: none;
   }
 
-  .logoNav {
-    margin-left: 15%;
-    margin-right: auto;
+  .topNav a {
+    color: var(--font-light);
+    padding: 14px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
   }
 
-  .drawer a div {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    padding: 10px 0;
-    max-width: 240px;
+  .topNav a:hover,
+  .topNav a:focus,
+  .topNav a:active {
+    background-color: var(--font);
+    color: var(--font-light);
   }
 
-  .drawer span {
-    margin: 0px;
+  .topNav a.icon {
+    background: var(--font);
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    margin-right: 10px;
+    padding-top: 18px;
   }
 
-  .drawer a {
-    max-width: 240px;
+  .topNav a.icon:active {
+    background-color: var(--font) !important;
   }
 
-  .drawer li {
-    max-width: 240px;
+  .topNav a.icon svg {
+    transform: scale(1.7);
   }
 
-  .drawer svg {
-    max-width: 240px;
+  .topNav a:hover {
+    background-color: var(--font);
+    color: var(--font-light);
+  }
+
+  .active {
+    background-color: var(--font);
+    color: var(--font-light);
   }
 }
