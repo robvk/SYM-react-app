@@ -3,6 +3,8 @@ import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 // Icons
+import person from "../../assets/icons/person-icon.svg";
+import { VscEdit, VscTrash } from "react-icons/vsc";
 // Style
 import style from "./ProfilePage.module.css";
 import appStyle from "../../App.module.css";
@@ -137,11 +139,55 @@ const ProfilePage = () => {
   return (
     <div>
       <ProgressBar loading={isLoading} />
-      <Error error={error} />
+      <div className={style.profileContainer}>
+        <div className={style.profileHeader}>
+          <div className={style.userSection}>
+            <div className={style.iconCircle}>
+              <img src={person} />
+            </div>
+            <p className={appStyle.headerOne}>{userDetails.username}</p>
+          </div>
+        </div>
+        <div className={style.buttonsDiv}>
+          <div className={style.singleButton}>
+            <Button>
+              <VscEdit /> Edit Profile
+            </Button>
+          </div>
+          <div className={style.singleButton}>
+            <Button>
+              <VscTrash /> Delete Account
+            </Button>
+          </div>
+        </div>
 
-      {editHelper && (
-        <EditProfileForm user={userDetails} onSaveDetails={editUserHandler} />
-      )}
+        <div className={appStyle.body}>
+          <div className={style.userInformation}>
+            <p className={style.subTitle}>User Details</p>
+            <p>
+              <span className={appStyle.boldBody}>Username: </span>
+              {userDetails.username}
+            </p>
+            <p>
+              <span className={appStyle.boldBody}>Email: </span>
+              {userDetails.email}
+            </p>
+            <p>
+              <span className={appStyle.boldBody}>SYM Score: </span>137
+            </p>
+            <p>
+              <span className={appStyle.boldBody}>Account created on: </span>
+              21/09/2022
+            </p>
+          </div>
+        </div>
+
+        <Error error={error} />
+
+        {editHelper && (
+          <EditProfileForm user={userDetails} onSaveDetails={editUserHandler} />
+        )}
+      </div>
     </div>
   );
 };
