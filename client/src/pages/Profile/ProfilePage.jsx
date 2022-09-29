@@ -163,22 +163,24 @@ const ProfilePage = () => {
 
         <div className={appStyle.body}>
           <div className={style.userInformation}>
-            <p className={style.subTitle}>User Details</p>
-            <p>
-              <span className={appStyle.boldBody}>Username: </span>
-              {userDetails.username}
-            </p>
-            <p>
-              <span className={appStyle.boldBody}>Email: </span>
-              {userDetails.email}
-            </p>
-            <p>
-              <span className={appStyle.boldBody}>SYM Score: </span>137
-            </p>
-            <p>
-              <span className={appStyle.boldBody}>Account created on: </span>
-              21/09/2022
-            </p>
+            <h2 className={style.subTitle}>User Details</h2>
+            <div className={style.accountDetails}>
+              <p>
+                <span className={appStyle.boldBody}>Username: </span>
+                {userDetails.username}
+              </p>
+              <p>
+                <span className={appStyle.boldBody}>Email: </span>
+                {userDetails.email}
+              </p>
+              <p>
+                <span className={appStyle.boldBody}>SYM Score: </span>137
+              </p>
+              <p>
+                <span className={appStyle.boldBody}>Account created on: </span>
+                21/09/2022
+              </p>
+            </div>
           </div>
         </div>
 

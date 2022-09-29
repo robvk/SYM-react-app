@@ -33,9 +33,24 @@ const SignUpForm = (props) => {
       email: enteredEmail,
       username: enteredUsername,
       password: enteredPassword,
+      symScore: 0,
+      dateCreated: date(),
     };
 
     props.onUserSignUp(userData);
+  };
+
+  const date = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1;
+    let dd = today.getDate();
+
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+
+    const formattedToday = dd + "/" + mm + "/" + yyyy;
+    return formattedToday;
   };
 
   const passwordMatch = () => {
@@ -96,7 +111,7 @@ const SignUpForm = (props) => {
           <Input
             label="email"
             src={envelop}
-            placeholder="johndoe@email.com"
+            placeholder="i.e. johndoe@email.com"
             type="email"
             required
             id="email"
@@ -110,7 +125,7 @@ const SignUpForm = (props) => {
           <Input
             label="username"
             src={person}
-            placeholder="JDsays"
+            placeholder="i.e. JohnDoe"
             type="text"
             required
             id="username"
@@ -123,7 +138,7 @@ const SignUpForm = (props) => {
 
           <Input
             label="password"
-            placeholder="••••••••"
+            placeholder="i.e. Password123!"
             src={password}
             type="password"
             required
@@ -137,7 +152,7 @@ const SignUpForm = (props) => {
 
           <Input
             label="confirm password"
-            placeholder="••••••••"
+            placeholder="Password123!"
             src={password}
             type="password"
             required
