@@ -1,18 +1,12 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Button from "../../components/Button";
+// Style
 import style from "./ProfilePage.module.css";
 import appStyle from "../../App.module.css";
-// Icons
-
-import { useState } from "react";
-
 export default function EditProfileForm(props) {
   const emailInputRef = useRef();
   const usernameInputRef = useRef();
-  const [isEmailFilled, setIsEmailFilled] = useState();
-  const [isUsernameFilled, setIsUsernameFilled] = useState();
-
   function submitHandler(e) {
     e.preventDefault();
 
@@ -26,21 +20,6 @@ export default function EditProfileForm(props) {
 
     props.onSaveDetails(userData);
   }
-
-  const emailChecker = (e) => {
-    if (!e.target.value) {
-      setIsEmailFilled(style.notFilled);
-    } else {
-      setIsEmailFilled("");
-    }
-  };
-  const usernameChecker = (e) => {
-    if (!e.target.value) {
-      setIsUsernameFilled(style.notFilled);
-    } else {
-      setIsUsernameFilled("");
-    }
-  };
 
   return (
     <div className={style.userInformation}>
@@ -57,8 +36,6 @@ export default function EditProfileForm(props) {
               id="username"
               ref={usernameInputRef}
               aria-label="username"
-              onChange={usernameChecker}
-              onClick={usernameChecker}
               className={appStyle.body}
             />
           </p>
@@ -72,8 +49,6 @@ export default function EditProfileForm(props) {
               id="email"
               ref={emailInputRef}
               aria-label="email"
-              onChange={emailChecker}
-              onClick={emailChecker}
               className={appStyle.body}
             />
           </p>
@@ -93,41 +68,6 @@ export default function EditProfileForm(props) {
         </form>
       </div>
     </div>
-    // <div className={style.editProfileForm}>
-    //   <form onSubmit={submitHandler}>
-    //     <Input
-    //       label="email"
-    //       src={envelop}
-    //       placeholder="i.e. johndoe@email.com"
-    //       type="email"
-    //       required
-    //       id="email"
-    //       reference={emailInputRef}
-    //       ariaLabel="email"
-    //       onChange={emailChecker}
-    //       onClick={emailChecker}
-    //       isFilled={isEmailFilled}
-    //     />
-
-    //     <Input
-    //       label="username"
-    //       src={person}
-    //       placeholder="i.e. JohnDoe"
-    //       type="text"
-    //       required
-    //       id="username"
-    //       reference={usernameInputRef}
-    //       ariaLabel="username"
-    //       onChange={usernameChecker}
-    //       onClick={usernameChecker}
-    //       isFilled={isUsernameFilled}
-    //     />
-
-    //     <div className={style.singleButton}>
-    //       <Button type="submit">Save Changes</Button>
-    //     </div>
-    //   </form>
-    // </div>
   );
 }
 
