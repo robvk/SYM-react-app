@@ -35,7 +35,7 @@ export const validateUserUpdate = (data) => {
   const schema = Joi.object({
     email: Joi.string().email().required().label("email"),
     username: Joi.string().required().label("username"),
-    symScore: Joi.number().required().label("symScore"),
+    symScore: Joi.number().label("symScore"),
   });
   return schema.validate(data);
 };

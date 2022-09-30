@@ -184,7 +184,7 @@ const ProfilePage = () => {
             deletePrompt
           ) : (
             <div>
-              {editHandler && (
+              {!editHelper ? (
                 <div className={style.userInformation}>
                   <h2 className={style.subTitle}>User Details</h2>
                   <div className={style.accountDetails}>
@@ -208,16 +208,16 @@ const ProfilePage = () => {
                     </p>
                   </div>
                 </div>
+              ) : (
+                <EditProfileForm
+                  userDetails={userDetails}
+                  onSaveDetails={editUserHandler}
+                />
               )}
             </div>
           )}
         </div>
-
         <Error error={error} />
-
-        {editHelper && (
-          <EditProfileForm user={userDetails} onSaveDetails={editUserHandler} />
-        )}
       </div>
     </div>
   );

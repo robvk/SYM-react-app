@@ -107,6 +107,17 @@
 .red {
   color: var(--red);
 }
+
+.accountDetails form input:focus {
+  outline: none;
+}
+
+.accountDetails form input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid var(--font);
+}
+
 @media screen and (max-width: 740px) {
   .buttonsDiv {
     width: 100%;
@@ -122,12 +133,12 @@
 }
 
 @media screen and (max-width: 1400px) {
-  .deletePrompt {
+  /* .deletePrompt {
     width: 45%;
-  }
+  } */
 }
 @media screen and (max-width: 1000px) {
-  .deletePrompt {
+  /* .deletePrompt {
     width: 65%;
-  }
+  } */
 }
