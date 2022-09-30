@@ -28,13 +28,14 @@ const SignUpForm = (props) => {
     const enteredEmail = emailInputRef.current.value;
     const enteredUsername = usernameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+    const currentDate = date().toString();
 
     const userData = {
       email: enteredEmail,
       username: enteredUsername,
       password: enteredPassword,
       symScore: 0,
-      dateCreated: date(),
+      dateCreated: currentDate,
     };
 
     props.onUserSignUp(userData);

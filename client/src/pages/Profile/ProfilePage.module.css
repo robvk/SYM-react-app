@@ -78,6 +78,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin: 0px auto;
 }
 
 .singleButton {
@@ -93,6 +94,18 @@
   justify-content: center;
   align-items: center;
   font-size: 14px !important;
+}
+
+.deletePrompt p {
+  text-align: center;
+}
+
+.padding {
+  padding-top: 10px;
+}
+
+.red {
+  color: var(--red);
 }
 @media screen and (max-width: 740px) {
   .buttonsDiv {

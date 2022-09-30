@@ -24,6 +24,8 @@ export const getUser = async (req, res) => {
       result: {
         username: user.username,
         email: user.email,
+        symScore: user.symScore,
+        dateCreated: user.dateCreated,
       },
     });
   } catch (error) {
@@ -34,7 +36,7 @@ export const getUser = async (req, res) => {
   }
 };
 
-// Find Accepted Drivers
+// Find Taggers
 export const getTaggers = async (req, res) => {
   const { taggersID } = req.body;
 

@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   username: { type: String, required: true },
   symScore: { type: Number, required: true },
-  dateCreated: { type: Date, required: true },
+  dateCreated: { type: String, required: true },
 });
 
 userSchema.methods.generateAuthToken = function () {
@@ -26,7 +26,7 @@ export const validateUser = (data) => {
     password: passwordComplexity().required().label("password"),
     username: Joi.string().required().label("username"),
     symScore: Joi.number().required().label("symScore"),
-    dateCreated: Joi.date().required().label("dateCreated"),
+    dateCreated: Joi.string().required().label("dateCreated"),
   });
   return schema.validate(data);
 };

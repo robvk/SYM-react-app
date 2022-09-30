@@ -35,16 +35,16 @@
   border-radius: 5px;
   cursor: pointer;
   margin: 20px 0px;
-  color: var(--highlight);
-  border: 2px solid var(--highlight);
+  color: var(--font);
+  border: 2px solid var(--font);
   outline: inherit;
   transition: 0.5s;
 }
 
 .buttonBorder:hover {
-  border: 2px solid var(--white);
+  border: 2px solid var(--font-light);
   color: var(--font-light);
-  background: var(--highlight);
+  background: var(--font);
 }
 
 .buttonBorder:active {

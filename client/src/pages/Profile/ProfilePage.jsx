@@ -25,6 +25,8 @@ const ProfilePage = () => {
   const [userDetails, setUserDetails] = useState({
     email: "",
     username: "",
+    symScore: "",
+    dateCreated: "",
   });
 
   const [deleteHelper, setDeleteHelper] = useState(false);
@@ -78,21 +80,31 @@ const ProfilePage = () => {
 
   let deletePrompt = (
     <div className={style.deletePrompt}>
-      <p className={appStyle.h1Desktop}>
-        Are you sure you would like to delete your profile?
-      </p>
-      <div className={style.red}>
-        <p className={appStyle.bodyDesktop}>This action cannot be undone</p>
-      </div>
-
-      <div className={style.buttonDiv}>
-        <div className={style.singleButton}>
-          <Button path="/" buttonHandler={() => deleteProfile()}>
-            Delete
-          </Button>
+      <div className={style.userInformation}>
+        <h2 className={style.subTitle}>Delete Profile</h2>
+        <div className={style.padding}>
+          <p className={appStyle.boldBody}>
+            Are you sure you would like to delete your profile?
+          </p>
+          <div className={style.red}>
+            <p className={appStyle.body}>This action cannot be undone</p>
+          </div>
         </div>
-        <div className={style.singleButton}>
-          <Button buttonHandler={() => setDeleteHelper(false)}>Cancel</Button>
+
+        <div className={style.buttonsDiv}>
+          <div className={style.singleButton}>
+            <Button
+              class="buttonBorder"
+              buttonHandler={() => setDeleteHelper(false)}
+            >
+              Cancel
+            </Button>
+          </div>
+          <div className={style.singleButton}>
+            <Button path="/" buttonHandler={() => deleteProfile()}>
+              Delete
+            </Button>
+          </div>
         </div>
       </div>
     </div>
@@ -150,38 +162,55 @@ const ProfilePage = () => {
         </div>
         <div className={style.buttonsDiv}>
           <div className={style.singleButton}>
-            <Button>
-              <VscEdit /> Edit Profile
+            <Button buttonHandler={editHandler}>
+              {!editHelper ? (
+                <span>
+                  <VscEdit /> Edit Profile
+                </span>
+              ) : (
+                "Cancel"
+              )}
             </Button>
           </div>
           <div className={style.singleButton}>
-            <Button>
+            <Button buttonHandler={deleteHandler}>
               <VscTrash /> Delete Account
             </Button>
           </div>
         </div>
 
         <div className={appStyle.body}>
-          <div className={style.userInformation}>
-            <h2 className={style.subTitle}>User Details</h2>
-            <div className={style.accountDetails}>
-              <p>
-                <span className={appStyle.boldBody}>Username: </span>
-                {userDetails.username}
-              </p>
-              <p>
-                <span className={appStyle.boldBody}>Email: </span>
-                {userDetails.email}
-              </p>
-              <p>
-                <span className={appStyle.boldBody}>SYM Score: </span>137
-              </p>
-              <p>
-                <span className={appStyle.boldBody}>Account created on: </span>
-                21/09/2022
-              </p>
+          {deleteHelper ? (
+            deletePrompt
+          ) : (
+            <div>
+              {editHandler && (
+                <div className={style.userInformation}>
+                  <h2 className={style.subTitle}>User Details</h2>
+                  <div className={style.accountDetails}>
+                    <p>
+                      <span className={appStyle.boldBody}>Username: </span>
+                      {userDetails.username}
+                    </p>
+                    <p>
+                      <span className={appStyle.boldBody}>Email: </span>
+                      {userDetails.email}
+                    </p>
+                    <p>
+                      <span className={appStyle.boldBody}>SYM Score: </span>
+                      {userDetails.symScore}
+                    </p>
+                    <p>
+                      <span className={appStyle.boldBody}>
+                        Account created on:{" "}
+                      </span>
+                      {userDetails.dateCreated}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
-          </div>
+          )}
         </div>
 
         <Error error={error} />

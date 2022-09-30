@@ -17,13 +17,14 @@ import bgImage from "../../assets/images/background-image.jpg";
 const Home = () => {
   const navigate = useNavigate();
 
-  const { setToken, setUserID } = useContext(UserInfoContext);
+  const { setToken, setUserID, setUsername } = useContext(UserInfoContext);
 
   // Call back from backend
   const onSuccess = (onReceived) => {
     setToken(onReceived.result.token);
     setUserID(onReceived.result.userID);
-    navigate("/home", {
+    setUsername(onReceived.result.username);
+    navigate("/", {
       replace: true,
     });
   };
