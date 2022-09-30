@@ -1,6 +1,6 @@
 `TODO: Add a nice screenshot of the app!`
 
-# Class 36 final project
+# SYM-State Your Mind
 
 Every user is able to create a post. This post will have two inputs the beginning and then the statement finishing the sentence. The statements will be sorted by most up-voted. If any other user should like that statement they can create another tag-line to it and it will be added to the thread. A statement (thread) should have an expiration date if not updated (commented on) for about 24h, it should be deleted. Each user is able to create their own new thread or comment on an existing one. The comments will also be sorted by most liked (by default). the user might want to have the option to post anonymously.
 
