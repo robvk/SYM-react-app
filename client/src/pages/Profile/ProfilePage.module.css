@@ -130,6 +130,14 @@
   .userInformation {
     width: 100%;
   }
+
+  .accountDetails {
+    margin: 0px;
+  }
+
+  .accountDetails {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1400px) {

@@ -13,6 +13,7 @@ import SignUpForm from "./SignUpForm";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import bgImage from "../../assets/images/background-image.jpg";
+import { setCookie } from "../../hooks/useCookie";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -21,6 +22,9 @@ const Home = () => {
 
   // Call back from backend
   const onSuccess = (onReceived) => {
+    setCookie("token", onReceived.result.token, 7);
+    setCookie("userID", onReceived.result.userID, 7);
+    setCookie("username", onReceived.result.username, 7);
     setToken(onReceived.result.token);
     setUserID(onReceived.result.userID);
     setUsername(onReceived.result.username);

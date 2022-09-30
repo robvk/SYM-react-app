@@ -22,18 +22,20 @@ import { deleteCookie, getCookie } from "../../hooks/useCookie";
 
 const Nav = () => {
   const { width } = useWindowDimensions();
-  const { token, setToken, setUserID, username, setUsername } =
+  const { token, setToken, setUserID, setUsername, username } =
     useContext(UserInfoContext);
 
   const [isOpen, setIsOpen] = useState("none");
 
   useEffect(() => {
     setToken(getCookie("token"));
-  }, [setToken]);
+    setUsername(getCookie("username"));
+  }, [setToken, setUsername]);
 
   const logOut = () => {
     deleteCookie("token");
     deleteCookie("userID");
+    deleteCookie("username");
     setToken("");
     setUserID("");
     setUsername("");

@@ -17,7 +17,7 @@ import useFetch from "../../hooks/useFetch";
 import NotifierContext from "../../context/NotifierContext";
 import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
-import { deleteCookie, getCookie } from "../../hooks/useCookie";
+import { deleteCookie, getCookie, setCookie } from "../../hooks/useCookie";
 
 const ProfilePage = () => {
   const { setToken } = useContext(UserInfoContext);
@@ -33,6 +33,7 @@ const ProfilePage = () => {
   const [editHelper, setEditHelper] = useState(false);
   const { id } = useParams();
   const { notifier } = useContext(NotifierContext);
+  const { setUsername } = useContext(UserInfoContext);
 
   // Check if the user's ID matches the profile
   if (id !== getCookie("userID")) {
@@ -46,9 +47,13 @@ const ProfilePage = () => {
   }
 
   const onSuccess = (onReceived) => {
+    setCookie("username", userDetails.username, 7);
+    setUsername(userDetails.username);
+
     if (onReceived.isDelete) {
       deleteCookie("userID");
       deleteCookie("token");
+      deleteCookie("username");
       setToken("");
       return;
     }
