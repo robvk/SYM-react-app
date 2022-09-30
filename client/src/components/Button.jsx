@@ -8,12 +8,6 @@ import style from "./Button.module.css";
 export default function Button(props) {
   let buttonClass;
 
-  // if (props.class === "buttonBorder") {
-  //   buttonClass = style.buttonBorder;
-  // } else {
-  //   buttonClass = style.button;
-  // }
-
   switch (props.class) {
     case "buttonBorder":
       buttonClass = style.buttonBorder;

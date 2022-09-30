@@ -4,9 +4,10 @@ import Logo from "../../components/Logo";
 import appStyle from "../../App.module.css";
 import styles from "./Footer.module.css";
 import UserInfoContext from "./../../context/UserInfoContext";
+import { getCookie } from "../../hooks/useCookie";
 
 const Footer = () => {
-  const { setToken, token, userID } = useContext(UserInfoContext);
+  const { setToken, token } = useContext(UserInfoContext);
 
   function scrollTop() {
     window.scrollTo(0, 0);
@@ -22,7 +23,7 @@ const Footer = () => {
   if (token) {
     landingDashboard = "/home";
     signUpProfile = {
-      to: `/profile/${userID}`,
+      to: `/profile/${getCookie("userID")}`,
       name: "Profile",
     };
     loginLogout = {

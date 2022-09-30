@@ -24,6 +24,8 @@ export const getUser = async (req, res) => {
       result: {
         username: user.username,
         email: user.email,
+        symScore: user.symScore,
+        dateCreated: user.dateCreated,
       },
     });
   } catch (error) {
@@ -34,7 +36,7 @@ export const getUser = async (req, res) => {
   }
 };
 
-// Find Accepted Drivers
+// Find Taggers
 export const getTaggers = async (req, res) => {
   const { taggersID } = req.body;
 
@@ -80,6 +82,9 @@ export const updateUser = async (req, res) => {
     user.password = req.body.user.password
       ? req.body.user.password
       : user.password;
+    user.symScore = req.body.user.symScore
+      ? req.body.user.symScore
+      : user.symScore;
 
     const userToValidate = {
       username: user.username,
@@ -99,6 +104,7 @@ export const updateUser = async (req, res) => {
       result: {
         username: user.username,
         email: user.email,
+        symScore: user.symScore,
       },
     });
   } catch (error) {
@@ -132,7 +138,6 @@ export const deleteUser = async (req, res) => {
 export const createUser = async (req, res) => {
   try {
     const { user } = req.body;
-    console.log("We are trying to create a user");
     if (typeof user !== "object") {
       res.status(400).json({
         success: false,
@@ -145,7 +150,9 @@ export const createUser = async (req, res) => {
     const email = await User.findOne({ email: user.email });
     const username = await User.findOne({ username: user.username });
     if (email || username) {
-      return res.status(409).send({ message: "user already exists!" });
+      return res
+        .status(409)
+        .send({ message: "A user with that email/username already exists!" });
     }
     const { error } = validateUser(user);
     if (error) {

@@ -5,15 +5,17 @@ import appStyle from "../../App.module.css";
 
 const Error = ({ error }) => {
   return (
-    <section className={styles.container}>
-      <div className={appStyle.body}>
-        {error && (
-          <p>
-            <strong>{error.toString()}</strong>
-          </p>
-        )}
-      </div>
-    </section>
+    <div>
+      <section className={styles.container}>
+        <div className={appStyle.body}>
+          {error && (
+            <p>
+              <strong>{error.toString()}</strong>
+            </p>
+          )}
+        </div>
+      </section>
+    </div>
   );
 };
 

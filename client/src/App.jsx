@@ -16,13 +16,14 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 
 // Style
 import style from "./App.module.css";
+import { getCookie } from "./hooks/useCookie";
 
 const App = () => {
   const [user, setUser] = useState("");
   const { token } = useContext(UserInfoContext);
 
   useEffect(() => {
-    setUser(localStorage.getItem("token"));
+    setUser(getCookie("token"));
   }, [token]);
 
   return (

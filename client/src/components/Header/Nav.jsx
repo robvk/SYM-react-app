@@ -22,7 +22,8 @@ import { deleteCookie, getCookie } from "../../hooks/useCookie";
 
 const Nav = () => {
   const { width } = useWindowDimensions();
-  const { token, setToken, setUserID } = useContext(UserInfoContext);
+  const { token, setToken, setUserID, username, setUsername } =
+    useContext(UserInfoContext);
 
   const [isOpen, setIsOpen] = useState("none");
 
@@ -35,6 +36,7 @@ const Nav = () => {
     deleteCookie("userID");
     setToken("");
     setUserID("");
+    setUsername("");
     width <= 700 && mobileNavigator();
   };
 
@@ -85,7 +87,7 @@ const Nav = () => {
                 <div className={style.dropdown}>
                   <div className={style.username}>
                     <VscAccount />
-                    <p className={style.dropBtn}>Mr. User</p>
+                    <p className={style.dropBtn}>{username}</p>
                     <VscChevronDown />
                   </div>
 

@@ -11,7 +11,7 @@ import ProgressBar from "../../components/ProgressBar";
 import bgImage from "../../assets/images/background-image.jpg";
 
 function Login() {
-  const { setToken, setUserID } = useContext(UserInfoContext);
+  const { setToken, setUserID, setUsername } = useContext(UserInfoContext);
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
@@ -21,11 +21,10 @@ function Login() {
   const onSuccess = (res) => {
     setCookie("token", res.data, 7);
     setCookie("userID", res.id, 7);
-    // localStorage.setItem("token", res.data);
-    // localStorage.setItem("userID", res.id);
     setToken(res.data);
     setUserID(res.id);
-    navigate("/home", {
+    setUsername(res.username);
+    navigate("/", {
       replace: true,
     });
   };

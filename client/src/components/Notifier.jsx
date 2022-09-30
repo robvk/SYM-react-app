@@ -25,7 +25,7 @@ export default function Notifier() {
       <span className={style.closebtn} onClick={closeNotif}>
         &times;
       </span>
-      <p className={appStyle.boldBodyDesktop}>{alertMessage}</p>
+      <p className={appStyle.boldBody}>{alertMessage}</p>
     </div>
   );
 }
