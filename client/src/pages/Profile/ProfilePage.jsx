@@ -20,7 +20,7 @@ import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
 
 const ProfilePage = () => {
-  const { setToken } = useContext(UserInfoContext);
+  const { setToken, setUsername } = useContext(UserInfoContext);
 
   const [userDetails, setUserDetails] = useState({
     email: "",
@@ -52,6 +52,8 @@ const ProfilePage = () => {
       setToken("");
       return;
     }
+
+    setUsername(onReceived.result.username);
 
     if (userDetails.username === "") {
       setUserDetails(onReceived.result);

@@ -1,5 +1,5 @@
 // React
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 // Components
 import Logo from "../Logo";
@@ -22,14 +22,10 @@ import { deleteCookie, getCookie } from "../../hooks/useCookie";
 
 const Nav = () => {
   const { width } = useWindowDimensions();
-  const { token, setToken, setUserID, username, setUsername } =
+  const { setToken, setUserID, setUsername, username } =
     useContext(UserInfoContext);
 
   const [isOpen, setIsOpen] = useState("none");
-
-  useEffect(() => {
-    setToken(getCookie("token"));
-  }, [setToken]);
 
   const logOut = () => {
     deleteCookie("token");
@@ -50,7 +46,7 @@ const Nav = () => {
         <ul className={style.navContainer}>
           <div className={style.fullLogo}>
             <li className={style.logoNav}>
-              <Link key="0" to={token ? "/home" : "/"}>
+              <Link key="0" to={getCookie("token") ? "/home" : "/"}>
                 <div className={style.logoDiv}>
                   <Logo />
                 </div>
@@ -59,7 +55,7 @@ const Nav = () => {
             </li>
           </div>
           <div className={style.allLinks}>
-            {token && (
+            {getCookie("token") && (
               <li className={style.plus}>
                 <Link key="0" to="#">
                   <VscAdd />
@@ -67,7 +63,7 @@ const Nav = () => {
               </li>
             )}
             <li className={appStyle.navLinks}>
-              <Link key="1" to={token ? "/home" : "/"}>
+              <Link key="1" to={getCookie("token") ? "/home" : "/"}>
                 <span>Home</span>
               </Link>
             </li>
@@ -76,7 +72,7 @@ const Nav = () => {
                 <span>About</span>
               </Link>
             </li>
-            {!token ? (
+            {!getCookie("token") ? (
               <li className={appStyle.navLinks}>
                 <Link key="3" to="/login">
                   <span>Login</span>
@@ -109,7 +105,11 @@ const Nav = () => {
         <div className={appStyle.navLinks}>
           <div className={style.topNav}>
             <div className={style.logoNav}>
-              <Link className={style.active} key="0" to={token ? "/home" : "/"}>
+              <Link
+                className={style.active}
+                key="0"
+                to={getCookie("token") ? "/home" : "/"}
+              >
                 <div className={style.logoDiv}>
                   <Logo />
                 </div>
@@ -117,7 +117,7 @@ const Nav = () => {
             </div>
 
             <div id="myLinks" style={{ display: isOpen }}>
-              {token && (
+              {getCookie("token") && (
                 <Link onClick={mobileNavigator} key="0" to="#">
                   <p>New Statement</p>
                 </Link>
@@ -125,14 +125,14 @@ const Nav = () => {
               <Link
                 onClick={mobileNavigator}
                 key="1"
-                to={token ? "/home" : "/"}
+                to={getCookie("token") ? "/home" : "/"}
               >
                 <span>Home</span>
               </Link>
               <Link onClick={mobileNavigator} key="2" to={"/about"}>
                 <span>About</span>
               </Link>
-              {!token ? (
+              {!getCookie("token") ? (
                 <Link onClick={mobileNavigator} key="3" to="/login">
                   <span>Login</span>
                 </Link>

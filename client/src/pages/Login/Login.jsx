@@ -33,6 +33,7 @@ function Login() {
     "/authentication",
     onSuccess
   );
+
   useEffect(() => {
     return cancelFetch;
   }, []);
