@@ -1,5 +1,7 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { getCookie } from "../hooks/useCookie";
+import useFetch from "../hooks/useFetch";
 
 const UserInfoContext = createContext({
   email: "",
@@ -33,6 +35,29 @@ export function UserInfoContextProvider(props) {
     userID,
     setUserID,
   };
+
+  const onSuccess = (onReceived) => {
+    setUsername(onReceived.result.username);
+    setToken(onReceived.result.token);
+    setUserID(onReceived.result.userID);
+  };
+
+  const { performFetch, cancelFetch } = useFetch(
+    `/profile/${userID}`,
+    onSuccess
+  );
+
+  useEffect(() => {
+    if (getCookie("userID")) {
+      performFetch({
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+    }
+    return cancelFetch;
+  }, [username]);
 
   return (
     <UserInfoContext.Provider value={context}>
