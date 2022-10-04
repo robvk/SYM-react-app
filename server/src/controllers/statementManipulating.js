@@ -1,6 +1,9 @@
+import connectDB from "../db/connectDB.js";
 import Statement, { validateStatement } from "../models/Statement.js";
+import { logError } from "../util/logging.js";
 // import { logError } from "../util/logging.js";
 import makeFirstLetterUpper from "../util/makeFirstLetterUpper.js";
+import { updateSymScore } from "./user.js";
 
 // export const updateStatement = async (req, res) => {
 //   try {
@@ -98,6 +101,31 @@ import makeFirstLetterUpper from "../util/makeFirstLetterUpper.js";
 //     });
 //   }
 // };
+
+// Transaction
+export const statementTransaction = async (req, res) => {
+  const transactionOptions = {
+    readPreference: "primary",
+    readConcern: { level: "local" },
+    writeConcern: { w: "majority" },
+  };
+
+  try {
+    const transactionOutput = await connectDB.withTransaction(async () => {
+      createStatement(req, res);
+      updateSymScore(req, res);
+    }, transactionOptions);
+    if (transactionOutput) {
+      console.log("Transaction initiated");
+    } else {
+      console.log("Transaction aborted.");
+    }
+  } catch (error) {
+    logError(error);
+  } finally {
+    await connectDB.endSession();
+  }
+};
 
 export const createStatement = async (req, res) => {
   try {

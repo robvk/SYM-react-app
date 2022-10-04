@@ -1,6 +1,7 @@
 import express from "express";
 import {
-  createStatement,
+  // createStatement,
+  statementTransaction,
   // deleteStatement,
   // updateStatement,
 } from "../controllers/statementManipulating.js";
@@ -21,6 +22,6 @@ statementRouter.get("/:id", getOneStatement);
 
 // statementRouter.put("/:id", acceptCancelJob);
 
-statementRouter.post("/create", createStatement);
+statementRouter.post("/create", statementTransaction);
 
 export default statementRouter;
