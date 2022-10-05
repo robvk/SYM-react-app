@@ -57,7 +57,7 @@ const Nav = () => {
           <div className={style.allLinks}>
             {getCookie("token") && (
               <li className={style.plus}>
-                <Link key="0" to="#">
+                <Link key="0" to="/statements/create">
                   <VscAdd />
                 </Link>
               </li>

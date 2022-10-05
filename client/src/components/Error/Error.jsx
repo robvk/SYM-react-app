@@ -20,6 +20,6 @@ const Error = ({ error }) => {
 };
 
 Error.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.any,
 };
 export default Error;

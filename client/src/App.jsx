@@ -6,7 +6,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
-import CreateJobController from "./pages/Job/CreateJobController";
+import CreateStatementController from "./pages/Job/CreateStatementController";
 import Notifier from "./components/Notifier";
 import JobDetails from "./pages/Job/JobDetails";
 import Dashboard from "./pages/Dashboard/Dashboard";
@@ -41,7 +41,10 @@ const App = () => {
         {user && <Route path="/job/view/:id" element={<JobDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
         {user && (
-          <Route path="/jobs/create" element={<CreateJobController />} />
+          <Route
+            path="/statements/create"
+            element={<CreateStatementController />}
+          />
         )}
         {user && <Route path="/home" element={<Dashboard />} />}
         <Route path="/about" element={<About />} />

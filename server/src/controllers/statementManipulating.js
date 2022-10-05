@@ -1,6 +1,5 @@
-import connectDB from "../db/connectDB.js";
 import Statement, { validateStatement } from "../models/Statement.js";
-import { logError } from "../util/logging.js";
+// import { logError } from "../util/logging.js";
 // import { logError } from "../util/logging.js";
 import makeFirstLetterUpper from "../util/makeFirstLetterUpper.js";
 import { updateSymScore } from "./user.js";
@@ -103,50 +102,50 @@ import { updateSymScore } from "./user.js";
 // };
 
 // Transaction
-export const statementTransaction = async (req, res) => {
-  const transactionOptions = {
-    readPreference: "primary",
-    readConcern: { level: "local" },
-    writeConcern: { w: "majority" },
-  };
+// export const statementTransaction = async (req, res) => {
+//   const transactionOptions = {
+//     readPreference: "primary",
+//     readConcern: { level: "local" },
+//     writeConcern: { w: "majority" },
+//   };
 
-  try {
-    const transactionOutput = await connectDB.withTransaction(async () => {
-      createStatement(req, res);
-      updateSymScore(req, res);
-    }, transactionOptions);
-    if (transactionOutput) {
-      console.log("Transaction initiated");
-    } else {
-      console.log("Transaction aborted.");
-    }
-  } catch (error) {
-    logError(error);
-  } finally {
-    await connectDB.endSession();
-  }
-};
+//   try {
+//     const transactionOutput = await connectDB.withTransaction(async () => {
+//       createStatement(req, res);
+//       updateSymScore(req, res);
+//     }, transactionOptions);
+//     if (transactionOutput) {
+//       console.log("Transaction initiated");
+//     } else {
+//       console.log("Transaction aborted.");
+//     }
+//   } catch (error) {
+//     logError(error);
+//   }
+// };
 
 export const createStatement = async (req, res) => {
+  const statement = { ...req.body };
   try {
-    const { statement } = req.body;
-
-    if (typeof statement !== "object") {
+    if (typeof statement.statement !== "object") {
       res.status(400).json({
         success: false,
         message: `You need to provide a 'statement' object. Received: ${JSON.stringify(
-          statement
+          statement.statement
         )}`,
       });
     }
-    const { error } = validateStatement(statement);
+    const { error } = validateStatement(statement.statement);
     if (error) {
       return res.status(400).send({ message: error.details[0].message });
     }
 
-    statement.fullStatement = makeFirstLetterUpper(statement.fullStatement);
+    statement.statement.fullStatement = makeFirstLetterUpper(
+      statement.statement.fullStatement
+    );
 
-    await new Statement({ ...statement }).save();
+    await new Statement({ ...statement.statement }).save();
+    await updateSymScore(req, res);
     res
       .status(201)
       .send({ message: "Statement created successfully", success: true });

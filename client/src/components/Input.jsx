@@ -37,7 +37,7 @@ Input.propTypes = {
   id: PropTypes.string.isRequired,
   reference: PropTypes.object.isRequired,
   ariaLabel: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   onClick: PropTypes.func,
   className: PropTypes.object,
   src: PropTypes.string,

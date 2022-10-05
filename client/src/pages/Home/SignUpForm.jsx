@@ -10,6 +10,7 @@ import person from "../../assets/icons/person-icon.svg";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
+import useDate from "../../hooks/useDate";
 
 const SignUpForm = (props) => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -28,7 +29,7 @@ const SignUpForm = (props) => {
     const enteredEmail = emailInputRef.current.value;
     const enteredUsername = usernameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-    const currentDate = date().toString();
+    const currentDate = useDate().toString();
 
     const userData = {
       email: enteredEmail,
@@ -39,19 +40,6 @@ const SignUpForm = (props) => {
     };
 
     props.onUserSignUp(userData);
-  };
-
-  const date = () => {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1;
-    let dd = today.getDate();
-
-    if (dd < 10) dd = "0" + dd;
-    if (mm < 10) mm = "0" + mm;
-
-    const formattedToday = dd + "/" + mm + "/" + yyyy;
-    return formattedToday;
   };
 
   const passwordMatch = () => {

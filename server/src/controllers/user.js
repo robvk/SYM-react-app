@@ -118,8 +118,9 @@ export const updateUser = async (req, res) => {
 
 // Update Sym Score
 export const updateSymScore = async (req, res) => {
+  const body = { ...req.body };
   try {
-    let user = await User.findOne({ _id: req.body.id });
+    let user = await User.findOne({ _id: body.statement.userID });
 
     user.symScore = user.symScore + 1;
 
