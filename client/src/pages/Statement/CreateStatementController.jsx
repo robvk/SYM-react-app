@@ -1,20 +1,21 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import JobView from "./JobView";
+import StatementView from "./JobView";
 import Error from "../../components/Error/Error";
+import ProgressBar from "../../components/ProgressBar";
 
-const CreateJobController = () => {
+const CreateStatementController = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    navigate("/dashboard", {
+    navigate("/home", {
       replace: true,
     });
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
-    "/jobs/create",
+    "/statements/create",
     onSuccess
   );
 
@@ -22,25 +23,25 @@ const CreateJobController = () => {
     return cancelFetch;
   }, []);
 
-  const jobHandler = (inputs) => {
+  const statementHandler = (statement) => {
     performFetch({
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        job: { senderID: localStorage.getItem("userID"), ...inputs },
+        statement,
       }),
     });
   };
 
   return (
     <div>
-      <JobView jobHandler={jobHandler} />
-      {isLoading && <Loading />}
-      {error != null && <Error error={error} />}
+      <ProgressBar loading={isLoading} />
+      <StatementView statementHandler={statementHandler} />
+      <Error error={error} transparent={true} />
     </div>
   );
 };
 
-export default CreateJobController;
+export default CreateStatementController;

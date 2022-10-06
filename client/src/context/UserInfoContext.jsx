@@ -43,7 +43,7 @@ export function UserInfoContextProvider(props) {
   };
 
   const { performFetch, cancelFetch } = useFetch(
-    `/profile/${userID}`,
+    `/profile/${getCookie("userID")}`,
     onSuccess
   );
 

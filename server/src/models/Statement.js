@@ -3,7 +3,7 @@ import Joi from "joi";
 
 const statementSchema = new mongoose.Schema({
   userID: { type: String },
-  taggersID: [{ type: String }],
+  taggersID: [{ type: String, required: false }],
   fullStatement: { type: String, required: true },
   statementStart: { type: String, required: true },
   statementEnd: { type: String, required: true },
@@ -19,7 +19,9 @@ export const validateStatement = (data) => {
     fullStatement: Joi.string().min(1).required().label("fullStatement"),
     statementStart: Joi.string().min(1).required().label("statementStart"),
     statementEnd: Joi.string().min(1).required().label("statementEnd"),
-    dateCreated: Joi.date().greater("now").required().label("dateCreated"),
+    dateCreated: Joi.date().required().label("dateCreated"),
+    votes: Joi.number().required().label("votes"),
+    taggersID: Joi.string().label("taggersID"),
   });
   return schema.validate(data);
 };

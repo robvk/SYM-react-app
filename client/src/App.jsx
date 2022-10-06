@@ -2,13 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Header/Nav";
 import Home from "./pages/Home/Home";
-import SignUp from "./pages/SignUp/SignUp";
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
-import CreateJobController from "./pages/Job/CreateJobController";
+import CreateStatementController from "./pages/Statement/CreateStatementController";
 import Notifier from "./components/Notifier";
-import JobDetails from "./pages/Job/JobDetails";
+import JobDetails from "./pages/Statement/JobDetails";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UserInfoContext from "./context/UserInfoContext";
 import About from "./pages/About/About";
@@ -36,12 +35,14 @@ const App = () => {
         ) : (
           <Route path="/home" element={<Dashboard />} />
         )}
-        {!user && <Route path="/user/create" element={<SignUp />}></Route>}
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<JobDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
         {user && (
-          <Route path="/jobs/create" element={<CreateJobController />} />
+          <Route
+            path="/statements/create"
+            element={<CreateStatementController />}
+          />
         )}
         {user && <Route path="/home" element={<Dashboard />} />}
         <Route path="/about" element={<About />} />

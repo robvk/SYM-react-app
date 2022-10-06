@@ -13,7 +13,7 @@ import { useState, useContext } from "react";
 import NotifierContext from "../../context/NotifierContext";
 import UserInfoContext from "../../context/UserInfoContext";
 
-const JobDetails = () => {
+const StatementDetails = () => {
   const { setIsDriver, isDriver } = useContext(UserInfoContext);
   const [isLocked, setIsLocked] = useState(true);
   const [isAccepted, setIsAccepted] = useState(false);
@@ -149,16 +149,16 @@ const JobDetails = () => {
     });
   }
 
-  let statusbar;
-  if (error) {
-    statusbar = <Error error={error} />;
-  } else if (isLoading) {
-    statusbar = (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  // let statusbar;
+  // if (error) {
+  //   statusbar = <Error error={error} />;
+  // } else if (isLoading) {
+  //   statusbar = (
+  //     <>
+  //       <Loading />
+  //     </>
+  //   );
+  // }
 
   const dateInverter = (date) => {
     const d = new Date(date);
@@ -332,4 +332,4 @@ const JobDetails = () => {
   );
 };
 
-export default JobDetails;
+export default StatementDetails;

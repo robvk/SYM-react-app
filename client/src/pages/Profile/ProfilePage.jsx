@@ -164,7 +164,10 @@ const ProfilePage = () => {
         </div>
         <div className={style.buttonsDiv}>
           <div className={style.singleButton}>
-            <Button buttonHandler={editHandler}>
+            <Button
+              buttonHandler={editHandler}
+              class={editHelper && "buttonBorder"}
+            >
               {!editHelper ? (
                 <span>
                   <VscEdit /> Edit Profile

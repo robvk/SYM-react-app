@@ -1,0 +1,71 @@
+.createStatementPage {
+  height: calc(100vh - 140px);
+  background: var(--background);
+}
+
+form h2 {
+  color: var(--font);
+}
+
+.formClass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.singleButton {
+  width: 100px;
+}
+
+.buttonsDiv {
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.statementInputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 60vw;
+  margin: auto;
+  height: 200px;
+}
+
+.statementInputs div div input {
+  background: transparent;
+  width: 100%;
+}
+
+.statementInputs div div {
+  border-radius: 0px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid black;
+}
+
+.statementInputs div {
+  width: 40vw;
+  margin: auto;
+}
+.statementInputs div label {
+  margin: 0px;
+}
+
+@media screen and (max-width: 740px) {
+  .formClass {
+    width: 100vw;
+  }
+
+  .statementInputs div {
+    width: 90vw;
+  }
+
+  .statementInputs {
+    width: 90vw;
+    margin: auto;
+    height: 200px;
+  }
+}
