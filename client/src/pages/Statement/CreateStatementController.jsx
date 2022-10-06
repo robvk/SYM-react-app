@@ -39,7 +39,7 @@ const CreateStatementController = () => {
     <div>
       <ProgressBar loading={isLoading} />
       <StatementView statementHandler={statementHandler} />
-      <Error error={error} />
+      <Error error={error} transparent={true} />
     </div>
   );
 };

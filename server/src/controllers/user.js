@@ -117,7 +117,7 @@ export const updateUser = async (req, res) => {
 };
 
 // Update Sym Score
-export const updateSymScore = async (req, res) => {
+export const updateSymScore = async (req) => {
   const body = { ...req.body };
   try {
     let user = await User.findOne({ _id: body.statement.userID });
@@ -125,19 +125,19 @@ export const updateSymScore = async (req, res) => {
     user.symScore = user.symScore + 1;
 
     await user.save();
-    res.status(200).json({
-      message: "User symScore updated successfully",
-      success: true,
-      result: {
-        symScore: user.symScore,
-      },
-    });
+    // res.status(200).json({
+    //   message: "User symScore updated successfully",
+    //   success: true,
+    //   result: {
+    //     symScore: user.symScore,
+    //   },
+    // });
   } catch (error) {
     logError(error);
-    res.status(500).json({
-      success: false,
-      message: "Unable to update the symScore, try again later",
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: "Unable to update the symScore, try again later",
+    // });
   }
 };
 

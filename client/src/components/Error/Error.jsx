@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import styles from "./Error.module.css";
 import appStyle from "../../App.module.css";
 
-const Error = ({ error }) => {
+const Error = ({ error, transparent }) => {
   return (
-    <div className={styles.error}>
+    <div className={transparent && styles.error}>
       <section className={styles.container}>
         <div className={appStyle.body}>
           {error && (
@@ -21,5 +21,6 @@ const Error = ({ error }) => {
 
 Error.propTypes = {
   error: PropTypes.any,
+  transparent: PropTypes.bool,
 };
 export default Error;

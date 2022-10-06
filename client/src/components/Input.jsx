@@ -43,7 +43,7 @@ Input.propTypes = {
   className: PropTypes.object,
   src: PropTypes.string,
   isFilled: PropTypes.any,
-  length: PropTypes.number,
+  length: PropTypes.string,
 };
 
 export default Input;

@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Nav from "./components/Header/Nav";
 import Home from "./pages/Home/Home";
-import SignUp from "./pages/SignUp/SignUp";
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
@@ -36,7 +35,6 @@ const App = () => {
         ) : (
           <Route path="/home" element={<Dashboard />} />
         )}
-        {!user && <Route path="/user/create" element={<SignUp />}></Route>}
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<JobDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
