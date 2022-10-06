@@ -117,6 +117,19 @@
   background-color: transparent;
   border-bottom: 1px solid var(--font);
 }
+.changePassword {
+  display: flex;
+  justify-content: center;
+  margin: 35px;
+}
+
+.changePassword button {
+  border: none;
+  background-color: transparent;
+  color: var(--font);
+  cursor: pointer;
+  font-size: 15px;
+}
 
 @media screen and (max-width: 740px) {
   .buttonsDiv {

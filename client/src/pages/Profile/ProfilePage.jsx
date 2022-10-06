@@ -18,6 +18,7 @@ import NotifierContext from "../../context/NotifierContext";
 import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
+import PasswordChange from "./PasswordChange";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
@@ -31,6 +32,7 @@ const ProfilePage = () => {
 
   const [deleteHelper, setDeleteHelper] = useState(false);
   const [editHelper, setEditHelper] = useState(false);
+  const [changePassword, setChangePassword] = useState(false);
   const { id } = useParams();
   const { notifier } = useContext(NotifierContext);
 
@@ -112,6 +114,10 @@ const ProfilePage = () => {
     </div>
   );
 
+  const changePassHandler = () => {
+    changePassword ? setChangePassword(false) : setChangePassword(true);
+  };
+
   const deleteHandler = () => {
     setDeleteHelper(true);
   };
@@ -150,6 +156,25 @@ const ProfilePage = () => {
     setEditHelper(false);
   };
 
+  const newPasswordHandler = (passwordData) => {
+    const newPassword = {
+      currentPassword: passwordData.currentPassword,
+      newPassword: passwordData.newPassword,
+    };
+
+    performFetch({
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ user: newPassword }),
+    });
+
+    setUserDetails(newPassword);
+
+    setEditHelper(false);
+  };
+
   return (
     <div>
       <ProgressBar loading={isLoading} />
@@ -162,66 +187,81 @@ const ProfilePage = () => {
             <p className={appStyle.headerOne}>{userDetails.username}</p>
           </div>
         </div>
-        <div className={style.buttonsDiv}>
-          <div className={style.singleButton}>
-            <Button
-              buttonHandler={editHandler}
-              class={editHelper && "buttonBorder"}
-            >
-              {!editHelper ? (
-                <span>
-                  <VscEdit /> Edit Profile
-                </span>
-              ) : (
-                "Cancel"
-              )}
-            </Button>
-          </div>
-          <div className={style.singleButton}>
-            <Button buttonHandler={deleteHandler}>
-              <VscTrash /> Delete Account
-            </Button>
-          </div>
-        </div>
-
-        <div className={appStyle.body}>
-          {deleteHelper ? (
-            deletePrompt
-          ) : (
-            <div>
-              {!editHelper ? (
-                <div className={style.userInformation}>
-                  <h2 className={style.subTitle}>User Details</h2>
-                  <div className={style.accountDetails}>
-                    <p>
-                      <span className={appStyle.boldBody}>Username: </span>
-                      {userDetails.username}
-                    </p>
-                    <p>
-                      <span className={appStyle.boldBody}>Email: </span>
-                      {userDetails.email}
-                    </p>
-                    <p>
-                      <span className={appStyle.boldBody}>SYM Score: </span>
-                      {userDetails.symScore}
-                    </p>
-                    <p>
-                      <span className={appStyle.boldBody}>
-                        Account created on:{" "}
-                      </span>
-                      {userDetails.dateCreated}
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <EditProfileForm
-                  userDetails={userDetails}
-                  onSaveDetails={editUserHandler}
-                />
-              )}
+        {!changePassword && (
+          <div className={style.buttonsDiv}>
+            <div className={style.singleButton}>
+              <Button
+                buttonHandler={editHandler}
+                class={editHelper && "buttonBorder"}
+              >
+                {!editHelper ? (
+                  <span>
+                    <VscEdit /> Edit Profile
+                  </span>
+                ) : (
+                  "Cancel"
+                )}
+              </Button>
             </div>
-          )}
-        </div>
+            <div className={style.singleButton}>
+              <Button buttonHandler={deleteHandler}>
+                <VscTrash /> Delete Account
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {!changePassword && (
+          <div className={appStyle.body}>
+            {deleteHelper ? (
+              deletePrompt
+            ) : (
+              <div>
+                {!editHelper ? (
+                  <div className={style.userInformation}>
+                    <h2 className={style.subTitle}>User Details</h2>
+                    <div className={style.accountDetails}>
+                      <p>
+                        <span className={appStyle.boldBody}>Username: </span>
+                        {userDetails.username}
+                      </p>
+                      <p>
+                        <span className={appStyle.boldBody}>Email: </span>
+                        {userDetails.email}
+                      </p>
+                      <p>
+                        <span className={appStyle.boldBody}>SYM Score: </span>
+                        {userDetails.symScore}
+                      </p>
+                      <p>
+                        <span className={appStyle.boldBody}>
+                          Account created on:{" "}
+                        </span>
+                        {userDetails.dateCreated}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <EditProfileForm
+                    userDetails={userDetails}
+                    onSaveDetails={editUserHandler}
+                  />
+                )}
+              </div>
+            )}
+            {changePassword && (
+              <PasswordChange
+                onSaveDetails={newPasswordHandler}
+                passwordChange={changePassHandler}
+              />
+            )}
+            <div className={style.changePassword}>
+              <button className={appStyle.body} onClick={changePassHandler}>
+                Change password
+              </button>
+            </div>
+          </div>
+        )}
         <Error error={error} />
       </div>
     </div>
