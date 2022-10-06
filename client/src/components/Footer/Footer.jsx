@@ -7,7 +7,7 @@ import UserInfoContext from "./../../context/UserInfoContext";
 import { getCookie } from "../../hooks/useCookie";
 
 const Footer = () => {
-  const { setToken, token } = useContext(UserInfoContext);
+  const { setToken } = useContext(UserInfoContext);
 
   function scrollTop() {
     window.scrollTo(0, 0);
@@ -20,7 +20,7 @@ const Footer = () => {
     onClick: scrollTop,
   };
   let signUpProfile = { to: "/", name: "Sign up" };
-  if (token) {
+  if (getCookie("token")) {
     landingDashboard = "/home";
     signUpProfile = {
       to: `/profile/${getCookie("userID")}`,
