@@ -7,7 +7,7 @@ import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import CreateStatementController from "./pages/Statement/CreateStatementController";
 import Notifier from "./components/Notifier";
-import JobDetails from "./pages/Statement/JobDetails";
+import StatementDetails from "./pages/Statement/StatementDetails";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import UserInfoContext from "./context/UserInfoContext";
 import About from "./pages/About/About";
@@ -36,7 +36,7 @@ const App = () => {
           <Route path="/home" element={<Dashboard />} />
         )}
         <Route path="/login" element={<Login />} />
-        {user && <Route path="/job/view/:id" element={<JobDetails />} />}
+        {user && <Route path="/job/view/:id" element={<StatementDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
         {user && (
           <Route

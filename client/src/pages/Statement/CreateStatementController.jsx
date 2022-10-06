@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import StatementView from "./JobView";
+import StatementView from "./StatementView";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 

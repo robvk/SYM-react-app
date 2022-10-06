@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "../../components/Button";
 import InputStyled from "../../components/InputStyled";
-import styles from "./JobDetails.module.css";
+import styles from "./StatementDetails.module.css";
 import appStyles from "../../App.module.css";
 import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";

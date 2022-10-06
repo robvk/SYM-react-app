@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Button from "../../components/Button";
-import styles from "./JobView.module.css";
+import styles from "./StatementView.module.css";
 import appStyles from "../../App.module.css";
 import Input from "../../components/Input";
 import { getCookie } from "../../hooks/useCookie";
