@@ -24,6 +24,7 @@ const Input = (props) => {
           aria-label={props.ariaLabel}
           onChange={props.onChange}
           onClick={props.onClick}
+          maxLength={props.length}
         />
       </div>
     </div>
@@ -42,6 +43,7 @@ Input.propTypes = {
   className: PropTypes.object,
   src: PropTypes.string,
   isFilled: PropTypes.any,
+  length: PropTypes.number,
 };
 
 export default Input;

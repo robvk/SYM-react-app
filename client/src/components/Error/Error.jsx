@@ -5,7 +5,7 @@ import appStyle from "../../App.module.css";
 
 const Error = ({ error }) => {
   return (
-    <div>
+    <div className={styles.error}>
       <section className={styles.container}>
         <div className={appStyle.body}>
           {error && (

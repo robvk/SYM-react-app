@@ -149,16 +149,16 @@ const StatementDetails = () => {
     });
   }
 
-  let statusbar;
-  if (error) {
-    statusbar = <Error error={error} />;
-  } else if (isLoading) {
-    statusbar = (
-      <>
-        <Loading />
-      </>
-    );
-  }
+  // let statusbar;
+  // if (error) {
+  //   statusbar = <Error error={error} />;
+  // } else if (isLoading) {
+  //   statusbar = (
+  //     <>
+  //       <Loading />
+  //     </>
+  //   );
+  // }
 
   const dateInverter = (date) => {
     const d = new Date(date);
