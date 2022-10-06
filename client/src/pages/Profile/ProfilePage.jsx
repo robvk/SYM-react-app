@@ -249,18 +249,19 @@ const ProfilePage = () => {
                 )}
               </div>
             )}
-            {changePassword && (
-              <PasswordChange
-                onSaveDetails={newPasswordHandler}
-                passwordChange={changePassHandler}
-              />
-            )}
+
             <div className={style.changePassword}>
               <button className={appStyle.body} onClick={changePassHandler}>
                 Change password
               </button>
             </div>
           </div>
+        )}
+        {changePassword && (
+          <PasswordChange
+            onSaveDetails={newPasswordHandler}
+            passwordChange={changePassHandler}
+          />
         )}
         <Error error={error} />
       </div>

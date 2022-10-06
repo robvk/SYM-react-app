@@ -129,6 +129,11 @@
   color: var(--font);
   cursor: pointer;
   font-size: 15px;
+  padding-bottom: 2px;
+}
+
+.changePassword button:hover {
+  border-bottom: 1px solid var(--font);
 }
 
 @media screen and (max-width: 740px) {
@@ -146,6 +151,12 @@
 
   .accountDetails {
     margin: 0px;
+  }
+
+  .accountDetails p,
+  .accountDetails span {
+    font-size: 16px;
+    padding-left: 10px;
   }
 
   .accountDetails {

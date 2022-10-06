@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../../components/Button";
 // Style
-import style from "./ProfilePage.module.css";
+import style from "./PasswordChange.module.css";
 import appStyle from "../../App.module.css";
 import Input from "../../components/Input";
 import password from "../../assets/icons/lock-icon.svg";
@@ -77,11 +77,13 @@ export default function PasswordChange(props) {
 
   return (
     <div className={style.userInformation}>
-      <h2 className={style.subTitle}>Change Password</h2>
-      <div className={style.accountDetails}>
+      <h2 className={`${style.subTitle} ${appStyle.boldBody}`}>
+        Change Password
+      </h2>
+      <div className={style.passwordDetails}>
         <form className={appStyle.body} onSubmit={submitHandler}>
           <Input
-            label="password"
+            label="Current password"
             placeholder="i.e. OldPassword123!"
             src={password}
             type="password"
@@ -95,7 +97,7 @@ export default function PasswordChange(props) {
           />
 
           <Input
-            label="new password"
+            label="New password"
             placeholder="i.e. NewPassword123!"
             src={password}
             type="password"
@@ -109,7 +111,7 @@ export default function PasswordChange(props) {
           />
 
           <Input
-            label="confirm new password"
+            label="Confirm new password"
             placeholder="NewPassword123!"
             src={password}
             type="password"
@@ -121,23 +123,25 @@ export default function PasswordChange(props) {
             onChange={confirmPasswordChecker}
             isFilled={isConfirmPasswordFilled}
           />
-          <div className={style.singleButton}>
-            <Button
-              type="submit"
-              disabled={isDisabled}
-              class={isDisabled ? "buttonDisabled" : ""}
-            >
-              Save
-            </Button>
-          </div>
-          <div className={style.singleButton}>
-            <Button
-              type="button"
-              class="buttonBorder"
-              buttonHandler={props.passwordChange}
-            >
-              Cancel
-            </Button>
+          <div className={style.buttonsDiv}>
+            <div className={style.singleButton}>
+              <Button
+                type="button"
+                class="buttonBorder"
+                buttonHandler={props.passwordChange}
+              >
+                Cancel
+              </Button>
+            </div>
+            <div className={style.singleButton}>
+              <Button
+                type="submit"
+                disabled={isDisabled}
+                class={isDisabled ? "buttonDisabled" : ""}
+              >
+                Save
+              </Button>
+            </div>
           </div>
         </form>
       </div>
