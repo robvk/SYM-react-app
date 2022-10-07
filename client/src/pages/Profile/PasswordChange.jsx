@@ -34,7 +34,8 @@ export default function PasswordChange(props) {
     if (
       newPasswordInputRef.current.value !==
         confirmNewPasswordInputRef.current.value ||
-      !newPasswordInputRef.current.value
+      !newPasswordInputRef.current.value ||
+      !confirmNewPasswordInputRef.current.value
     ) {
       setIsDisabled(true);
       setIsConfirmPasswordFilled(style.notFilled);
@@ -58,20 +59,6 @@ export default function PasswordChange(props) {
       setIsNewPasswordFilled(style.notFilled);
     } else {
       setIsNewPasswordFilled("");
-    }
-  };
-
-  const confirmPasswordChecker = (e) => {
-    if (
-      !e.target.value ||
-      confirmNewPasswordInputRef.current.value !==
-        passwordInputRef.current.value
-    ) {
-      setIsDisabled(true);
-      setIsConfirmPasswordFilled(style.notFilled);
-    } else {
-      setIsDisabled(false);
-      setIsConfirmPasswordFilled("");
     }
   };
 
@@ -119,8 +106,8 @@ export default function PasswordChange(props) {
             id="confirmNewPassword"
             reference={confirmNewPasswordInputRef}
             ariaLabel="confirmNewPassword"
-            onClick={confirmPasswordChecker}
-            onChange={confirmPasswordChecker}
+            onClick={passwordMatch}
+            onChange={passwordMatch}
             isFilled={isConfirmPasswordFilled}
           />
           <div className={style.buttonsDiv}>

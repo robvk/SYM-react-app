@@ -65,21 +65,10 @@ const ProfilePage = () => {
     if (onReceived.message) notifier(onReceived.message);
   };
 
-  // const onPasswordSuccess = () => {
-  //   console.log("password has been changed");
-  // };
-
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     `/profile/${id}`,
     onSuccess
   );
-
-  // const {
-  //   error: errorPassword,
-  //   isLoading: isLoadingPassword,
-  //   performFetch: performPasswordChange,
-  //   cancelFetch: cancelPasswordFetch,
-  // } = useFetch(`/${id}`, onPasswordSuccess);
 
   useEffect(() => {
     if (id === getCookie("userID")) {
@@ -157,10 +146,9 @@ const ProfilePage = () => {
         },
         body: JSON.stringify({ password: userData }),
       });
-      console.log("this is logged", userData);
+
       setChangePassword(false);
     } else {
-      console.log("This was pulled instead");
       const newUSerDetails = {
         username: userData.username,
         email: userData.email,

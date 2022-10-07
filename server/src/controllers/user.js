@@ -68,7 +68,6 @@ export const getTaggers = async (req, res) => {
 
 // Update One User
 export const updateUser = async (req, res) => {
-  console.log("This is the req.body", req.body);
   try {
     let user = await User.findOne({ _id: req.params.id });
 
@@ -95,14 +94,15 @@ export const updateUser = async (req, res) => {
         : user.symScore;
     }
 
-    // const salt = await bcrypt.genSalt(parseInt(user.SALT));
-
     const hashPasswordCurrent = await bcrypt.hash(
       req.body.password.currentPassword,
       user.SALT
     );
 
-    if (hashPasswordCurrent === user.password) {
+    if (
+      hashPasswordCurrent === user.password &&
+      req.body.password.newPassword !== req.body.password.currentPassword
+    ) {
       const saltNew = await bcrypt.genSalt(Number(process.env.SALT));
       const hashNewPassword = await bcrypt.hash(
         req.body.password.newPassword,
@@ -111,11 +111,11 @@ export const updateUser = async (req, res) => {
       user.password = hashNewPassword;
       user.SALT = saltNew;
     } else {
-      console.log("this is current password", user.password);
-      console.log("this is hashPasswordCurrent", hashPasswordCurrent);
       return res.status(400).send({
         message:
-          "The password you entered is incorrect, please enter your current password correctly.",
+          req.body.password.newPassword === req.body.password.currentPassword
+            ? "Your new password cannot be the same as your current one."
+            : "The password you entered is incorrect, please enter your current password correctly.",
       });
     }
 
@@ -132,15 +132,12 @@ export const updateUser = async (req, res) => {
       ? validatePasswordUpdate(passwordToValidate)
       : validateUserUpdate(userToValidate);
 
-    console.log("this is the password obj", passwordToValidate);
-
     if (error) {
       return res.status(400).send({
         message: `${error.details[0].message} field fails to match the required pattern`,
       });
     }
 
-    // user.password = hashPasswordNew;
     await user.save();
 
     res.status(200).json({
@@ -162,53 +159,6 @@ export const updateUser = async (req, res) => {
     });
   }
 };
-
-// Password Change
-// export const updatePassword = async (req, res) => {
-//   console.log("This has been tried");
-//   try {
-//     console.log("this is the req", req);
-//     let user = await User.findOne({ _id: req.params.id });
-
-//     if (req.body.currentPassword === user.password) {
-//       user.password = req.body.newPassword
-//         ? req.body.newPassword
-//         : user.password;
-//     } else {
-//       res.status(400).json({
-//         success: false,
-//         message: "The request is unauthorized",
-//       });
-//     }
-
-//     const userToValidate = {
-//       password: user.password,
-//     };
-
-//     const { error } = validatePasswordUpdate(userToValidate);
-//     if (error) {
-//       return res.status(400).send({
-//         message: `${error.details[0].message} field fails to match the required pattern`,
-//       });
-//     }
-//     const salt = await bcrypt.genSalt(Number(process.env.SALT));
-//     const hashPassword = await bcrypt.hash(user.password, salt);
-
-//     user.password = hashPassword;
-//     console.log("hashed pass", hashPassword);
-//     await user.save();
-//     res.status(200).json({
-//       message: "User profile updated successfully",
-//       success: true,
-//     });
-//   } catch (error) {
-//     logError(error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Unable to update the profile, try again later",
-//     });
-//   }
-// };
 
 // Update Sym Score
 export const updateSymScore = async (req) => {
