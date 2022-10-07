@@ -1,5 +1,9 @@
 import bcrypt from "bcrypt";
-import User, { validateUser, validateUserUpdate } from "../models/User.js";
+import User, {
+  validateUser,
+  validateUserUpdate,
+  validatePasswordUpdate,
+} from "../models/User.js";
 import { logError } from "../util/logging.js";
 
 export const getUsers = async (req, res) => {
@@ -64,8 +68,10 @@ export const getTaggers = async (req, res) => {
 
 // Update One User
 export const updateUser = async (req, res) => {
+  console.log("This is the req.body", req.body);
   try {
     let user = await User.findOne({ _id: req.params.id });
+
     if (!user) {
       res.status(404).json({
         success: false,
@@ -73,33 +79,74 @@ export const updateUser = async (req, res) => {
       });
     }
 
-    user.username = req.body.user.username
-      ? req.body.user.username
-      : user.username;
-    user.email = req.body.user.email
-      ? req.body.user.email.toLowerCase()
-      : user.email;
-    user.password = req.body.user.password
-      ? req.body.user.password
-      : user.password;
-    user.symScore = req.body.user.symScore
-      ? req.body.user.symScore
-      : user.symScore;
+    if (req.body.user) {
+      user.username = req.body.user.username
+        ? req.body.user.username
+        : user.username;
+      user.email = req.body.user.email
+        ? req.body.user.email.toLowerCase()
+        : user.email;
+      user.password = req.body.user.password
+        ? req.body.user.password
+        : user.password;
+      user.SALT = req.body.user.SALT ? req.body.user.SALT : user.SALT;
+      user.symScore = req.body.user.symScore
+        ? req.body.user.symScore
+        : user.symScore;
+    }
+
+    // const salt = await bcrypt.genSalt(parseInt(user.SALT));
+
+    const hashPasswordCurrent = await bcrypt.hash(
+      req.body.password.currentPassword,
+      user.SALT
+    );
+
+    if (hashPasswordCurrent === user.password) {
+      const saltNew = await bcrypt.genSalt(Number(process.env.SALT));
+      const hashNewPassword = await bcrypt.hash(
+        req.body.password.newPassword,
+        saltNew
+      );
+      user.password = hashNewPassword;
+      user.SALT = saltNew;
+    } else {
+      console.log("this is current password", user.password);
+      console.log("this is hashPasswordCurrent", hashPasswordCurrent);
+      return res.status(400).send({
+        message:
+          "The password you entered is incorrect, please enter your current password correctly.",
+      });
+    }
 
     const userToValidate = {
       username: user.username,
       email: user.email,
     };
 
-    const { error } = validateUserUpdate(userToValidate);
+    const passwordToValidate = {
+      password: req.body.password.newPassword,
+    };
+
+    const { error } = req.body.password
+      ? validatePasswordUpdate(passwordToValidate)
+      : validateUserUpdate(userToValidate);
+
+    console.log("this is the password obj", passwordToValidate);
+
     if (error) {
       return res.status(400).send({
         message: `${error.details[0].message} field fails to match the required pattern`,
       });
     }
+
+    // user.password = hashPasswordNew;
     await user.save();
+
     res.status(200).json({
-      message: "User profile updated successfully",
+      message: req.body.password
+        ? "Your password was successfully changed"
+        : "Your account was successfully updated",
       success: true,
       result: {
         username: user.username,
@@ -115,6 +162,53 @@ export const updateUser = async (req, res) => {
     });
   }
 };
+
+// Password Change
+// export const updatePassword = async (req, res) => {
+//   console.log("This has been tried");
+//   try {
+//     console.log("this is the req", req);
+//     let user = await User.findOne({ _id: req.params.id });
+
+//     if (req.body.currentPassword === user.password) {
+//       user.password = req.body.newPassword
+//         ? req.body.newPassword
+//         : user.password;
+//     } else {
+//       res.status(400).json({
+//         success: false,
+//         message: "The request is unauthorized",
+//       });
+//     }
+
+//     const userToValidate = {
+//       password: user.password,
+//     };
+
+//     const { error } = validatePasswordUpdate(userToValidate);
+//     if (error) {
+//       return res.status(400).send({
+//         message: `${error.details[0].message} field fails to match the required pattern`,
+//       });
+//     }
+//     const salt = await bcrypt.genSalt(Number(process.env.SALT));
+//     const hashPassword = await bcrypt.hash(user.password, salt);
+
+//     user.password = hashPassword;
+//     console.log("hashed pass", hashPassword);
+//     await user.save();
+//     res.status(200).json({
+//       message: "User profile updated successfully",
+//       success: true,
+//     });
+//   } catch (error) {
+//     logError(error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Unable to update the profile, try again later",
+//     });
+//   }
+// };
 
 // Update Sym Score
 export const updateSymScore = async (req) => {
@@ -187,7 +281,11 @@ export const createUser = async (req, res) => {
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword = await bcrypt.hash(user.password, salt);
 
-    const newUser = await new User({ ...user, password: hashPassword });
+    const newUser = await new User({
+      ...user,
+      password: hashPassword,
+      SALT: salt,
+    });
     await newUser.save();
     const token = newUser.generateAuthToken();
     res.status(201).send({

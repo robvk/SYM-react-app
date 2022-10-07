@@ -65,10 +65,21 @@ const ProfilePage = () => {
     if (onReceived.message) notifier(onReceived.message);
   };
 
+  // const onPasswordSuccess = () => {
+  //   console.log("password has been changed");
+  // };
+
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     `/profile/${id}`,
     onSuccess
   );
+
+  // const {
+  //   error: errorPassword,
+  //   isLoading: isLoadingPassword,
+  //   performFetch: performPasswordChange,
+  //   cancelFetch: cancelPasswordFetch,
+  // } = useFetch(`/${id}`, onPasswordSuccess);
 
   useEffect(() => {
     if (id === getCookie("userID")) {
@@ -138,41 +149,34 @@ const ProfilePage = () => {
   };
 
   const editUserHandler = (userData) => {
-    const newUSerDetails = {
-      username: userData.username,
-      email: userData.email,
-    };
+    if (changePassHandler) {
+      performFetch({
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ password: userData }),
+      });
+      console.log("this is logged", userData);
+      setChangePassword(false);
+    } else {
+      console.log("This was pulled instead");
+      const newUSerDetails = {
+        username: userData.username,
+        email: userData.email,
+      };
+      performFetch({
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ user: newUSerDetails }),
+      });
 
-    performFetch({
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ user: newUSerDetails }),
-    });
+      setUserDetails(newUSerDetails);
 
-    setUserDetails(newUSerDetails);
-
-    setEditHelper(false);
-  };
-
-  const newPasswordHandler = (passwordData) => {
-    const newPassword = {
-      currentPassword: passwordData.currentPassword,
-      newPassword: passwordData.newPassword,
-    };
-
-    performFetch({
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ user: newPassword }),
-    });
-
-    setUserDetails(newPassword);
-
-    setEditHelper(false);
+      setEditHelper(false);
+    }
   };
 
   return (
@@ -192,7 +196,7 @@ const ProfilePage = () => {
             <div className={style.singleButton}>
               <Button
                 buttonHandler={editHandler}
-                class={editHelper && "buttonBorder"}
+                class={editHelper ? "buttonBorder" : ""}
               >
                 {!editHelper ? (
                   <span>
@@ -259,7 +263,7 @@ const ProfilePage = () => {
         )}
         {changePassword && (
           <PasswordChange
-            onSaveDetails={newPasswordHandler}
+            onSaveDetails={editUserHandler}
             passwordChange={changePassHandler}
           />
         )}
