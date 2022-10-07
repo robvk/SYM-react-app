@@ -6,20 +6,20 @@ import {
   deleteUser,
   updateUser,
   getTaggers,
+  // updatePassword,
 } from "../controllers/user.js";
 
 const userRouter = express.Router();
 
 userRouter.get("/", getUsers);
-
-userRouter.post("/create", createUser);
-
 userRouter.get("/:id", getUser);
 
-userRouter.delete("/:id", deleteUser);
+userRouter.post("/create", createUser);
+userRouter.post("/taggers", getTaggers);
 
 userRouter.patch("/:id", updateUser);
+// userRouter.patch("/:id", updatePassword);
 
-userRouter.post("/taggers", getTaggers);
+userRouter.delete("/:id", deleteUser);
 
 export default userRouter;
