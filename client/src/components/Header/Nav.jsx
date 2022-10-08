@@ -3,13 +3,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 // Components
 import Logo from "../Logo";
-import {
-  VscAdd,
-  VscAccount,
-  VscChevronDown,
-  VscMenu,
-  VscClose,
-} from "react-icons/vsc";
+import { VscAdd, VscChevronDown, VscMenu, VscClose } from "react-icons/vsc";
 // Style
 import style from "./Nav.module.css";
 import appStyle from "../../App.module.css";
@@ -19,10 +13,11 @@ import UserInfoContext from "../../context/UserInfoContext";
 // Hooks
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
+import Avatar from "../../pages/Profile/Avatar";
 
 const Nav = () => {
   const { width } = useWindowDimensions();
-  const { setToken, setUserID, setUsername, username } =
+  const { setToken, setUserID, setUsername, username, symScore } =
     useContext(UserInfoContext);
 
   const [isOpen, setIsOpen] = useState("none");
@@ -82,7 +77,10 @@ const Nav = () => {
               <li className={appStyle.navLinks}>
                 <div className={style.dropdown}>
                   <div className={style.username}>
-                    <VscAccount />
+                    <div className={style.avatarContainer}>
+                      <Avatar symScore={symScore} />
+                    </div>
+
                     <p className={style.dropBtn}>{username}</p>
                     <VscChevronDown />
                   </div>
