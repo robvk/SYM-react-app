@@ -8,6 +8,8 @@ const UserInfoContext = createContext({
   setEmail: () => {},
   username: "",
   setUsername: () => {},
+  symScore: "",
+  setSymScore: () => {},
   StatementsOfUser: {},
   setStatementsOfUser: () => {},
   token: "",
@@ -22,12 +24,15 @@ export function UserInfoContextProvider(props) {
   const [StatementsOfUser, setStatementsOfUser] = useState({});
   const [token, setToken] = useState("");
   const [userID, setUserID] = useState("");
+  const [symScore, setSymScore] = useState("");
 
   const context = {
     email,
     setEmail,
     username,
     setUsername,
+    symScore,
+    setSymScore,
     StatementsOfUser,
     setStatementsOfUser,
     token,
@@ -40,6 +45,7 @@ export function UserInfoContextProvider(props) {
     setUsername(onReceived.result.username);
     setToken(onReceived.result.token);
     setUserID(onReceived.result.userID);
+    setSymScore(onReceived.result.symScore);
   };
 
   const { performFetch, cancelFetch } = useFetch(

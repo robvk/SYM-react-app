@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 // Icons
-import person from "../../assets/icons/person-icon.svg";
 import { VscEdit, VscTrash } from "react-icons/vsc";
 // Style
 import style from "./ProfilePage.module.css";
@@ -19,6 +18,8 @@ import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
 import PasswordChange from "./PasswordChange";
+import Avatar from "./Avatar";
+import ProfileLevel from "./ProfileLevel";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
@@ -174,9 +175,10 @@ const ProfilePage = () => {
         <div className={style.profileHeader}>
           <div className={style.userSection}>
             <div className={style.iconCircle}>
-              <img src={person} />
+              <Avatar symScore={userDetails.symScore} />
             </div>
             <p className={appStyle.headerOne}>{userDetails.username}</p>
+            <ProfileLevel symScore={userDetails.symScore} />
           </div>
         </div>
         {!changePassword && (

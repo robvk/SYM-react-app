@@ -21,11 +21,12 @@
   justify-content: center;
   align-items: center;
 }
+.avatarContainer,
 .username svg {
   background-color: transparent;
   color: var(--font-light);
   margin: 5px;
-  height: 16px;
+  height: 20px;
 }
 
 .navContainer a {
