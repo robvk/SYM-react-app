@@ -25,7 +25,7 @@ const Avatar = (props) => {
     case 0:
       src = first;
       break;
-    case 1:
+    case props.symScore === 1:
       src = second;
       break;
     case props.symScore > 1 && props.symScore < 10:
@@ -84,7 +84,7 @@ const Avatar = (props) => {
 };
 
 Avatar.propTypes = {
-  symScore: PropTypes.number,
+  symScore: PropTypes.any,
 };
 
 export default Avatar;

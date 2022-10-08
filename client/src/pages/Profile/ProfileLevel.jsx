@@ -9,8 +9,8 @@ const ProfileLevel = (props) => {
     case 0:
       level = "n00b";
       break;
-    case 1:
-      level = "First SYMer";
+    case props.symScore === 1:
+      level = "First SYM-er";
       break;
     case props.symScore > 1 && props.symScore < 10:
       level = "Preacher";
@@ -75,7 +75,7 @@ const ProfileLevel = (props) => {
 };
 
 ProfileLevel.propTypes = {
-  symScore: PropTypes.number,
+  symScore: PropTypes.any,
 };
 
 export default ProfileLevel;
