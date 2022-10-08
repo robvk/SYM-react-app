@@ -49,6 +49,7 @@ const ProfilePage = () => {
   }
 
   const onSuccess = (onReceived) => {
+    changePassword && setChangePassword(false);
     if (onReceived.isDelete) {
       deleteCookie("userID");
       deleteCookie("token");
@@ -149,8 +150,6 @@ const ProfilePage = () => {
         },
         body: JSON.stringify({ password: userData }),
       });
-
-      setChangePassword(false);
     } else {
       const newUSerDetails = {
         username: userData.username,

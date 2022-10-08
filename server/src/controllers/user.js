@@ -134,7 +134,7 @@ export const updateUser = async (req, res) => {
 
     if (error) {
       return res.status(400).send({
-        message: `${error.details[0].message} field fails to match the required pattern`,
+        message: `${error.details[0].message}`,
       });
     }
 
