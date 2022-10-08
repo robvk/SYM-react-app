@@ -116,7 +116,7 @@ const Nav = () => {
 
             <div id="myLinks" style={{ display: isOpen }}>
               {getCookie("token") && (
-                <Link onClick={mobileNavigator} key="0" to="#">
+                <Link onClick={mobileNavigator} key="0" to="/statements/create">
                   <p>New Statement</p>
                 </Link>
               )}
