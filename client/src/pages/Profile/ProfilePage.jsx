@@ -11,6 +11,8 @@ import appStyle from "../../App.module.css";
 import Button from "../../components/Button";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
+import Avatar from "./Avatar";
+import ProfileLevel from "./ProfileLevel";
 // Hook
 import useFetch from "../../hooks/useFetch";
 import NotifierContext from "../../context/NotifierContext";
@@ -18,8 +20,6 @@ import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
 import PasswordChange from "./PasswordChange";
-import Avatar from "./Avatar";
-import ProfileLevel from "./ProfileLevel";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
@@ -121,6 +121,7 @@ const ProfilePage = () => {
 
   const deleteHandler = () => {
     setDeleteHelper(true);
+    setEditHelper(false);
   };
 
   const deleteProfile = () => {
@@ -136,6 +137,7 @@ const ProfilePage = () => {
 
   const editHandler = () => {
     editHelper ? setEditHelper(false) : setEditHelper(true);
+    setDeleteHelper(false);
   };
 
   const editUserHandler = (userData) => {
