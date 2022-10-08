@@ -41,7 +41,7 @@ const Nav = () => {
         <ul className={style.navContainer}>
           <div className={style.fullLogo}>
             <li className={style.logoNav}>
-              <Link key="0" to={getCookie("token") ? "/home" : "/"}>
+              <Link key="0" to={getCookie("token") ? "/feed" : "/"}>
                 <div className={style.logoDiv}>
                   <Logo />
                 </div>
@@ -58,7 +58,7 @@ const Nav = () => {
               </li>
             )}
             <li className={appStyle.navLinks}>
-              <Link key="1" to={getCookie("token") ? "/home" : "/"}>
+              <Link key="1" to={getCookie("token") ? "/feed" : "/"}>
                 <span>Home</span>
               </Link>
             </li>
@@ -106,7 +106,7 @@ const Nav = () => {
               <Link
                 className={style.active}
                 key="0"
-                to={getCookie("token") ? "/home" : "/"}
+                to={getCookie("token") ? "/feed" : "/"}
               >
                 <div className={style.logoDiv}>
                   <Logo />
@@ -123,7 +123,7 @@ const Nav = () => {
               <Link
                 onClick={mobileNavigator}
                 key="1"
-                to={getCookie("token") ? "/home" : "/"}
+                to={getCookie("token") ? "/feed" : "/"}
               >
                 <span>Home</span>
               </Link>

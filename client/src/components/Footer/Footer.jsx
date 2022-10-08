@@ -21,7 +21,7 @@ const Footer = () => {
   };
   let signUpProfile = { to: "/", name: "Sign up" };
   if (getCookie("token")) {
-    landingDashboard = "/home";
+    landingDashboard = "/feed";
     signUpProfile = {
       to: `/profile/${getCookie("userID")}`,
       name: "Profile",

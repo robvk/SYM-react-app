@@ -60,7 +60,7 @@ const StatementView = ({ statementHandler }) => {
         </div>
         <div className={styles.buttonsDiv}>
           <div className={styles.singleButton}>
-            <Button type="button" path="/home" class="buttonBorder">
+            <Button type="button" path="/feed" class="buttonBorder">
               Cancel
             </Button>
           </div>

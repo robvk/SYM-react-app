@@ -8,7 +8,7 @@ import Login from "./pages/Login/Login";
 import CreateStatementController from "./pages/Statement/CreateStatementController";
 import Notifier from "./components/Notifier";
 import StatementDetails from "./pages/Statement/StatementDetails";
-import Dashboard from "./pages/Dashboard/Dashboard";
+import Feed from "./pages/Feed/Feed";
 import UserInfoContext from "./context/UserInfoContext";
 import About from "./pages/About/About";
 import ProfilePage from "./pages/Profile/ProfilePage";
@@ -33,7 +33,7 @@ const App = () => {
         {!user ? (
           <Route path="/" element={<Home />} />
         ) : (
-          <Route path="/home" element={<Dashboard />} />
+          <Route path="/feed" element={<Feed />} />
         )}
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<StatementDetails />} />}
@@ -44,7 +44,7 @@ const App = () => {
             element={<CreateStatementController />}
           />
         )}
-        {user && <Route path="/home" element={<Dashboard />} />}
+        {user && <Route path="/feed" element={<Feed />} />}
         <Route path="/about" element={<About />} />
         {user && <Route path="/profile/:id" element={<ProfilePage />} />}
       </Routes>

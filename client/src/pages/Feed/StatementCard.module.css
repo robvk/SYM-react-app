@@ -1,0 +1,62 @@
+.cardContainer {
+  border: 2px solid var(--font);
+  border-radius: 5px;
+}
+
+.row {
+  display: flex;
+  height: 100px;
+  margin-left: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.taggers {
+  margin-top: auto;
+  font-size: 14px;
+  padding: 0px 0px 5px 5px;
+}
+
+.statement {
+  margin-top: auto;
+  padding: 0px 5px;
+  margin-bottom: -15px;
+}
+
+.voteContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 15px 5px auto;
+}
+
+.voteContainer p {
+  text-align: center;
+  padding-bottom: 3px;
+}
+
+.voteContainer button {
+  border: none;
+  background: transparent;
+  transition: 0.1s;
+}
+
+.voteContainer button:hover {
+  cursor: pointer;
+}
+
+.voteContainer button:active {
+  filter: invert(1);
+}
+
+.red {
+  color: var(--red);
+}
+
+@media screen and (max-width: 840px) {
+}
