@@ -2,6 +2,7 @@
   border: 2px solid var(--font);
   border-radius: 5px;
   margin: 10px auto 10px auto;
+  color: var(--font) !important;
 }
 
 .row {
@@ -26,6 +27,7 @@
   margin-top: auto;
   padding: 0px 5px;
   margin-bottom: -15px;
+  text-overflow: ellipsis !important;
 }
 
 .voteContainer {

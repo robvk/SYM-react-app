@@ -26,14 +26,31 @@ function StatementCard({ statement }) {
   //   navigate(`/statement/view/${statement._id}`);
   // }
   const upHandler = () => {
-    setUpButton(style.red);
+    upButton ? setUpButton("") : setUpButton(style.red);
     setDownButton("");
   };
 
   const downHandler = () => {
-    setDownButton(style.red);
+    downButton ? setDownButton("") : setDownButton(style.red);
     setUpButton("");
   };
+
+  function splitString(str, length) {
+    var words = str.split(" ");
+    for (let j = 0; j < words.length; j++) {
+      let l = words[j].length;
+      if (l > length) {
+        let result = [],
+          i = 0;
+        while (i < l) {
+          result.push(words[j].substr(i, length));
+          i += length;
+        }
+        words[j] = result.join(" ");
+      }
+    }
+    return words.join(" ");
+  }
 
   return (
     <div className={style.StatementCard}>
@@ -41,7 +58,7 @@ function StatementCard({ statement }) {
         <div className={style.row}>
           <div className={style.column}>
             <p className={`${appStyle.boldBody} ${style.statement}`}>
-              {fullStatement}
+              {splitString(fullStatement, 50)}
             </p>
             <p className={`${appStyle.body} ${style.taggers}`}>
               {taggersID.length} taggers
