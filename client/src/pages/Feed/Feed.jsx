@@ -25,7 +25,8 @@ function Feed() {
   // }
 
   const onSuccess = (onReceived) => {
-    setStatements(onReceived);
+    setStatements(onReceived.result.statements);
+    console.log("FEEEED", onReceived.result.statements);
   };
 
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
@@ -55,7 +56,7 @@ function Feed() {
           <div className={style.cardsDiv}>
             <ul>
               {statements ? (
-                statements.result?.statements?.map((statement, index) => (
+                statements?.map((statement, index) => (
                   <li key={index}>{<StatementCard statement={statement} />}</li>
                 ))
               ) : (

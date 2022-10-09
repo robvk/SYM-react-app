@@ -20,7 +20,6 @@ const StatementView = ({ statementHandler }) => {
       statementStart: enteredStatementStart,
       statementEnd: enteredStatementEnd,
       fullStatement: enteredStatementStart + " " + enteredStatementEnd,
-      votes: 1,
       dateCreated: dateNow,
     };
 
