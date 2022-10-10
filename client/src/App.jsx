@@ -18,11 +18,11 @@ import style from "./App.module.css";
 import { getCookie } from "./hooks/useCookie";
 
 const App = () => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(false);
   const { token } = useContext(UserInfoContext);
 
   useEffect(() => {
-    setUser(getCookie("token"));
+    getCookie("token") ? setUser(true) : setUser(false);
   }, [token]);
 
   return (

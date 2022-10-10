@@ -8,35 +8,42 @@ import useFetch from "../../hooks/useFetch";
 import { getCookie } from "../../hooks/useCookie";
 import { useRef } from "react";
 
-function StatementCard({ statement }) {
+function StatementCard(props) {
+  const votes = useRef();
+  const upVotes = useRef();
+  const downVotes = useRef();
+
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
-  // const [votes, setVotes] = useState();
-  const votes = useRef();
+  const [upVoted, setUpVoted] = useState(false);
+  const [downVoted, setDownVoted] = useState(false);
 
-  const [statementData, setStatementData] = useState({
-    dateCreated: "",
-    fullStatement: "",
-    statementEnd: "",
-    statementStart: "",
-    taggersID: "",
-    userID: "",
-    upVotes: [],
-    downVotes: [],
-    _id: "",
-  });
+  const totalVotes = () => {
+    votes.current = upVotes.current.length - downVotes.current.length;
+  };
 
-  const {
-    dateCreated,
-    fullStatement,
-    statementEnd,
-    statementStart,
-    taggersID,
-    userID,
-    upVotes,
-    downVotes,
-    _id,
-  } = statement;
+  useEffect(() => {
+    upVotes.current = props.statement.upVotes;
+    downVotes.current = props.statement.downVotes;
+    totalVotes();
+
+    props.statement.upVotes.includes(getCookie("userID"))
+      ? setUpButton(style.red)
+      : setUpButton("");
+
+    props.statement.downVotes.includes(getCookie("userID"))
+      ? setDownButton(style.red)
+      : setDownButton("");
+
+    return cancelFetch;
+  }, []);
+
+  // const navigate = useNavigate();
+
+  // function toDetail(e) {
+  //   e.preventDefault();
+  //   navigate(`/statement/view/${statement._id}`);
+  // }
 
   // Split long single words into max length
   function splitString(str, length) {
@@ -56,101 +63,72 @@ function StatementCard({ statement }) {
     return words.join(" ");
   }
 
-  useEffect(() => {
-    setStatementData({
-      dateCreated: dateCreated,
-      fullStatement: splitString(fullStatement, 50),
-      statementEnd: statementEnd,
-      statementStart: statementStart,
-      taggersID: taggersID,
-      userID: userID,
-      upVotes: upVotes,
-      downVotes: downVotes,
-      _id: _id,
-    });
-
-    return cancelFetch;
-  }, []);
-
-  useEffect(() => {
-    votes.current =
-      statementData?.upVotes?.length - statementData?.downVotes?.length;
-
-    // setVotes(statementData.upVotes.length - statementData.downVotes.length);
-
-    if (statementData.upVotes.includes(getCookie("userID"))) {
-      setUpButton(style.red);
-    } else {
-      setUpButton("");
-
-      if (statementData.downVotes.includes(getCookie("userID"))) {
-        setDownButton(style.red);
-      } else {
-        setDownButton("");
-      }
-    }
-  }, [statementData]);
-
   const onSuccess = (onReceived) => {
-    setStatementData({ onReceived });
-    console.log("successfully updated", onReceived);
+    upVotes.current = onReceived.result.upVotes;
+    downVotes.current = onReceived.result.downVotes;
+    totalVotes();
+
+    upVotes.current.includes(getCookie("userID"))
+      ? setUpButton(style.red)
+      : setUpButton("");
+
+    downVotes.current.includes(getCookie("userID"))
+      ? setDownButton(style.red)
+      : setDownButton("");
   };
 
   const { performFetch, cancelFetch } = useFetch(
-    `/statements/${_id}`,
+    `/statements/${props.statement._id}`,
     onSuccess
   );
 
-  // const navigate = useNavigate();
-
-  // function toDetail(e) {
-  //   e.preventDefault();
-  //   navigate(`/statement/view/${statement._id}`);
-  // }
-  const upHandler = () => {
-    if (statementData.upVotes.includes(getCookie("userID"))) {
-      let newUpVotes = statementData.upVotes.filter(
-        (user) => user !== getCookie("userID")
-      );
-      setStatementData({ ...statementData, upVotes: newUpVotes });
-      // setUpButton("");
-    } else {
-      setStatementData({
-        ...statementData,
-        upVotes: [...statementData.upVotes, getCookie("userID")],
-      });
-    }
-
+  useEffect(() => {
     performFetch({
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ statement: statementData }),
+      body: JSON.stringify({
+        statement: {
+          userID: props.statement.userID,
+          taggersID: props.statement.taggersID,
+          fullStatement: props.statement.fullStatement,
+          statementStart: props.statement.statementStart,
+          statementEnd: props.statement.statementEnd,
+          dateCreated: props.statement.dateCreated,
+          upVotes: upVotes.current,
+          downVotes: downVotes.current,
+        },
+      }),
     });
+  }, [upVoted, downVoted]);
+
+  const upHandler = () => {
+    upVotes.current.includes(getCookie("userID"))
+      ? (upVotes.current = upVotes.current.filter(
+          (user) => user !== getCookie("userID")
+        ))
+      : upVotes.current.push(getCookie("userID"));
+
+    if (downVotes.current.includes(getCookie("userID")))
+      downVotes.current = downVotes.current.filter(
+        (user) => user !== getCookie("userID")
+      );
+    upVoted ? setUpVoted(false) : setUpVoted(true);
   };
 
   const downHandler = () => {
-    if (statementData.downVotes.includes(getCookie("userID"))) {
-      let newDownVotes = statementData.downVotes.filter(
+    downVotes.current.includes(getCookie("userID"))
+      ? (downVotes.current = downVotes.current.filter(
+          (user) => user !== getCookie("userID")
+        ))
+      : downVotes.current.push(getCookie("userID"));
+
+    if (upVotes.current.includes(getCookie("userID")))
+      upVotes.current = upVotes.current.filter(
         (user) => user !== getCookie("userID")
       );
-      setStatementData({ ...statementData, downVotes: newDownVotes });
-      // setDownButton("");
-    } else {
-      setStatementData({
-        ...statementData,
-        downVotes: [...statementData.downVotes, getCookie("userID")],
-      });
-    }
-
-    performFetch({
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({ statement: statementData }),
-    });
+    downVoted ? setDownVoted(false) : setDownVoted(true);
   };
 
   return (
@@ -159,10 +137,10 @@ function StatementCard({ statement }) {
         <div className={style.row}>
           <div className={style.column}>
             <p className={`${appStyle.boldBody} ${style.statement}`}>
-              {statementData.fullStatement}
+              {splitString(props.statement.fullStatement, 50)}
             </p>
             <p className={`${appStyle.body} ${style.taggers}`}>
-              {statementData.taggersID.length} taggers
+              {props.statement.taggersID.length} taggers
             </p>
           </div>
           <div className={style.voteContainer}>

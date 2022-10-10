@@ -8,7 +8,6 @@ export const updateStatement = async (req, res) => {
 
   try {
     let statement = await Statement.findOne({ _id: req.params.id });
-    // console.log("backend", statement);
     if (!statement) {
       res.status(404).json({
         success: false,
@@ -48,7 +47,6 @@ export const updateStatement = async (req, res) => {
       downVotes: statement.downVotes,
     };
     const { error } = validateStatement(statementToValidate);
-    console.log("statement", statementToValidate);
     if (error) {
       return res.status(400).send({
         message: `${error.details[0].path} field fails to match the required pattern`,
@@ -102,7 +100,6 @@ export const updateStatement = async (req, res) => {
 // };
 
 export const createStatement = async (req, res) => {
-  console.log(req.body);
   const statement = { ...req.body };
   try {
     if (typeof statement.statement !== "object") {

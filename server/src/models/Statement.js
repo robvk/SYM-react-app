@@ -21,8 +21,8 @@ export const validateStatement = (data) => {
     statementStart: Joi.string().min(1).required().label("statementStart"),
     statementEnd: Joi.string().min(1).required().label("statementEnd"),
     dateCreated: Joi.date().required().label("dateCreated"),
-    upVotes: Joi.array().required().label("upVotes"),
-    downVotes: Joi.array().required().label("downVotes"),
+    upVotes: Joi.array().label("upVotes"),
+    downVotes: Joi.array().label("downVotes"),
     taggersID: Joi.array().label("taggersID"),
   });
   return schema.validate(data);

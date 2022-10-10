@@ -26,7 +26,6 @@ function Feed() {
 
   const onSuccess = (onReceived) => {
     setStatements(onReceived.result.statements);
-    console.log("FEEEED", onReceived.result.statements);
   };
 
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
