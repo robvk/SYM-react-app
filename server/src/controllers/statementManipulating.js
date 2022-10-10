@@ -1,73 +1,71 @@
 import Statement, { validateStatement } from "../models/Statement.js";
-// import { logError } from "../util/logging.js";
-// import { logError } from "../util/logging.js";
+import { logError } from "../util/logging.js";
 import makeFirstLetterUpper from "../util/makeFirstLetterUpper.js";
 import { updateSymScore } from "./user.js";
 
-// export const updateStatement = async (req, res) => {
-//   try {
-//     let job = await Statement.findOne({ _id: req.params.id });
-//     if (!job) {
-//       res.status(404).json({
-//         success: false,
-//         message: "The job is not found",
-//       });
-//     }
+export const updateStatement = async (req, res) => {
+  const newData = req.body.statement;
 
-//     job.item = req.body.job.item
-//       ? makeFirstLetterUpper(req.body.job.item)
-//       : job.item;
-//     job.description = req.body.job.description
-//       ? makeFirstLetterUpper(req.body.job.description)
-//       : job.description;
-//     job.fromPostCode = req.body.job.fromPostCode
-//       ? req.body.job.fromPostCode.toUpperCase()
-//       : job.fromPostCode;
-//     job.toPostCode = req.body.job.toPostCode
-//       ? req.body.job.toPostCode.toUpperCase()
-//       : job.toPostCode;
-//     job.width = req.body.job.width ? req.body.job.width : job.width;
-//     job.height = req.body.job.height ? req.body.job.height : job.height;
-//     job.date = req.body.job.date ? req.body.job.date : job.date;
-//     job["length"] = req.body.job["length"]
-//       ? req.body.job["length"]
-//       : job["length"];
-//     job.phoneNo = req.body.job.phoneNo ? req.body.job.phoneNo : job.phoneNo;
-//     job.senderID = req.body.job.senderID ? req.body.job.senderID : job.senderID;
-//     job.category = req.body.job.category ? req.body.job.category : job.category;
-//     const jobToValidate = {
-//       item: job.item,
-//       description: job.description,
-//       fromPostCode: job.fromPostCode,
-//       toPostCode: job.toPostCode,
-//       width: job.width,
-//       height: job.height,
-//       length: job["length"],
-//       date: job.date,
-//       phoneNo: job.phoneNo,
-//       senderID: job.senderID,
-//       category: job.category,
-//     };
-//     const { error } = validateJob(jobToValidate);
-//     if (error) {
-//       return res.status(400).send({
-//         message: `${error.details[0].path} field fails to match the required pattern`,
-//       });
-//     }
-//     await job.save();
-//     res.status(200).json({
-//       success: true,
-//       result: job,
-//       message: "Job is updated successfully",
-//     });
-//   } catch (error) {
-//     logError(error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Unable to get the job, try again later",
-//     });
-//   }
-// };
+  try {
+    let statement = await Statement.findOne({ _id: req.params.id });
+    if (!statement) {
+      res.status(404).json({
+        success: false,
+        message: "The statement was not found",
+      });
+    }
+
+    statement.userID = newData.userID ? newData.userID : statement.userID;
+    statement.taggersID = newData.taggersID
+      ? newData.taggersID
+      : statement.taggersID;
+    statement.fullStatement = newData.fullStatement
+      ? newData.fullStatement
+      : statement.fullStatement;
+    statement.statementStart = newData.statementStart
+      ? newData.statementStart
+      : statement.statementStart;
+    statement.statementEnd = newData.statementEnd
+      ? newData.statementEnd
+      : statement.statementEnd;
+    statement.dateCreated = newData.dateCreated
+      ? newData.dateCreated
+      : statement.dateCreated;
+    statement.upVotes = newData.upVotes ? newData.upVotes : statement.upVotes;
+    statement.downVotes = newData.downVotes
+      ? newData.downVotes
+      : statement.downVotes;
+
+    const statementToValidate = {
+      userID: statement.userID,
+      taggersID: statement.taggersID,
+      fullStatement: statement.fullStatement,
+      statementStart: statement.statementStart,
+      statementEnd: statement.statementEnd,
+      dateCreated: statement.dateCreated,
+      upVotes: statement.upVotes,
+      downVotes: statement.downVotes,
+    };
+    const { error } = validateStatement(statementToValidate);
+    if (error) {
+      return res.status(400).send({
+        message: `${error.details[0].path} field fails to match the required pattern`,
+      });
+    }
+    await statement.save();
+    res.status(200).json({
+      success: true,
+      result: statement,
+      message: "Statement was updated successfully",
+    });
+  } catch (error) {
+    logError(error);
+    res.status(500).json({
+      success: false,
+      message: "Unable to get the statement, try again later",
+    });
+  }
+};
 
 // export const acceptCancelJob = async (req, res) => {
 //   try {
@@ -101,29 +99,6 @@ import { updateSymScore } from "./user.js";
 //   }
 // };
 
-// Transaction
-// export const statementTransaction = async (req, res) => {
-//   const transactionOptions = {
-//     readPreference: "primary",
-//     readConcern: { level: "local" },
-//     writeConcern: { w: "majority" },
-//   };
-
-//   try {
-//     const transactionOutput = await connectDB.withTransaction(async () => {
-//       createStatement(req, res);
-//       updateSymScore(req, res);
-//     }, transactionOptions);
-//     if (transactionOutput) {
-//       console.log("Transaction initiated");
-//     } else {
-//       console.log("Transaction aborted.");
-//     }
-//   } catch (error) {
-//     logError(error);
-//   }
-// };
-
 export const createStatement = async (req, res) => {
   const statement = { ...req.body };
   try {
@@ -144,7 +119,10 @@ export const createStatement = async (req, res) => {
       statement.statement.fullStatement
     );
 
-    await new Statement({ ...statement.statement }).save();
+    await new Statement({
+      ...statement.statement,
+      upVotes: [statement.statement.userID],
+    }).save();
     await updateSymScore(req, res);
     res
       .status(201)

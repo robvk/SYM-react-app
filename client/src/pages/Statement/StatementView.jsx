@@ -20,7 +20,6 @@ const StatementView = ({ statementHandler }) => {
       statementStart: enteredStatementStart,
       statementEnd: enteredStatementEnd,
       fullStatement: enteredStatementStart + " " + enteredStatementEnd,
-      votes: 1,
       dateCreated: dateNow,
     };
 
@@ -47,20 +46,20 @@ const StatementView = ({ statementHandler }) => {
 
           <Input
             name="statementEnd"
-            label="Statement (100 char max)"
+            label="Statement (50 char max)"
             placeholder="start by having breakfast"
             type="text"
             required
             id="statementEnd"
             reference={statementEndInputRef}
             ariaLabel="statementEnd"
-            length="100"
+            length="50"
             textArea={true}
           />
         </div>
         <div className={styles.buttonsDiv}>
           <div className={styles.singleButton}>
-            <Button type="button" path="/home" class="buttonBorder">
+            <Button type="button" path="/feed" class="buttonBorder">
               Cancel
             </Button>
           </div>

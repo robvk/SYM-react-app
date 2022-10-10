@@ -24,7 +24,7 @@ function Login() {
     setToken(res.data);
     setUserID(res.id);
     setUsername(res.username);
-    navigate("/", {
+    navigate("/feed", {
       replace: true,
     });
   };

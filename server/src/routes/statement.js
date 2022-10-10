@@ -3,7 +3,7 @@ import {
   createStatement,
 
   // deleteStatement,
-  // updateStatement,
+  updateStatement,
 } from "../controllers/statementManipulating.js";
 import {
   getAllStatements,
@@ -18,7 +18,7 @@ statementRouter.get("/:id", getOneStatement);
 
 // statementRouter.delete("/:id", deleteStatement);
 
-// statementRouter.patch("/:id", updateStatement);
+statementRouter.patch("/:id", updateStatement);
 
 // statementRouter.put("/:id", acceptCancelJob);
 

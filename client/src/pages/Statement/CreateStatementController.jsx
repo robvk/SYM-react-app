@@ -9,7 +9,7 @@ const CreateStatementController = () => {
   const navigate = useNavigate();
 
   const onSuccess = () => {
-    navigate("/home", {
+    navigate("/feed", {
       replace: true,
     });
   };

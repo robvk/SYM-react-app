@@ -63,7 +63,7 @@ export function UserInfoContextProvider(props) {
       });
     }
     return cancelFetch;
-  }, [username]);
+  }, [username, symScore, userID]);
 
   return (
     <UserInfoContext.Provider value={context}>
