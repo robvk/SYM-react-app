@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import style from "./Dashboard.module.css";
+import style from "./Feed.module.css";
 import appStyle from "../../App.module.css";
 // import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";
@@ -44,29 +44,28 @@ function Feed() {
   }, []);
 
   return (
-    <>
+    <div className={style.homePage}>
       <ProgressBar loading={isLoading} />
       <div className={style.container}>
         <div>
-          <h2 className={appStyle.headerOne}>FEED</h2>
+          <h2 className={appStyle.headerOne}>Home</h2>
         </div>
 
-        <div className={style.buttonsAndCardsDiv}>
-          <div className={style.cardsDiv}>
-            <ul>
-              {statements ? (
-                statements?.map((statement, index) => (
-                  <li key={index}>{<StatementCard statement={statement} />}</li>
-                ))
-              ) : (
-                <p>It seems like there are no statements.</p>
-              )}
-            </ul>
-          </div>
+        <div className={style.cardsDiv}>
+          <ul>
+            {statements ? (
+              statements?.map((statement, index) => (
+                <li key={index}>{<StatementCard statement={statement} />}</li>
+              ))
+            ) : (
+              <p>It seems like there are no statements.</p>
+            )}
+          </ul>
         </div>
       </div>
-      {error != null && <Error error={error} />}
-    </>
+
+      <Error error={error} transparent={true} />
+    </div>
   );
 }
 

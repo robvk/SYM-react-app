@@ -1,11 +1,12 @@
 .cardContainer {
-  border: 2px solid var(--font);
+  border: 1px solid var(--font);
   border-radius: 5px;
-  margin: 10px auto 10px auto;
+  box-shadow: 0px 0px 10px rgba(12, 1, 98, 0.25);
+  margin: 20px auto 20px auto;
   color: var(--font) !important;
   width: 40vw;
   max-width: 700px;
-  background: var(--background);
+  background: var(--highlight);
 }
 
 .row {

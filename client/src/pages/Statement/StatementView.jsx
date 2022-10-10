@@ -46,14 +46,14 @@ const StatementView = ({ statementHandler }) => {
 
           <Input
             name="statementEnd"
-            label="Statement (100 char max)"
+            label="Statement (50 char max)"
             placeholder="start by having breakfast"
             type="text"
             required
             id="statementEnd"
             reference={statementEndInputRef}
             ariaLabel="statementEnd"
-            length="100"
+            length="50"
             textArea={true}
           />
         </div>
