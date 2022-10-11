@@ -12,7 +12,8 @@ export const getAllStatements = async (req, res) => {
       });
     }
 
-    const statements = await Statement.find();
+    const sort = { netVotes: -1 };
+    const statements = await Statement.find().sort(sort);
 
     res.status(200).json({
       success: true,

@@ -98,6 +98,7 @@ function StatementCard(props) {
           dateCreated: props.statement.dateCreated,
           upVotes: upVotes.current,
           downVotes: downVotes.current,
+          netVotes: votes.current,
         },
       }),
     });

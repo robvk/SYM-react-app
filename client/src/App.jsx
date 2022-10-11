@@ -23,6 +23,7 @@ const App = () => {
 
   useEffect(() => {
     getCookie("token") ? setUser(true) : setUser(false);
+    // token ? setUser(true) : setUser(false);
   }, [token]);
 
   return (
@@ -30,11 +31,8 @@ const App = () => {
       <Nav />
       <Notifier />
       <Routes>
-        {!user ? (
-          <Route path="/" element={<Home />} />
-        ) : (
-          <Route path="/feed" element={<Feed />} />
-        )}
+        <Route path="/" element={!user ? <Home /> : <Feed />} />
+
         <Route path="/login" element={<Login />} />
         {user && <Route path="/job/view/:id" element={<StatementDetails />} />}
         {!user && <Route path="/login" element={<Login />} />}
