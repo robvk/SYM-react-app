@@ -40,6 +40,27 @@ export const getUser = async (req, res) => {
   }
 };
 
+// Find One user
+export const getPublicUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findOne({ _id: id });
+    res.status(200).json({
+      success: true,
+      result: {
+        username: user.username,
+        symScore: user.symScore,
+        dateCreated: user.dateCreated,
+      },
+    });
+  } catch (error) {
+    logError(error);
+    res
+      .status(500)
+      .json({ success: false, msg: "Unable to get user, try again later" });
+  }
+};
+
 // Find Taggers
 export const getTaggers = async (req, res) => {
   const { taggersID } = req.body;

@@ -11,7 +11,7 @@ import appStyle from "../../App.module.css";
 import Button from "../../components/Button";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
-import Avatar from "./Avatar";
+import Avatar from "../../components/Avatar";
 import ProfileLevel from "./ProfileLevel";
 // Hook
 import useFetch from "../../hooks/useFetch";
