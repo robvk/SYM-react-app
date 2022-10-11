@@ -32,6 +32,9 @@ export const updateStatement = async (req, res) => {
       ? newData.dateCreated
       : statement.dateCreated;
     statement.upVotes = newData.upVotes ? newData.upVotes : statement.upVotes;
+    statement.netVotes = newData.netVotes
+      ? newData.netVotes
+      : statement.netVotes;
     statement.downVotes = newData.downVotes
       ? newData.downVotes
       : statement.downVotes;
@@ -45,6 +48,7 @@ export const updateStatement = async (req, res) => {
       dateCreated: statement.dateCreated,
       upVotes: statement.upVotes,
       downVotes: statement.downVotes,
+      netVotes: statement.netVotes,
     };
     const { error } = validateStatement(statementToValidate);
     if (error) {
@@ -122,6 +126,7 @@ export const createStatement = async (req, res) => {
     await new Statement({
       ...statement.statement,
       upVotes: [statement.statement.userID],
+      netVotes: 1,
     }).save();
     await updateSymScore(req, res);
     res

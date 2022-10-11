@@ -9,6 +9,7 @@ const statementSchema = new mongoose.Schema({
   statementEnd: { type: String, required: true },
   dateCreated: { type: Date, required: true },
   upVotes: [{ type: String, required: false }],
+  netVotes: { type: Number, required: false },
   downVotes: [{ type: String, required: false }],
 });
 
@@ -22,6 +23,7 @@ export const validateStatement = (data) => {
     statementEnd: Joi.string().min(1).required().label("statementEnd"),
     dateCreated: Joi.date().required().label("dateCreated"),
     upVotes: Joi.array().label("upVotes"),
+    netVotes: Joi.number().label("upVotesCount"),
     downVotes: Joi.array().label("downVotes"),
     taggersID: Joi.array().label("taggersID"),
   });
