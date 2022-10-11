@@ -3,29 +3,45 @@ import PropTypes from "prop-types";
 // import { useNavigate } from "react-router-dom";
 import style from "./StatementCard.module.css";
 import appStyle from "../../App.module.css";
-import { ImArrowUp, ImArrowDown } from "react-icons/im";
+import { ImArrowUp, ImArrowDown, ImLoop2 } from "react-icons/im";
 import useFetch from "../../hooks/useFetch";
 import { getCookie } from "../../hooks/useCookie";
 import { useRef } from "react";
+import Avatar from "../../components/Avatar";
+import { Link } from "react-router-dom";
 
 function StatementCard(props) {
   const votes = useRef();
   const upVotes = useRef();
   const downVotes = useRef();
+  const taggers = useRef();
 
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
+  const [tagged, setTagged] = useState("");
   const [upVoted, setUpVoted] = useState(false);
   const [downVoted, setDownVoted] = useState(false);
+  const [author, setAuthor] = useState({
+    username: "",
+    symScore: "",
+    dateCreated: "",
+  });
 
   const totalVotes = () => {
     votes.current = upVotes.current.length - downVotes.current.length;
   };
 
   useEffect(() => {
+    performFetchUser({
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
     upVotes.current = props.statement.upVotes;
     downVotes.current = props.statement.downVotes;
     totalVotes();
+    taggers.current = props.statement.taggersID;
 
     props.statement.upVotes.includes(getCookie("userID"))
       ? setUpButton(style.red)
@@ -35,7 +51,11 @@ function StatementCard(props) {
       ? setDownButton(style.red)
       : setDownButton("");
 
-    return cancelFetch;
+    props.statement.taggersID.includes(getCookie("userID"))
+      ? setTagged(style.red)
+      : setTagged("");
+
+    return cancelFetch, cancelFetchUser;
   }, []);
 
   // const navigate = useNavigate();
@@ -75,12 +95,23 @@ function StatementCard(props) {
     downVotes.current.includes(getCookie("userID"))
       ? setDownButton(style.red)
       : setDownButton("");
+
+    taggers.current.includes(getCookie("userID"))
+      ? setTagged(style.red)
+      : setTagged("");
   };
 
   const { performFetch, cancelFetch } = useFetch(
     `/statements/${props.statement._id}`,
     onSuccess
   );
+
+  const onSuccessUser = (onReceived) => {
+    setAuthor(onReceived.result);
+  };
+
+  const { performFetch: performFetchUser, cancelFetch: cancelFetchUser } =
+    useFetch(`/user/public/${props.statement.userID}`, onSuccessUser);
 
   useEffect(() => {
     performFetch({
@@ -137,21 +168,40 @@ function StatementCard(props) {
       <div className={style.cardContainer}>
         <div className={style.row}>
           <div className={style.column}>
-            <p className={`${appStyle.boldBody} ${style.statement}`}>
-              {splitString(props.statement.fullStatement, 50)}
-            </p>
-            <p className={`${appStyle.body} ${style.taggers}`}>
-              {props.statement.taggersID.length} taggers
-            </p>
-          </div>
-          <div className={style.voteContainer}>
-            <button className={appStyle.body} onClick={upHandler}>
-              <ImArrowUp className={upButton} />
-            </button>
-            <p className={appStyle.body}>{votes.current}</p>
-            <button className={appStyle.body} onClick={downHandler}>
-              <ImArrowDown className={downButton} />
-            </button>
+            <div className={style.userData}>
+              <p className={appStyle.body}>u/</p>
+              <div className={style.avatar}>
+                <Avatar symScore={author.symScore} />
+              </div>
+              <Link className={appStyle.body} to="#">
+                {author.username}
+              </Link>
+            </div>
+            <div className={style.statement}>
+              <p className={`${appStyle.boldBody} ${style.statementStart}`}>
+                {splitString(props.statement.statementStart, 50)}
+              </p>
+              <p className={`${appStyle.body} ${style.statementEnd}`}>
+                ...{splitString(props.statement.statementEnd, 50)}
+              </p>
+            </div>
+            <div className={style.statsContainer}>
+              <div className={style.voteContainer}>
+                <button className={appStyle.body} onClick={upHandler}>
+                  <ImArrowUp className={upButton} />
+                </button>
+                <p className={appStyle.body}>{votes.current}</p>
+                <button className={appStyle.body} onClick={downHandler}>
+                  <ImArrowDown className={downButton} />
+                </button>
+              </div>
+              <div className={style.taggers}>
+                <p className={appStyle.body}>
+                  {props.statement.taggersID.length}
+                </p>
+                <ImLoop2 className={tagged} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

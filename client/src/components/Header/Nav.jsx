@@ -13,7 +13,7 @@ import UserInfoContext from "../../context/UserInfoContext";
 // Hooks
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
-import Avatar from "../../pages/Profile/Avatar";
+import Avatar from "../Avatar";
 
 const Nav = () => {
   const { width } = useWindowDimensions();

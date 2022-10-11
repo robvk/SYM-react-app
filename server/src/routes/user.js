@@ -6,6 +6,7 @@ import {
   deleteUser,
   updateUser,
   getTaggers,
+  getPublicUser,
   // updatePassword,
 } from "../controllers/user.js";
 
@@ -13,6 +14,7 @@ const userRouter = express.Router();
 
 userRouter.get("/", getUsers);
 userRouter.get("/:id", getUser);
+userRouter.get("/public/:id", getPublicUser);
 
 userRouter.post("/create", createUser);
 userRouter.post("/taggers", getTaggers);
