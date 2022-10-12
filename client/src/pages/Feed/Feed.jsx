@@ -14,10 +14,6 @@ function Feed() {
   const listInnerRef = useRef();
   const [page, setPage] = useState(0);
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   // function createJobHandler() {
   //   navigate("/statement/create", {
   //     replace: true,
@@ -59,28 +55,34 @@ function Feed() {
   };
 
   return (
-    <div className={style.homePage}>
+    <>
       <ProgressBar loading={isLoading} />
-      <div className={style.container}>
-        <div>
-          <h2 className={appStyle.headerOne}>Home</h2>
+      <div className={style.homePage}>
+        <div className={style.container}>
+          <div>
+            <h2 className={appStyle.headerOne}>Home</h2>
+          </div>
+
+          <div
+            className={style.cardsDiv}
+            onScroll={onScroll}
+            ref={listInnerRef}
+          >
+            <ul>
+              {statements ? (
+                statements?.map((statement, index) => (
+                  <li key={index}>{<StatementCard statement={statement} />}</li>
+                ))
+              ) : (
+                <p>It seems like there are no statements.</p>
+              )}
+            </ul>
+          </div>
         </div>
 
-        <div className={style.cardsDiv} onScroll={onScroll} ref={listInnerRef}>
-          <ul>
-            {statements ? (
-              statements?.map((statement, index) => (
-                <li key={index}>{<StatementCard statement={statement} />}</li>
-              ))
-            ) : (
-              <p>It seems like there are no statements.</p>
-            )}
-          </ul>
-        </div>
+        <Error error={error} transparent={true} />
       </div>
-
-      <Error error={error} transparent={true} />
-    </div>
+    </>
   );
 }
 
