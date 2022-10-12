@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState, useLayoutEffect, useRef } from "react";
 import style from "./Feed.module.css";
 import appStyle from "../../App.module.css";
 // import { useNavigate } from "react-router-dom";
@@ -10,13 +10,13 @@ import Error from "../../components/Error/Error";
 function Feed() {
   // const navigate = useNavigate();
   const [statements, setStatements] = useState([]);
-
-  // const [isClickedToAvailable, setIsClickedToAvailable] = useState(true);
-  // const [pageToShow, setPageToShow] = useState(null);
+  const [isDone, setIsDone] = useState(false);
+  const listInnerRef = useRef();
+  const [page, setPage] = useState(0);
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, []);
 
   // function createJobHandler() {
   //   navigate("/statement/create", {
@@ -25,23 +25,38 @@ function Feed() {
   // }
 
   const onSuccess = (onReceived) => {
-    setStatements(onReceived.result.statements);
+    setStatements([...statements, ...onReceived.result.statements]);
+    if (!onReceived.result.statements.length) {
+      setIsDone(true);
+    }
   };
 
+  const limit = 10;
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
-    "/statements/",
+    `/statements/?skip=${page}&limit=${limit}`,
     onSuccess
   );
 
   useEffect(() => {
-    performFetch({
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    if (!isDone) {
+      performFetch({
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+    }
     return cancelFetch;
-  }, []);
+  }, [page]);
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight === scrollHeight) {
+        setPage(page + limit);
+      }
+    }
+  };
 
   return (
     <div className={style.homePage}>
@@ -51,7 +66,7 @@ function Feed() {
           <h2 className={appStyle.headerOne}>Home</h2>
         </div>
 
-        <div className={style.cardsDiv}>
+        <div className={style.cardsDiv} onScroll={onScroll} ref={listInnerRef}>
           <ul>
             {statements ? (
               statements?.map((statement, index) => (
