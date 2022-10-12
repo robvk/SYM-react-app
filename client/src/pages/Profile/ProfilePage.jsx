@@ -99,14 +99,6 @@ const ProfilePage = () => {
 
         <div className={style.buttonsDiv}>
           <div className={style.singleButton}>
-            <Button
-              class="buttonBorder"
-              buttonHandler={() => setDeleteHelper(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-          <div className={style.singleButton}>
             <Button path="/" buttonHandler={() => deleteProfile()}>
               Delete
             </Button>
@@ -198,11 +190,22 @@ const ProfilePage = () => {
                 )}
               </Button>
             </div>
-            <div className={style.singleButton}>
-              <Button buttonHandler={deleteHandler}>
-                <VscTrash /> Delete Account
-              </Button>
-            </div>
+            {deleteHelper ? (
+              <div className={style.singleButton}>
+                <Button
+                  class="buttonBorder"
+                  buttonHandler={() => setDeleteHelper(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            ) : (
+              <div className={style.singleButton}>
+                <Button buttonHandler={deleteHandler}>
+                  <VscTrash /> Delete Account
+                </Button>
+              </div>
+            )}
           </div>
         )}
 

@@ -1,5 +1,5 @@
 .cardContainer {
-  border: 1px solid var(--font);
+  border: 2px solid var(--highlight);
   border-radius: 5px;
   margin: 20px auto 20px auto;
   color: var(--font) !important;
@@ -43,12 +43,13 @@
 
 .statement {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
 .statementStart {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 .statementEnd {
   font-size: 1.2rem;
@@ -118,7 +119,7 @@
   }
 
   .statementStart {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .statementEnd {
     font-size: 1rem;
