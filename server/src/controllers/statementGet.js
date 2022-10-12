@@ -3,6 +3,8 @@ import { logError } from "../util/logging.js";
 
 export const getAllStatements = async (req, res) => {
   try {
+    const skip = parseInt(req.query.skip);
+    const limit = parseInt(req.query.limit);
     const count = await Statement.countDocuments({});
 
     if (count === 0) {
@@ -12,8 +14,10 @@ export const getAllStatements = async (req, res) => {
       });
     }
 
-    const sort = { netVotes: -1 };
-    const statements = await Statement.find().sort(sort);
+    const statements = await Statement.find()
+      .sort({ netVotes: -1 })
+      .skip(skip)
+      .limit(limit);
 
     res.status(200).json({
       success: true,
