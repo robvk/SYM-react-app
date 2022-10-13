@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 // import { useNavigate } from "react-router-dom";
 import style from "./StatementCard.module.css";
-import appStyle from "../../App.module.css";
+import appStyle from "../App.module.css";
 import { ImArrowUp, ImArrowDown, ImLoop2 } from "react-icons/im";
-import useFetch from "../../hooks/useFetch";
-import { getCookie } from "../../hooks/useCookie";
+import useFetch from "../hooks/useFetch";
+import { getCookie } from "../hooks/useCookie";
 import { useRef } from "react";
-import Avatar from "../../components/Avatar";
+import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
 
 function StatementCard(props) {
@@ -175,7 +175,11 @@ function StatementCard(props) {
               </div>
               <Link
                 className={appStyle.body}
-                to={`/profile/public/${props.statement.userID}`}
+                to={
+                  getCookie("userID") === props.statement.userID
+                    ? `/profile/${props.statement.userID}`
+                    : `/profile/public/${props.statement.userID}`
+                }
               >
                 {author.username}
               </Link>

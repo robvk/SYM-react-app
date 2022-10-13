@@ -26,6 +26,7 @@ export const getUser = async (req, res) => {
     res.status(200).json({
       success: true,
       result: {
+        userID: user._id,
         username: user.username,
         email: user.email,
         symScore: user.symScore,

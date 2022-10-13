@@ -20,12 +20,13 @@ import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
 import PasswordChange from "./PasswordChange";
-// import PublicProfilePage from "./PublicProfilePage";
+import ActiveStatements from "./ActiveStatements";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
 
   const [userDetails, setUserDetails] = useState({
+    userID: "",
     email: "",
     username: "",
     symScore: "",
@@ -262,6 +263,7 @@ const ProfilePage = () => {
             passwordChange={changePassHandler}
           />
         )}
+        <ActiveStatements />
         <Error error={error} />
       </div>
     </div>
