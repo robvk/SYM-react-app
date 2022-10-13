@@ -1,5 +1,5 @@
 .profileContainer {
-  height: calc(100vh - 60px);
+  min-height: calc(100vh);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,13 +44,18 @@
   padding: 20px;
 }
 
-.userInformation p {
+.userInformation p,
+.statementInformation p {
   text-align: left;
   padding: 10px 5px;
 }
 
 .userInformation h3 {
   margin-top: 20px;
+}
+
+.statementInformation h2 {
+  margin-top: 15px;
 }
 
 .accountDetails {
@@ -70,7 +75,7 @@
   margin: auto;
   padding: 8px !important;
   width: 40vw;
-  max-width: 600px;
+  max-width: 700px;
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -134,10 +139,32 @@
   cursor: pointer;
   font-size: 15px;
   padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
 }
 
 .changePassword button:hover {
   border-bottom: 1px solid var(--font);
+}
+
+.cardsDiv::-webkit-scrollbar {
+  display: none;
+}
+
+.cardsDiv ul {
+  list-style: none;
+}
+
+.cardsDiv {
+  max-height: calc(150px * 3);
+  width: 40vw;
+  max-width: 700px;
+  margin: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.cardsDiv ul li p {
+  padding: 0px;
 }
 
 @media screen and (max-width: 740px) {

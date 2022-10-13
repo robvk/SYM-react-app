@@ -1,36 +1,28 @@
-import React, { useEffect, useState, useRef } from "react";
-import style from "./Feed.module.css";
+import React, { useEffect, useRef, useState } from "react";
 import appStyle from "../../App.module.css";
-// import { useNavigate } from "react-router-dom";
-import ProgressBar from "../../components/ProgressBar";
 import useFetch from "../../hooks/useFetch";
 import StatementCard from "../../components/StatementCard";
-import Error from "../../components/Error/Error";
+import style from "../Profile/ProfilePage.module.css";
+import { useParams } from "react-router-dom";
 
-function Feed() {
-  // const navigate = useNavigate();
+const ActiveStatements = () => {
+  const { id } = useParams();
   const [statements, setStatements] = useState([]);
   const [isDone, setIsDone] = useState(false);
   const listInnerRef = useRef();
   const [page, setPage] = useState(0);
 
-  // function createJobHandler() {
-  //   navigate("/statement/create", {
-  //     replace: true,
-  //   });
-  // }
-
-  const onSuccess = (onReceived) => {
+  const statementOnSuccess = (onReceived) => {
     setStatements([...statements, ...onReceived.result.statements]);
     if (!onReceived.result.statements.length) {
       setIsDone(true);
     }
   };
 
-  const limit = 10;
-  const { error, isLoading, performFetch, cancelFetch } = useFetch(
-    `/statements/?skip=${page}&limit=${limit}`,
-    onSuccess
+  const limit = 20;
+  const { performFetch, cancelFetch } = useFetch(
+    `/statements/user_statements/${id}?skip=${page}&limit=${limit}`,
+    statementOnSuccess
   );
 
   useEffect(() => {
@@ -55,14 +47,12 @@ function Feed() {
   };
 
   return (
-    <>
-      <ProgressBar loading={isLoading} />
-      <div className={style.homePage}>
-        <div className={style.container}>
-          <div>
-            <h2 className={appStyle.headerOne}>Home</h2>
-          </div>
-
+    <div>
+      <div>
+        <div className={style.statementInformation}>
+          <h2 className={`${style.subTitle} ${appStyle.boldBody}`}>
+            Active Statements
+          </h2>
           <div
             className={style.cardsDiv}
             onScroll={onScroll}
@@ -79,11 +69,9 @@ function Feed() {
             </ul>
           </div>
         </div>
-
-        <Error error={error} transparent={true} />
       </div>
-    </>
+    </div>
   );
-}
+};
 
-export default Feed;
+export default ActiveStatements;

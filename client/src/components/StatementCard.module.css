@@ -62,7 +62,7 @@
 }
 
 .voteContainer p {
-  text-align: center;
+  text-align: center !important;
   padding: 2px;
   width: 30px;
 }

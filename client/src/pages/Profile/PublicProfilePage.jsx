@@ -12,6 +12,7 @@ import Avatar from "../../components/Avatar";
 import ProfileLevel from "./ProfileLevel";
 // Hook
 import useFetch from "../../hooks/useFetch";
+import ActiveStatements from "./ActiveStatements";
 
 const PublicProfilePage = () => {
   const [userDetails, setUserDetails] = useState({
@@ -66,7 +67,7 @@ const PublicProfilePage = () => {
           </div>
         </div>
 
-        <div className={style.userInformation}>
+        <div className={`${style.userInformation} ${appStyle.body}`}>
           <h3 className={style.subTitle}>User Details</h3>
           <div className={style.accountDetails}>
             <p className={appStyle.body}>
@@ -83,9 +84,9 @@ const PublicProfilePage = () => {
             </p>
           </div>
         </div>
+        <ActiveStatements />
+        <Error error={error} />
       </div>
-
-      <Error error={error} />
     </div>
   );
 };
