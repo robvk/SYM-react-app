@@ -173,7 +173,10 @@ function StatementCard(props) {
               <div className={style.avatar}>
                 <Avatar symScore={author.symScore} />
               </div>
-              <Link className={appStyle.body} to="#">
+              <Link
+                className={appStyle.body}
+                to={`/profile/public/${props.statement.userID}`}
+              >
                 {author.username}
               </Link>
             </div>

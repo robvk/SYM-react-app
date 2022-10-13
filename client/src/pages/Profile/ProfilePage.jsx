@@ -20,6 +20,7 @@ import EditProfileForm from "./EditProfileForm";
 import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
 import PasswordChange from "./PasswordChange";
+// import PublicProfilePage from "./PublicProfilePage";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
@@ -219,19 +220,19 @@ const ProfilePage = () => {
                   <div className={style.userInformation}>
                     <h2 className={style.subTitle}>User Details</h2>
                     <div className={style.accountDetails}>
-                      <p>
+                      <p className={appStyle.body}>
                         <span className={appStyle.boldBody}>Username: </span>
                         {userDetails.username}
                       </p>
-                      <p>
+                      <p className={appStyle.body}>
                         <span className={appStyle.boldBody}>Email: </span>
                         {userDetails.email}
                       </p>
-                      <p>
+                      <p className={appStyle.body}>
                         <span className={appStyle.boldBody}>SYM Score: </span>
                         {userDetails.symScore}
                       </p>
-                      <p>
+                      <p className={appStyle.body}>
                         <span className={appStyle.boldBody}>
                           Account created on:{" "}
                         </span>

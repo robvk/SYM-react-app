@@ -49,6 +49,10 @@
   padding: 10px 5px;
 }
 
+.userInformation h3 {
+  margin-top: 20px;
+}
+
 .accountDetails {
   display: flex;
   flex-direction: column;
