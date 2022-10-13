@@ -1,21 +1,31 @@
-import React, { useEffect, useState } from "react";
+// React
+import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
-// import { useNavigate } from "react-router-dom";
-import style from "./StatementCard.module.css";
-import appStyle from "../App.module.css";
-import { ImArrowUp, ImArrowDown, ImLoop2 } from "react-icons/im";
-import useFetch from "../hooks/useFetch";
-import { getCookie } from "../hooks/useCookie";
-import { useRef } from "react";
-import Avatar from "./Avatar";
 import { Link } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+// Style
+import style from "./StatementCard.module.css";
+import appStyle from "../../App.module.css";
+// Icons
+import { ImArrowUp, ImArrowDown, ImLoop2 } from "react-icons/im";
+import { VscChromeClose } from "react-icons/vsc";
+// Hooks
+import useFetch from "../../hooks/useFetch";
+import { getCookie } from "../../hooks/useCookie";
+// Components
+import Avatar from "../Avatar";
+import Button from "../../components/Button";
 
 function StatementCard(props) {
+  // Ref
   const votes = useRef();
   const upVotes = useRef();
   const downVotes = useRef();
   const taggers = useRef();
-
+  const statementEndInputRef = useRef("");
+  const enteredInputRef = useRef("");
+  // State
+  const [tag, setTag] = useState(false);
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
   const [tagged, setTagged] = useState("");
@@ -42,15 +52,12 @@ function StatementCard(props) {
     downVotes.current = props.statement.downVotes;
     totalVotes();
     taggers.current = props.statement.taggersID;
-
     props.statement.upVotes.includes(getCookie("userID"))
       ? setUpButton(style.red)
       : setUpButton("");
-
     props.statement.downVotes.includes(getCookie("userID"))
       ? setDownButton(style.red)
       : setDownButton("");
-
     props.statement.taggersID.includes(getCookie("userID"))
       ? setTagged(style.red)
       : setTagged("");
@@ -82,7 +89,7 @@ function StatementCard(props) {
     }
     return words.join(" ");
   }
-
+  // Dealing with the server response
   const onSuccess = (onReceived) => {
     upVotes.current = onReceived.result.upVotes;
     downVotes.current = onReceived.result.downVotes;
@@ -105,7 +112,7 @@ function StatementCard(props) {
     `/statements/${props.statement._id}`,
     onSuccess
   );
-
+  // user response
   const onSuccessUser = (onReceived) => {
     setAuthor(onReceived.result);
   };
@@ -134,7 +141,7 @@ function StatementCard(props) {
       }),
     });
   }, [upVoted, downVoted]);
-
+  // upVote Handler
   const upHandler = () => {
     upVotes.current.includes(getCookie("userID"))
       ? (upVotes.current = upVotes.current.filter(
@@ -148,7 +155,7 @@ function StatementCard(props) {
       );
     upVoted ? setUpVoted(false) : setUpVoted(true);
   };
-
+  // Downvote Handler
   const downHandler = () => {
     downVotes.current.includes(getCookie("userID"))
       ? (downVotes.current = downVotes.current.filter(
@@ -161,6 +168,24 @@ function StatementCard(props) {
         (user) => user !== getCookie("userID")
       );
     downVoted ? setDownVoted(false) : setDownVoted(true);
+  };
+  // Tagging helpers & logic
+  const tagThis = () => {
+    tag ? setTag(false) : setTag(true);
+  };
+
+  const tagThisTimer = () => {
+    setTimeout(() => {
+      tagThis();
+    }, 5000);
+  };
+
+  const addTag = () => {
+    const statementEnd = statementEndInputRef.current;
+  };
+
+  const onChange = (e) => {
+    enteredInputRef.current = e.target.value;
   };
 
   return (
@@ -188,9 +213,26 @@ function StatementCard(props) {
               <p className={`${appStyle.boldBody} ${style.statementStart}`}>
                 {splitString(props.statement.statementStart, 50)}
               </p>
-              <p className={`${appStyle.body} ${style.statementEnd}`}>
-                ...{splitString(props.statement.statementEnd, 50)}
-              </p>
+              {!tag ? (
+                <p className={`${appStyle.body} ${style.statementEnd}`}>
+                  ...{splitString(props.statement.statementEnd, 50)}
+                </p>
+              ) : (
+                <div className={`${appStyle.body} ${style.statementEndInput}`}>
+                  {"..."}
+                  <input
+                    className={appStyle.body}
+                    type="text"
+                    maxLength="50"
+                    placeholder="how would you have finished this statement?"
+                    ref={statementEndInputRef}
+                    defaultValue={enteredInputRef.current}
+                    onBlur={tagThisTimer}
+                    onChange={onChange}
+                    required
+                  />
+                </div>
+              )}
             </div>
             <div className={style.statsContainer}>
               <div className={style.voteContainer}>
@@ -206,8 +248,23 @@ function StatementCard(props) {
                 <p className={appStyle.body}>
                   {props.statement.taggersID.length}
                 </p>
-                <ImLoop2 className={tagged} />
+                {tag ? (
+                  <VscChromeClose
+                    onClick={tagThis}
+                    style={{
+                      minWidth: "22px",
+                      marginLeft: "-3px",
+                    }}
+                  />
+                ) : (
+                  <ImLoop2 className={tagged} onClick={tagThis} />
+                )}
               </div>
+              {tag && (
+                <div className={style.tagButton}>
+                  <Button buttonHandler={addTag}>Post</Button>
+                </div>
+              )}
             </div>
           </div>
         </div>

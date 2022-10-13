@@ -23,6 +23,8 @@
 
 .statsContainer {
   display: flex;
+  justify-content: start;
+  align-items: flex-end;
 }
 
 .taggers {
@@ -41,18 +43,59 @@
   height: 18px;
 }
 
+.taggers svg:hover {
+  cursor: pointer;
+}
+
 .statement {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   flex-wrap: wrap;
+  margin-bottom: -5px;
 }
 
 .statementStart {
   font-size: 1.5rem;
+  margin-bottom: 5px;
 }
-.statementEnd {
+
+.statementEnd,
+.statementEndInput {
   font-size: 1.2rem;
+  max-height: 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.statementEndInput input {
+  color: var(--font);
+  border: none;
+  width: 51ch;
+  background: transparent;
+  font-size: 20px !important;
+  padding: 0px 3px;
+  margin-bottom: 0px;
+}
+
+.statementEndInput input:focus {
+  outline: none;
+}
+
+.statementEndInput {
+  margin-bottom: -5px;
+}
+
+.tagButton button {
+  width: 80px;
+  height: 25px;
+  margin: 0px;
+  font-size: 16px;
+}
+
+.tagButton {
+  margin: 0px 0px 0px auto;
 }
 
 .voteContainer {
@@ -115,16 +158,35 @@
 
 @media screen and (max-width: 740px) {
   .cardContainer {
-    width: 90vw;
+    min-width: 95vw;
+    max-width: 740px;
   }
 
   .statementStart {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
   .statementEnd {
-    font-size: 1rem;
+    font-size: 0.8rem;
   }
   .row {
     display: flex;
+  }
+
+  .statementEndInput,
+  .statementEndInput input {
+    font-size: 13px !important;
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .cardContainer {
+    width: 60vw;
+    max-width: 800px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .cardContainer {
+    width: 70vw;
+    max-width: 800px;
   }
 }

@@ -4,7 +4,7 @@ import appStyle from "../../App.module.css";
 // import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";
 import useFetch from "../../hooks/useFetch";
-import StatementCard from "../../components/StatementCard";
+import StatementCard from "../../components/Statement/StatementCard";
 import Error from "../../components/Error/Error";
 
 function Feed() {
@@ -59,9 +59,7 @@ function Feed() {
       <ProgressBar loading={isLoading} />
       <div className={style.homePage}>
         <div className={style.container}>
-          <div>
-            <h2 className={appStyle.headerOne}>Home</h2>
-          </div>
+          <h2 className={appStyle.headerOne}>Home</h2>
 
           <div
             className={style.cardsDiv}
