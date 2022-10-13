@@ -16,6 +16,7 @@ import ProfilePage from "./pages/Profile/ProfilePage";
 // Style
 import style from "./App.module.css";
 import { getCookie } from "./hooks/useCookie";
+import PublicProfilePage from "./pages/Profile/PublicProfilePage";
 
 const App = () => {
   const [user, setUser] = useState(false);
@@ -45,6 +46,9 @@ const App = () => {
         {user && <Route path="/feed" element={<Feed />} />}
         <Route path="/about" element={<About />} />
         {user && <Route path="/profile/:id" element={<ProfilePage />} />}
+        {user && (
+          <Route path="/profile/public/:id" element={<PublicProfilePage />} />
+        )}
       </Routes>
       <Footer />
     </div>
