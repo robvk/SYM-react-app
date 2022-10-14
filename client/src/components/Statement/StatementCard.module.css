@@ -83,6 +83,10 @@
   outline: none;
 }
 
+.statementEndInput input::placeholder {
+  opacity: calc(0.5);
+}
+
 .statementEndInput {
   margin-bottom: -5px;
 }

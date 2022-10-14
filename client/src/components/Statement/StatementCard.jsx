@@ -24,8 +24,10 @@ function StatementCard(props) {
   const taggers = useRef();
   const statementEndInputRef = useRef("");
   const enteredInputRef = useRef("");
+  const timer = useRef();
   // State
   const [tag, setTag] = useState(false);
+  const [close, setClose] = useState(false);
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
   const [tagged, setTagged] = useState("");
@@ -169,14 +171,20 @@ function StatementCard(props) {
       );
     downVoted ? setDownVoted(false) : setDownVoted(true);
   };
+
   // Tagging helpers & logic
   const tagThis = () => {
-    tag ? setTag(false) : setTag(true);
+    if (tag) {
+      setTag(false);
+      clearTimeout(timer.current);
+    } else {
+      setTag(true);
+    }
   };
 
   const tagThisTimer = () => {
-    setTimeout(() => {
-      tagThis();
+    timer.current = setTimeout(() => {
+      setTag(false);
     }, 5000);
   };
 
