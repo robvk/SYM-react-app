@@ -1,7 +1,7 @@
 .cardContainer {
   border: 2px solid var(--highlight);
   border-radius: 5px;
-  margin: 20px auto 20px auto;
+  margin: 0px auto 20px auto;
   color: var(--font) !important;
   width: 40vw;
   max-width: 700px;
@@ -30,8 +30,8 @@
 .taggers,
 .totalUsers {
   display: flex;
-  align-items: center;
-  padding: 2px 0px;
+  align-items: flex-end;
+  padding: 0px;
   margin-left: 5%;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .totalUsers svg {
-  margin-top: -3px;
+  margin-bottom: 2px;
   scale: 1.1;
 }
 
@@ -125,6 +125,7 @@
   text-align: center !important;
   padding: 2px;
   padding-right: 0px;
+  padding-bottom: 0px;
   width: 30px;
 }
 
@@ -178,7 +179,7 @@
 
 @media screen and (max-width: 740px) {
   .cardContainer {
-    min-width: 95vw;
+    min-width: 90vw;
     max-width: 740px;
   }
 
@@ -196,17 +197,34 @@
   .statementEndInput input {
     font-size: 13px !important;
   }
+
+  .taggers svg {
+    margin-top: -3px;
+    margin-bottom: 3px;
+    height: 13px;
+  }
+
+  .totalUsers svg {
+    margin-top: -3px;
+    scale: 1;
+  }
 }
 
 @media screen and (max-width: 1340px) {
   .cardContainer {
-    width: 60vw;
-    max-width: 800px;
+    width: 55vw;
+    max-width: 750px;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 960px) {
   .cardContainer {
-    width: 70vw;
-    max-width: 800px;
+    width: 65vw;
+    max-width: 750px;
+  }
+}
+@media screen and (max-width: 820px) {
+  .cardContainer {
+    width: 75vw;
+    max-width: 850px;
   }
 }
