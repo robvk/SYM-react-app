@@ -1,24 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import style from "./Feed.module.css";
 import appStyle from "../../App.module.css";
-// import { useNavigate } from "react-router-dom";
 import ProgressBar from "../../components/ProgressBar";
 import useFetch from "../../hooks/useFetch";
 import StatementCard from "../../components/Statement/StatementCard";
 import Error from "../../components/Error/Error";
 
 function Feed() {
-  // const navigate = useNavigate();
   const [statements, setStatements] = useState([]);
   const [isDone, setIsDone] = useState(false);
   const listInnerRef = useRef();
   const [page, setPage] = useState(0);
-
-  // function createJobHandler() {
-  //   navigate("/statement/create", {
-  //     replace: true,
-  //   });
-  // }
 
   const onSuccess = (onReceived) => {
     setStatements([...statements, ...onReceived.result.statements]);

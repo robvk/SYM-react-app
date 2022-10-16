@@ -302,11 +302,11 @@ function StatementCard(props) {
               <div className={style.statsContainer}>
                 <div className={style.voteContainer}>
                   <button className={appStyle.body} onClick={upHandler}>
-                    <ImArrowUp className={upButton} />
+                    <ImArrowUp className={upButton} title="Up Vote" />
                   </button>
                   <p className={appStyle.body}>{votes.current}</p>
                   <button className={appStyle.body} onClick={downHandler}>
-                    <ImArrowDown className={downButton} />
+                    <ImArrowDown className={downButton} title="Down Vote" />
                   </button>
                 </div>
                 <div className={style.taggers}>
@@ -320,12 +320,16 @@ function StatementCard(props) {
                       }}
                     />
                   ) : (
-                    <ImLoop2 className={tagged} onClick={tagThis} />
+                    <ImLoop2
+                      className={tagged}
+                      onClick={tagThis}
+                      title="This shows how many tags this statement currently has"
+                    />
                   )}
                 </div>
                 <div className={style.totalUsers}>
                   <p className={appStyle.body}>{taggersID.current.length}</p>
-                  <FiUsers />
+                  <FiUsers title="This shows how many people have tagged on this statement" />
                 </div>
                 {tag && (
                   <div className={style.tagButton}>

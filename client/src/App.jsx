@@ -35,7 +35,9 @@ const App = () => {
         <Route path="/" element={!user ? <Home /> : <Feed />} />
 
         <Route path="/login" element={<Login />} />
-        {user && <Route path="/job/view/:id" element={<StatementDetails />} />}
+        {user && (
+          <Route path="/statements/view/:id" element={<StatementDetails />} />
+        )}
         {!user && <Route path="/login" element={<Login />} />}
         {user && (
           <Route
