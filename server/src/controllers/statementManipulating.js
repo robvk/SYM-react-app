@@ -19,6 +19,7 @@ export const updateStatement = async (req, res) => {
     statement.taggersID = newData.taggersID
       ? newData.taggersID
       : statement.taggersID;
+    statement.netTags = newData.netTags ? newData.netTags : statement.netTags;
     statement.fullStatement = newData.fullStatement
       ? newData.fullStatement
       : statement.fullStatement;
@@ -42,6 +43,7 @@ export const updateStatement = async (req, res) => {
     const statementToValidate = {
       userID: statement.userID,
       taggersID: statement.taggersID,
+      netTags: statement.netTags,
       fullStatement: statement.fullStatement,
       statementStart: statement.statementStart,
       statementEnd: statement.statementEnd,
@@ -122,13 +124,17 @@ export const createStatement = async (req, res) => {
     statement.statement.fullStatement = makeFirstLetterUpper(
       statement.statement.fullStatement
     );
+    statement.statement.statementStart = makeFirstLetterUpper(
+      statement.statement.statementStart
+    );
 
     await new Statement({
       ...statement.statement,
       upVotes: [statement.statement.userID],
       netVotes: 1,
+      netTags: 0,
     }).save();
-    await updateSymScore(req, res);
+    await updateSymScore(req, "statement");
     res
       .status(201)
       .send({ message: "Statement created successfully", success: true });

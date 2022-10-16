@@ -27,14 +27,16 @@
   align-items: flex-end;
 }
 
-.taggers {
+.taggers,
+.totalUsers {
   display: flex;
   align-items: center;
   padding: 2px 0px;
   margin-left: 5%;
 }
 
-.taggers p {
+.taggers p,
+.totalUsers p {
   margin-right: 5px;
 }
 
@@ -43,7 +45,13 @@
   height: 18px;
 }
 
-.taggers svg:hover {
+.totalUsers svg {
+  margin-top: -3px;
+  scale: 1.1;
+}
+
+.taggers svg:hover,
+.taggers svg:focus {
   cursor: pointer;
 }
 
@@ -52,7 +60,12 @@
   flex-direction: column;
   align-items: flex-start;
   flex-wrap: wrap;
-  margin-bottom: -5px;
+  /* margin-bottom: -5px; */
+}
+
+.statement a {
+  color: var(--font);
+  text-decoration: none;
 }
 
 .statementStart {
@@ -111,6 +124,7 @@
 .voteContainer p {
   text-align: center !important;
   padding: 2px;
+  padding-right: 0px;
   width: 30px;
 }
 
@@ -126,7 +140,8 @@
   height: 18px;
 }
 
-.voteContainer button:hover {
+.voteContainer button:hover,
+.voteContainer button:focus {
   cursor: pointer;
 }
 
@@ -155,7 +170,8 @@
   color: var(--font);
 }
 
-.userData a:hover {
+.userData a:hover,
+.userData a:focus {
   text-decoration: underline;
   color: var(--red);
 }

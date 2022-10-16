@@ -2,32 +2,36 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 // Style
 import style from "./StatementCard.module.css";
 import appStyle from "../../App.module.css";
 // Icons
 import { ImArrowUp, ImArrowDown, ImLoop2 } from "react-icons/im";
 import { VscChromeClose } from "react-icons/vsc";
+import { FiUsers } from "react-icons/fi";
 // Hooks
 import useFetch from "../../hooks/useFetch";
 import { getCookie } from "../../hooks/useCookie";
 // Components
 import Avatar from "../Avatar";
 import Button from "../../components/Button";
+import Error from "../Error/Error";
 
 function StatementCard(props) {
   // Ref
   const votes = useRef();
   const upVotes = useRef();
   const downVotes = useRef();
-  const taggers = useRef();
+  const taggersID = useRef([]);
+  const netTags = useRef();
   const statementEndInputRef = useRef("");
   const enteredInputRef = useRef("");
   const timer = useRef();
+  const authorIDRef = useRef();
+  const statementIDRef = useRef();
+  const statementStartRef = useRef();
   // State
   const [tag, setTag] = useState(false);
-  const [close, setClose] = useState(false);
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
   const [tagged, setTagged] = useState("");
@@ -44,16 +48,23 @@ function StatementCard(props) {
   };
 
   useEffect(() => {
+    authorIDRef.current = props.statement.userID;
+    statementIDRef.current = props.statement._id;
+    statementStartRef.current = props.statement.statementStart;
+    netTags.current = props.statement.netTags ? props.statement.netTags : 0;
+    taggersID.current = props.statement.taggersID;
+
     performFetchUser({
       method: "GET",
       headers: {
         "content-type": "application/json",
       },
     });
+
     upVotes.current = props.statement.upVotes;
     downVotes.current = props.statement.downVotes;
     totalVotes();
-    taggers.current = props.statement.taggersID;
+
     props.statement.upVotes.includes(getCookie("userID"))
       ? setUpButton(style.red)
       : setUpButton("");
@@ -64,15 +75,8 @@ function StatementCard(props) {
       ? setTagged(style.red)
       : setTagged("");
 
-    return cancelFetch, cancelFetchUser;
+    return cancelFetch, cancelFetchUser, cancelComment;
   }, []);
-
-  // const navigate = useNavigate();
-
-  // function toDetail(e) {
-  //   e.preventDefault();
-  //   navigate(`/statement/view/${statement._id}`);
-  // }
 
   // Split long single words into max length
   function splitString(str, length) {
@@ -95,6 +99,7 @@ function StatementCard(props) {
   const onSuccess = (onReceived) => {
     upVotes.current = onReceived.result.upVotes;
     downVotes.current = onReceived.result.downVotes;
+    taggersID.current = onReceived.result.taggersID;
     totalVotes();
 
     upVotes.current.includes(getCookie("userID"))
@@ -105,12 +110,12 @@ function StatementCard(props) {
       ? setDownButton(style.red)
       : setDownButton("");
 
-    taggers.current.includes(getCookie("userID"))
+    taggersID.current.includes(getCookie("userID"))
       ? setTagged(style.red)
       : setTagged("");
   };
 
-  const { performFetch, cancelFetch } = useFetch(
+  const { performFetch, cancelFetch, error } = useFetch(
     `/statements/${props.statement._id}`,
     onSuccess
   );
@@ -119,8 +124,11 @@ function StatementCard(props) {
     setAuthor(onReceived.result);
   };
 
-  const { performFetch: performFetchUser, cancelFetch: cancelFetchUser } =
-    useFetch(`/user/public/${props.statement.userID}`, onSuccessUser);
+  const {
+    performFetch: performFetchUser,
+    cancelFetch: cancelFetchUser,
+    error: userError,
+  } = useFetch(`/user/public/${props.statement.userID}`, onSuccessUser);
 
   useEffect(() => {
     performFetch({
@@ -143,6 +151,7 @@ function StatementCard(props) {
       }),
     });
   }, [upVoted, downVoted]);
+
   // upVote Handler
   const upHandler = () => {
     upVotes.current.includes(getCookie("userID"))
@@ -157,7 +166,7 @@ function StatementCard(props) {
       );
     upVoted ? setUpVoted(false) : setUpVoted(true);
   };
-  // Downvote Handler
+  // downVote Handler
   const downHandler = () => {
     downVotes.current.includes(getCookie("userID"))
       ? (downVotes.current = downVotes.current.filter(
@@ -188,8 +197,44 @@ function StatementCard(props) {
     }, 5000);
   };
 
+  const onCommentSuccess = (onReceived) => {
+    setTag(false);
+    setTagged(style.red);
+    taggersID.current = onReceived.result.taggersID;
+    netTags.current = onReceived.result.netTags;
+  };
+
+  const {
+    // isLoading: commentLoading,
+    error: commentError,
+    performFetch: performCommentFetch,
+    cancelFetch: cancelComment,
+  } = useFetch("/comments/create", onCommentSuccess);
+
   const addTag = () => {
-    const statementEnd = statementEndInputRef.current;
+    const statementEnd = enteredInputRef.current;
+    const userID = getCookie("userID");
+    const authorID = authorIDRef.current;
+    const statementID = statementIDRef.current;
+    const statementStart = statementStartRef.current;
+
+    const comment = {
+      userID: userID,
+      authorID: authorID,
+      statementID: statementID,
+      statementStart: statementStart,
+      statementEnd: statementEnd,
+    };
+
+    performCommentFetch({
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        comment: comment,
+      }),
+    });
   };
 
   const onChange = (e) => {
@@ -200,81 +245,96 @@ function StatementCard(props) {
     <div className={style.statementCard}>
       <div className={style.cardContainer}>
         <div className={style.row}>
-          <div className={style.column}>
-            <div className={style.userData}>
-              <p className={appStyle.body}>u/</p>
-              <div className={style.avatar}>
-                <Avatar symScore={author.symScore} />
-              </div>
-              <Link
-                className={appStyle.body}
-                to={
-                  getCookie("userID") === props.statement.userID
-                    ? `/profile/${props.statement.userID}`
-                    : `/profile/public/${props.statement.userID}`
-                }
-              >
-                {author.username}
-              </Link>
-            </div>
-            <div className={style.statement}>
-              <p className={`${appStyle.boldBody} ${style.statementStart}`}>
-                {splitString(props.statement.statementStart, 50)}
-              </p>
-              {!tag ? (
-                <p className={`${appStyle.body} ${style.statementEnd}`}>
-                  ...{splitString(props.statement.statementEnd, 50)}
-                </p>
-              ) : (
-                <div className={`${appStyle.body} ${style.statementEndInput}`}>
-                  {"..."}
-                  <input
-                    className={appStyle.body}
-                    type="text"
-                    maxLength="50"
-                    placeholder="how would you have finished this statement?"
-                    ref={statementEndInputRef}
-                    defaultValue={enteredInputRef.current}
-                    onBlur={tagThisTimer}
-                    onChange={onChange}
-                    required
-                  />
+          {commentError || error || userError ? (
+            <Error
+              error={commentError || error || userError}
+              transparent={true}
+            />
+          ) : (
+            <div className={style.column}>
+              <div className={style.userData}>
+                <p className={appStyle.body}>u/</p>
+                <div className={style.avatar}>
+                  <Avatar symScore={author.symScore} />
                 </div>
-              )}
-            </div>
-            <div className={style.statsContainer}>
-              <div className={style.voteContainer}>
-                <button className={appStyle.body} onClick={upHandler}>
-                  <ImArrowUp className={upButton} />
-                </button>
-                <p className={appStyle.body}>{votes.current}</p>
-                <button className={appStyle.body} onClick={downHandler}>
-                  <ImArrowDown className={downButton} />
-                </button>
+                <Link
+                  className={appStyle.body}
+                  to={
+                    getCookie("userID") === props.statement.userID
+                      ? `/profile/${props.statement.userID}`
+                      : `/profile/public/${props.statement.userID}`
+                  }
+                >
+                  {author.username}
+                </Link>
               </div>
-              <div className={style.taggers}>
-                <p className={appStyle.body}>
-                  {props.statement.taggersID.length}
-                </p>
-                {tag ? (
-                  <VscChromeClose
-                    onClick={tagThis}
-                    style={{
-                      minWidth: "22px",
-                      marginLeft: "-3px",
-                    }}
-                  />
+              <div className={style.statement}>
+                <Link to={`/statements/view/${props.statement._id}`}>
+                  <p className={`${appStyle.boldBody} ${style.statementStart}`}>
+                    {splitString(props.statement.statementStart, 50)}
+                  </p>
+                </Link>
+                {!tag ? (
+                  <Link to={`/statements/view/${props.statement._id}`}>
+                    <p className={`${appStyle.body} ${style.statementEnd}`}>
+                      ...{splitString(props.statement.statementEnd, 50)}
+                    </p>
+                  </Link>
                 ) : (
-                  <ImLoop2 className={tagged} onClick={tagThis} />
+                  <div
+                    className={`${appStyle.body} ${style.statementEndInput}`}
+                  >
+                    {"..."}
+                    <input
+                      className={appStyle.body}
+                      type="text"
+                      maxLength="50"
+                      placeholder="how would you have finished this statement?"
+                      ref={statementEndInputRef}
+                      defaultValue={enteredInputRef.current}
+                      onBlur={tagThisTimer}
+                      onChange={onChange}
+                      required
+                    />
+                  </div>
                 )}
               </div>
-              {tag && (
-                <div className={style.tagButton}>
-                  <Button buttonHandler={addTag}>Post</Button>
+              <div className={style.statsContainer}>
+                <div className={style.voteContainer}>
+                  <button className={appStyle.body} onClick={upHandler}>
+                    <ImArrowUp className={upButton} />
+                  </button>
+                  <p className={appStyle.body}>{votes.current}</p>
+                  <button className={appStyle.body} onClick={downHandler}>
+                    <ImArrowDown className={downButton} />
+                  </button>
                 </div>
-              )}
+                <div className={style.taggers}>
+                  <p className={appStyle.body}>{netTags.current}</p>
+                  {tag ? (
+                    <VscChromeClose
+                      onClick={tagThis}
+                      style={{
+                        minWidth: "22px",
+                        marginLeft: "-3px",
+                      }}
+                    />
+                  ) : (
+                    <ImLoop2 className={tagged} onClick={tagThis} />
+                  )}
+                </div>
+                <div className={style.totalUsers}>
+                  <p className={appStyle.body}>{taggersID.current.length}</p>
+                  <FiUsers />
+                </div>
+                {tag && (
+                  <div className={style.tagButton}>
+                    <Button buttonHandler={addTag}>Post</Button>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

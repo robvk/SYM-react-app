@@ -57,6 +57,8 @@
 .glassBox h2 {
   font-size: 24px;
   color: var(--font);
+  text-align: center;
+  padding: 15px 0px;
 }
 
 .singleButton {
