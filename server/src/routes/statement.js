@@ -23,8 +23,6 @@ statementRouter.get("/user_statements/:id", getUserStatements);
 
 statementRouter.patch("/:id", updateStatement);
 
-// statementRouter.put("/:id", acceptCancelJob);
-
 statementRouter.post("/create", createStatement);
 
 export default statementRouter;

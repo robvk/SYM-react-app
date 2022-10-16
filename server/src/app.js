@@ -3,6 +3,7 @@ import cors from "cors";
 import userRouter from "./routes/user.js";
 import authRouter from "./routes/authentication.js";
 import statementRouter from "./routes/statement.js";
+import commentRouter from "./routes/comment.js";
 
 // Create an express server
 const app = express();
@@ -21,5 +22,6 @@ app.use("/api/user", userRouter);
 app.use("/api/profile", userRouter);
 app.use("/api/authentication", authRouter);
 app.use("/api/statements", statementRouter);
+app.use("/api/comments", commentRouter);
 
 export default app;

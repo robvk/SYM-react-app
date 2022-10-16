@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import appStyle from "../../App.module.css";
 import useFetch from "../../hooks/useFetch";
-import StatementCard from "../../components/StatementCard";
+import StatementCard from "../../components/Statement/StatementCard";
 import style from "../Profile/ProfilePage.module.css";
 import { useParams } from "react-router-dom";
 

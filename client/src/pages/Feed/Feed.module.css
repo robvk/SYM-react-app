@@ -11,10 +11,12 @@
   flex-direction: column;
   background: var(--background);
   height: 100%;
+  text-align: center;
 }
 
-.container div h2 {
-  margin-bottom: 30px;
+.container h2 {
+  margin-bottom: -10px;
+  margin-top: 20px;
 }
 
 .cardsDiv {
@@ -36,7 +38,27 @@
 
 @media screen and (max-width: 740px) {
   .cardsDiv {
-    width: 95vw;
+    min-width: 95vw;
     margin: auto;
+    margin-top: 0px;
+  }
+
+  h2 {
+    margin: 10px auto;
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .cardsDiv {
+    width: 60vw;
+    max-width: 800px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .cardsDiv {
+    width: 70vw;
+    max-width: 800px;
   }
 }

@@ -183,14 +183,26 @@ export const updateUser = async (req, res) => {
 };
 
 // Update Sym Score
-export const updateSymScore = async (req) => {
+export const updateSymScore = async (req, type) => {
   const body = { ...req.body };
   try {
-    let user = await User.findOne({ _id: body.statement.userID });
+    if (type === "statement") {
+      let user = await User.findOne({ _id: body.statement.userID });
 
-    user.symScore = user.symScore + 1;
+      user.symScore = user.symScore + 2;
 
-    await user.save();
+      await user.save();
+    }
+
+    if (type === "comment") {
+      let user = await User.findOne({ _id: body.comment.userID });
+      let author = await User.findOne({ _id: body.comment.authorID });
+
+      user.symScore = user.symScore + 1;
+      author.symScore = author.symScore + 1;
+
+      await user.save();
+    }
     // res.status(200).json({
     //   message: "User symScore updated successfully",
     //   success: true,
