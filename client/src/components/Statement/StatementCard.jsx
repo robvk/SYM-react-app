@@ -16,6 +16,7 @@ import { getCookie } from "../../hooks/useCookie";
 import Avatar from "../Avatar";
 import Button from "../../components/Button";
 import Error from "../Error/Error";
+import splitString from "../../util/stringSplitting";
 
 function StatementCard(props) {
   // Ref
@@ -78,23 +79,6 @@ function StatementCard(props) {
     return cancelFetch, cancelFetchUser, cancelComment;
   }, []);
 
-  // Split long single words into max length
-  function splitString(str, length) {
-    let words = str.split(" ");
-    for (let j = 0; j < words.length; j++) {
-      let l = words[j].length;
-      if (l > length) {
-        let result = [],
-          i = 0;
-        while (i < l) {
-          result.push(words[j].substr(i, length));
-          i += length;
-        }
-        words[j] = result.join(" ");
-      }
-    }
-    return words.join(" ");
-  }
   // Dealing with the server response
   const onSuccess = (onReceived) => {
     upVotes.current = onReceived.result.upVotes;

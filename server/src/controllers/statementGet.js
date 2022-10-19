@@ -35,7 +35,6 @@ export const getAllStatements = async (req, res) => {
 
 export const getOneStatement = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   try {
     const statement = await Statement.findOne({ _id: id });
