@@ -49,6 +49,8 @@ function StatementCard(props) {
     netTags.current = props.statement.netTags ? props.statement.netTags : 0;
     taggersID.current = props.statement.taggersID;
     votes.current = props.statement.netVotes;
+    upVotes.current = props.statement.upVotes;
+    downVotes.current = props.statement.downVotes;
 
     performFetchUser({
       method: "GET",
