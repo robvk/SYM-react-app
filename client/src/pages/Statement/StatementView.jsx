@@ -59,13 +59,13 @@ const StatementView = ({ statementHandler }) => {
         </div>
         <div className={styles.buttonsDiv}>
           <div className={styles.singleButton}>
-            <Button type="button" path="/feed" class="buttonBorder">
-              Cancel
+            <Button type="submit" buttonHandler={submitHandler}>
+              Post
             </Button>
           </div>
           <div className={styles.singleButton}>
-            <Button type="submit" buttonHandler={submitHandler}>
-              Post
+            <Button type="button" path="/feed" class="buttonBorder">
+              Cancel
             </Button>
           </div>
         </div>
