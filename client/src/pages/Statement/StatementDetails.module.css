@@ -11,7 +11,7 @@
 }
 
 .commentsDiv {
-  height: 440px;
+  height: 550px;
   width: 45vw;
   max-width: 750px;
   margin: auto;
@@ -65,6 +65,59 @@
   margin-top: 20px;
   margin-bottom: -20px;
 }
+
+@media screen and (max-width: 1340px) {
+  .statementStart {
+    font-size: 2.5vw;
+    width: 55vw;
+    max-width: 750px;
+  }
+
+  .statementStartDiv {
+    width: 60vw;
+    max-width: 800px;
+  }
+
+  .commentsDiv {
+    width: 60vw;
+    max-width: 800px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .statementStart {
+    font-size: 3vw;
+    width: 65vw;
+    max-width: 750px;
+  }
+
+  .statementStartDiv {
+    width: 70vw;
+    max-width: 800px;
+  }
+
+  .commentsDiv {
+    width: 70vw;
+    max-width: 800px;
+  }
+}
+@media screen and (max-width: 820px) {
+  .statementStart {
+    font-size: 3.5vw;
+    width: 75vw;
+    max-width: 850px;
+  }
+
+  .statementStartDiv {
+    width: 80vw;
+    max-width: 900px;
+  }
+
+  .commentsDiv {
+    width: 80vw;
+    max-width: 900px;
+  }
+}
+
 @media screen and (max-width: 740px) {
   .statementStart {
     font-size: 5vw !important;
@@ -83,57 +136,5 @@
 
   .commentsDiv::-webkit-scrollbar {
     display: none;
-  }
-}
-
-@media screen and (max-width: 1340px) {
-  .statementStart {
-    font-size: 2.5vw;
-    width: 55vw;
-    max-width: 750px;
-  }
-
-  .statementStartDiv {
-    width: 60vw;
-    max-width: 800px;
-  }
-
-  .commentsDiv {
-    width: 55vw;
-    max-width: 750px;
-  }
-}
-@media screen and (max-width: 960px) {
-  .statementStart {
-    font-size: 3vw;
-    width: 65vw;
-    max-width: 750px;
-  }
-
-  .statementStartDiv {
-    width: 70vw;
-    max-width: 800px;
-  }
-
-  .commentsDiv {
-    width: 65vw;
-    max-width: 750px;
-  }
-}
-@media screen and (max-width: 820px) {
-  .statementStart {
-    font-size: 3.5vw;
-    width: 75vw;
-    max-width: 850px;
-  }
-
-  .statementStartDiv {
-    width: 80vw;
-    max-width: 900px;
-  }
-
-  .commentsDiv {
-    width: 75vw;
-    max-width: 850px;
   }
 }

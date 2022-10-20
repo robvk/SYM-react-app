@@ -14,7 +14,7 @@
 }
 
 .statementEnd {
-  font-size: 1.6em;
+  font-size: 1.4em;
 }
 
 .column {
@@ -89,13 +89,6 @@
   color: transparent;
 }
 
-@media screen and (max-width: 740px) {
-  .commentContainer {
-    min-width: 90vw;
-    max-width: 740px;
-  }
-}
-
 @media screen and (max-width: 1340px) {
   .commentContainer {
     width: 55vw;
@@ -107,10 +100,26 @@
     width: 65vw;
     max-width: 750px;
   }
+  .statementEnd {
+    font-size: 1.3em;
+  }
 }
 @media screen and (max-width: 820px) {
   .commentContainer {
     width: 75vw;
     max-width: 850px;
+  }
+  .statementEnd {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .commentContainer {
+    min-width: 90vw;
+    max-width: 740px;
+  }
+  .statementEnd {
+    font-size: 1em;
   }
 }
