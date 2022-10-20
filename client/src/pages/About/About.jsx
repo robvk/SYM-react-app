@@ -5,6 +5,7 @@ import useFetch from "../../hooks/useFetch";
 import ProgressBar from "../../components/ProgressBar";
 import CountUp from "react-countup";
 import bgImage from "../../assets/images/background-image.jpg";
+import Error from "../../components/Error/Error";
 
 const About = () => {
   const [users, setUsers] = useState();
@@ -13,14 +14,13 @@ const About = () => {
   const [tags, setTags] = useState();
 
   const onSuccess = (onReceived) => {
-    // console.log(onReceived);
     setUsers(onReceived.result.countUsers);
     setActiveStatements(onReceived.result.countStatements);
     setTags(onReceived.result.countTags);
     setExpired(0);
   };
 
-  const { isLoading, performFetch, cancelFetch } = useFetch(
+  const { isLoading, performFetch, cancelFetch, error } = useFetch(
     "/database/all",
     onSuccess
   );
@@ -68,36 +68,44 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div className={style.statsSection}>
-          <div className={style.content}>
-            <p className={appStyle.headerOne}>Users</p>
-            <div className={style.numbers}>
-              <CountUp className={appStyle.headerOne} start={0} end={users} />
+        {error ? (
+          <Error error={error} />
+        ) : (
+          <div className={style.statsSection}>
+            <div className={style.content}>
+              <p className={appStyle.headerOne}>Users</p>
+              <div className={style.numbers}>
+                <CountUp className={appStyle.headerOne} start={0} end={users} />
+              </div>
+            </div>
+            <div className={style.content}>
+              <p className={appStyle.headerOne}>Active Statements</p>
+              <div className={style.numbers}>
+                <CountUp
+                  className={appStyle.headerOne}
+                  start={0}
+                  end={activeStatements}
+                />
+              </div>
+            </div>
+            <div className={style.content}>
+              <p className={appStyle.headerOne}>Tags</p>
+              <div className={style.numbers}>
+                <CountUp className={appStyle.headerOne} start={0} end={tags} />
+              </div>
+            </div>
+            <div className={style.content}>
+              <p className={appStyle.headerOne}>Expired Posts</p>
+              <div className={style.numbers}>
+                <CountUp
+                  className={appStyle.headerOne}
+                  start={0}
+                  end={expired}
+                />
+              </div>
             </div>
           </div>
-          <div className={style.content}>
-            <p className={appStyle.headerOne}>Active Statements</p>
-            <div className={style.numbers}>
-              <CountUp
-                className={appStyle.headerOne}
-                start={0}
-                end={activeStatements}
-              />
-            </div>
-          </div>
-          <div className={style.content}>
-            <p className={appStyle.headerOne}>Tags</p>
-            <div className={style.numbers}>
-              <CountUp className={appStyle.headerOne} start={0} end={tags} />
-            </div>
-          </div>
-          <div className={style.content}>
-            <p className={appStyle.headerOne}>Expired Posts</p>
-            <div className={style.numbers}>
-              <CountUp className={appStyle.headerOne} start={0} end={expired} />
-            </div>
-          </div>
-        </div>
+        )}
         <div className={style.teamSection}>
           <div className={style.title}>
             <h3 className={appStyle.headerTwo}>The creative Team</h3>
