@@ -61,7 +61,14 @@ function Feed() {
             <ul>
               {statements ? (
                 statements?.map((statement, index) => (
-                  <li key={index}>{<StatementCard statement={statement} />}</li>
+                  <li key={index}>
+                    {
+                      <StatementCard
+                        statement={statement}
+                        cardLoading={isLoading}
+                      />
+                    }
+                  </li>
                 ))
               ) : (
                 <p>It seems like there are no statements.</p>

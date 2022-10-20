@@ -1,5 +1,5 @@
 // React
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 // Style
@@ -17,6 +17,7 @@ import Avatar from "../Avatar";
 import Button from "../../components/Button";
 import Error from "../Error/Error";
 import splitString from "../../util/stringSplitting";
+import NotifierContext from "../../context/NotifierContext";
 
 function StatementCard(props) {
   // Ref
@@ -41,6 +42,8 @@ function StatementCard(props) {
     username: "",
     symScore: "",
   });
+  // Context
+  const { notifier } = useContext(NotifierContext);
 
   useEffect(() => {
     authorIDRef.current = props.statement.userID;
@@ -160,10 +163,10 @@ function StatementCard(props) {
     setTagged(style.red);
     taggersID.current = onReceived.result.taggersID;
     netTags.current = onReceived.result.netTags;
+    notifier("Successfully tagged this statement!");
   };
 
   const {
-    // isLoading: commentLoading,
     error: commentError,
     performFetch: performCommentFetch,
     cancelFetch: cancelComment,
@@ -307,4 +310,5 @@ export default StatementCard;
 
 StatementCard.propTypes = {
   statement: PropTypes.object.isRequired,
+  commentLoading: PropTypes.bool.isRequired,
 };

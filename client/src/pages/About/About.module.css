@@ -1,5 +1,4 @@
 .aboutPage {
-  /* background-color: var(--background); */
   padding-bottom: 5px;
   color: var(--font);
 }
@@ -42,6 +41,7 @@
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   max-width: 1240px;
+  width: 95vw;
   margin: 2rem auto;
   padding: 20px;
   background: rgba(255, 255, 255, 0.7);
@@ -50,6 +50,7 @@
 .teamSection,
 .statsSection {
   max-width: 1240px;
+  width: 95vw;
   margin: 3rem auto;
   margin-top: 0px;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
