@@ -31,46 +31,46 @@ const Avatar = (props) => {
     case props.symScore > 1 && props.symScore < 10:
       src = third;
       break;
-    case props.symScore > 10 && props.symScore < 20:
+    case props.symScore >= 10 && props.symScore < 20:
       src = fourth;
       break;
-    case props.symScore > 20 && props.symScore < 30:
+    case props.symScore >= 20 && props.symScore < 30:
       src = fifth;
       break;
-    case props.symScore > 40 && props.symScore < 50:
+    case props.symScore >= 40 && props.symScore < 50:
       src = sixth;
       break;
-    case props.symScore > 50 && props.symScore < 60:
+    case props.symScore >= 50 && props.symScore < 60:
       src = seventh;
       break;
-    case props.symScore > 60 && props.symScore < 70:
+    case props.symScore >= 60 && props.symScore < 70:
       src = eighth;
       break;
-    case props.symScore > 70 && props.symScore < 80:
+    case props.symScore >= 70 && props.symScore < 80:
       src = ninth;
       break;
-    case props.symScore > 80 && props.symScore < 90:
+    case props.symScore >= 80 && props.symScore < 90:
       src = tenth;
       break;
-    case props.symScore > 90 && props.symScore < 100:
+    case props.symScore >= 90 && props.symScore < 100:
       src = eleventh;
       break;
-    case props.symScore > 100 && props.symScore < 120:
+    case props.symScore >= 100 && props.symScore < 120:
       src = twelfth;
       break;
-    case props.symScore > 120 && props.symScore < 140:
+    case props.symScore >= 120 && props.symScore < 140:
       src = thirteenth;
       break;
-    case props.symScore > 140 && props.symScore < 160:
+    case props.symScore >= 140 && props.symScore < 160:
       src = fourteenth;
       break;
-    case props.symScore > 160 && props.symScore < 180:
+    case props.symScore >= 160 && props.symScore < 180:
       src = fifteenth;
       break;
-    case props.symScore > 180 && props.symScore < 200:
+    case props.symScore >= 180 && props.symScore < 200:
       src = sixteenth;
       break;
-    case props.symScore > 220 && props.symScore < 250:
+    case props.symScore >= 220 && props.symScore < 250:
       src = seventeenth;
       break;
     case props.symScore >= 300:

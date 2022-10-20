@@ -16,6 +16,7 @@ import { getCookie } from "../../hooks/useCookie";
 import Avatar from "../Avatar";
 import Button from "../../components/Button";
 import Error from "../Error/Error";
+import splitString from "../../util/stringSplitting";
 
 function StatementCard(props) {
   // Ref
@@ -35,17 +36,12 @@ function StatementCard(props) {
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
   const [tagged, setTagged] = useState("");
-  const [upVoted, setUpVoted] = useState(false);
-  const [downVoted, setDownVoted] = useState(false);
+  const [voteDecision, setVoteDecision] = useState("");
   const [author, setAuthor] = useState({
     username: "",
     symScore: "",
     dateCreated: "",
   });
-
-  const totalVotes = () => {
-    votes.current = upVotes.current.length - downVotes.current.length;
-  };
 
   useEffect(() => {
     authorIDRef.current = props.statement.userID;
@@ -53,6 +49,9 @@ function StatementCard(props) {
     statementStartRef.current = props.statement.statementStart;
     netTags.current = props.statement.netTags ? props.statement.netTags : 0;
     taggersID.current = props.statement.taggersID;
+    votes.current = props.statement.netVotes;
+    upVotes.current = props.statement.upVotes;
+    downVotes.current = props.statement.downVotes;
 
     performFetchUser({
       method: "GET",
@@ -60,10 +59,6 @@ function StatementCard(props) {
         "content-type": "application/json",
       },
     });
-
-    upVotes.current = props.statement.upVotes;
-    downVotes.current = props.statement.downVotes;
-    totalVotes();
 
     props.statement.upVotes.includes(getCookie("userID"))
       ? setUpButton(style.red)
@@ -75,32 +70,15 @@ function StatementCard(props) {
       ? setTagged(style.red)
       : setTagged("");
 
-    return cancelFetch, cancelFetchUser, cancelComment;
+    return cancelFetchUser, cancelComment;
   }, []);
 
-  // Split long single words into max length
-  function splitString(str, length) {
-    let words = str.split(" ");
-    for (let j = 0; j < words.length; j++) {
-      let l = words[j].length;
-      if (l > length) {
-        let result = [],
-          i = 0;
-        while (i < l) {
-          result.push(words[j].substr(i, length));
-          i += length;
-        }
-        words[j] = result.join(" ");
-      }
-    }
-    return words.join(" ");
-  }
   // Dealing with the server response
   const onSuccess = (onReceived) => {
     upVotes.current = onReceived.result.upVotes;
     downVotes.current = onReceived.result.downVotes;
     taggersID.current = onReceived.result.taggersID;
-    totalVotes();
+    votes.current = onReceived.result.netVotes;
 
     upVotes.current.includes(getCookie("userID"))
       ? setUpButton(style.red)
@@ -114,6 +92,24 @@ function StatementCard(props) {
       ? setTagged(style.red)
       : setTagged("");
   };
+
+  useEffect(() => {
+    if (voteDecision) {
+      performFetch({
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          statement: {
+            userID: getCookie("userID"),
+            vote: voteDecision,
+          },
+        }),
+      });
+    }
+    return cancelFetch;
+  }, [voteDecision]);
 
   const { performFetch, cancelFetch, error } = useFetch(
     `/statements/${props.statement._id}`,
@@ -130,55 +126,18 @@ function StatementCard(props) {
     error: userError,
   } = useFetch(`/user/public/${props.statement.userID}`, onSuccessUser);
 
-  useEffect(() => {
-    performFetch({
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        statement: {
-          userID: props.statement.userID,
-          taggersID: props.statement.taggersID,
-          fullStatement: props.statement.fullStatement,
-          statementStart: props.statement.statementStart,
-          statementEnd: props.statement.statementEnd,
-          dateCreated: props.statement.dateCreated,
-          upVotes: upVotes.current,
-          downVotes: downVotes.current,
-          netVotes: votes.current,
-        },
-      }),
-    });
-  }, [upVoted, downVoted]);
-
   // upVote Handler
   const upHandler = () => {
     upVotes.current.includes(getCookie("userID"))
-      ? (upVotes.current = upVotes.current.filter(
-          (user) => user !== getCookie("userID")
-        ))
-      : upVotes.current.push(getCookie("userID"));
-
-    if (downVotes.current.includes(getCookie("userID")))
-      downVotes.current = downVotes.current.filter(
-        (user) => user !== getCookie("userID")
-      );
-    upVoted ? setUpVoted(false) : setUpVoted(true);
+      ? setVoteDecision("neutral")
+      : setVoteDecision("up");
   };
+
   // downVote Handler
   const downHandler = () => {
     downVotes.current.includes(getCookie("userID"))
-      ? (downVotes.current = downVotes.current.filter(
-          (user) => user !== getCookie("userID")
-        ))
-      : downVotes.current.push(getCookie("userID"));
-
-    if (upVotes.current.includes(getCookie("userID")))
-      upVotes.current = upVotes.current.filter(
-        (user) => user !== getCookie("userID")
-      );
-    downVoted ? setDownVoted(false) : setDownVoted(true);
+      ? setVoteDecision("neutral")
+      : setVoteDecision("down");
   };
 
   // Tagging helpers & logic
@@ -302,11 +261,11 @@ function StatementCard(props) {
               <div className={style.statsContainer}>
                 <div className={style.voteContainer}>
                   <button className={appStyle.body} onClick={upHandler}>
-                    <ImArrowUp className={upButton} />
+                    <ImArrowUp className={upButton} title="Up Vote" />
                   </button>
                   <p className={appStyle.body}>{votes.current}</p>
                   <button className={appStyle.body} onClick={downHandler}>
-                    <ImArrowDown className={downButton} />
+                    <ImArrowDown className={downButton} title="Down Vote" />
                   </button>
                 </div>
                 <div className={style.taggers}>
@@ -320,12 +279,16 @@ function StatementCard(props) {
                       }}
                     />
                   ) : (
-                    <ImLoop2 className={tagged} onClick={tagThis} />
+                    <ImLoop2
+                      className={tagged}
+                      onClick={tagThis}
+                      title="This shows how many tags this statement currently has"
+                    />
                   )}
                 </div>
                 <div className={style.totalUsers}>
                   <p className={appStyle.body}>{taggersID.current.length}</p>
-                  <FiUsers />
+                  <FiUsers title="This shows how many people have tagged on this statement" />
                 </div>
                 {tag && (
                   <div className={style.tagButton}>
