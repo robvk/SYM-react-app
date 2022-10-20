@@ -43,28 +43,30 @@ const About = () => {
           <img src={bgImage} className={style.bgImage} />
         </div>
         <div className={style.aboutSection}>
-          <h1 className={appStyle.headerOne}>About SYM</h1>
           <div className={style.container}>
-            <div className={style.titleContainer}>
-              <p className={appStyle.headerTwo}>
-                Make a statement, the world is waiting..
-              </p>
-            </div>
-            <div className={style.paragraphContainer}>
-              <p className={appStyle.body}>
-                SYM aims to restore anonymity in social interaction platforms.
-                The idea is to let anyone open topics for discussion without
-                having to explain themselves, hence the character limit. What
-                you do here is open a discussion with one sentence and make a
-                statement with another. Any SYM user is then able to reply to
-                your topic by tagging a statement to your topic.
-                <br />
-                <br />
-                Users cannot follow other users. Each statement awards the user
-                points that add up to the SYM score. Posts are sorted by most
-                liked. Each post will self destruct in 48h. When a user tags on
-                a statement they also get points to their SYM score.
-              </p>
+            <h2 className={appStyle.headerOne}>About SYM</h2>
+            <div className={style.row}>
+              <div className={style.titleContainer}>
+                <p className={appStyle.headerTwo}>
+                  Make a statement, the world is waiting..
+                </p>
+              </div>
+              <div className={style.paragraphContainer}>
+                <p className={appStyle.body}>
+                  SYM aims to restore anonymity in social interaction platforms.
+                  The idea is to let anyone open topics for discussion without
+                  having to explain themselves, hence the character limit. What
+                  you do here is open a discussion with one sentence and make a
+                  statement with another. Any SYM user is then able to reply to
+                  your topic by tagging a statement to your topic.
+                  <br />
+                  <br />
+                  Users cannot follow other users. Each statement awards the
+                  user points that add up to the SYM score. Posts are sorted by
+                  most liked. Each post will self destruct in 48h. When a user
+                  tags on a statement they also get points to their SYM score.
+                </p>
+              </div>
             </div>
           </div>
         </div>
