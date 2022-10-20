@@ -15,31 +15,44 @@ export const updateStatement = async (req, res) => {
       });
     }
 
-    statement.userID = newData.userID ? newData.userID : statement.userID;
-    statement.taggersID = newData.taggersID
-      ? newData.taggersID
-      : statement.taggersID;
-    statement.netTags = newData.netTags ? newData.netTags : statement.netTags;
-    statement.fullStatement = newData.fullStatement
-      ? newData.fullStatement
-      : statement.fullStatement;
-    statement.statementStart = newData.statementStart
-      ? newData.statementStart
-      : statement.statementStart;
-    statement.statementEnd = newData.statementEnd
-      ? newData.statementEnd
-      : statement.statementEnd;
-    statement.dateCreated = newData.dateCreated
-      ? newData.dateCreated
-      : statement.dateCreated;
-    statement.upVotes = newData.upVotes ? newData.upVotes : statement.upVotes;
-    statement.netVotes = newData.netVotes
-      ? newData.netVotes
-      : statement.netVotes;
-    statement.downVotes = newData.downVotes
-      ? newData.downVotes
-      : statement.downVotes;
-
+    switch (newData.vote) {
+      case "up":
+        if (!statement.upVotes.includes(newData.userID)) {
+          statement.upVotes.push(newData.userID);
+        }
+        if (statement.downVotes.includes(newData.userID)) {
+          statement.downVotes = statement.downVotes.filter(
+            (user) => user !== newData.userID
+          );
+        }
+        break;
+      case "neutral":
+        if (statement.downVotes.includes(newData.userID)) {
+          statement.downVotes = statement.downVotes.filter(
+            (user) => user !== newData.userID
+          );
+        }
+        if (statement.upVotes.includes(newData.userID)) {
+          statement.upVotes = statement.upVotes.filter(
+            (user) => user !== newData.userID
+          );
+        }
+        break;
+      case "down":
+        if (!statement.downVotes.includes(newData.userID)) {
+          statement.downVotes.push(newData.userID);
+        }
+        if (statement.upVotes.includes(newData.userID)) {
+          statement.upVotes = statement.upVotes.filter(
+            (user) => user !== newData.userID
+          );
+        }
+        break;
+      default:
+        statement.upVotes;
+        statement.downVotes;
+    }
+    statement.netVotes = statement.upVotes.length - statement.downVotes.length;
     const statementToValidate = {
       userID: statement.userID,
       taggersID: statement.taggersID,
@@ -72,38 +85,6 @@ export const updateStatement = async (req, res) => {
     });
   }
 };
-
-// export const acceptCancelJob = async (req, res) => {
-//   try {
-//     let job = await Job.findOne({ _id: req.params.id });
-//     if (!job) {
-//       res.status(404).json({
-//         success: false,
-//         message: "The job is not found",
-//       });
-//     }
-//     if (job.delivererIDs.includes(req.body.job.delivererID)) {
-//       job.delivererIDs = job.delivererIDs.filter(
-//         (id) => id !== req.body.job.delivererID
-//       );
-//     } else {
-//       job.delivererIDs.push(req.body.job.delivererID);
-//     }
-
-//     await job.save();
-//     res.status(200).json({
-//       success: true,
-//       result: job,
-//       message: "Job is updated successfully",
-//     });
-//   } catch (error) {
-//     logError(error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Unable to get the job, try again later",
-//     });
-//   }
-// };
 
 export const createStatement = async (req, res) => {
   const statement = { ...req.body };
