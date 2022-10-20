@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useLayoutEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import useFetch from "../../hooks/useFetch";
 import style from "./Login.module.css";
 import UserInfoContext from "../../context/UserInfoContext";
@@ -9,14 +9,13 @@ import { setCookie } from "../../hooks/useCookie";
 import LogInForm from "./LoginForm";
 import ProgressBar from "../../components/ProgressBar";
 import bgImage from "../../assets/images/background-image.jpg";
+import NotifierContext from "../../context/NotifierContext";
 
 function Login() {
-  const { setToken, setUserID, setUsername } = useContext(UserInfoContext);
   const navigate = useNavigate();
-
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  });
+  // Context
+  const { notifier } = useContext(NotifierContext);
+  const { setToken, setUserID, setUsername } = useContext(UserInfoContext);
 
   const onSuccess = (res) => {
     setCookie("token", res.data, 7);
@@ -27,6 +26,7 @@ function Login() {
     navigate("/feed", {
       replace: true,
     });
+    notifier("Account successfully created!");
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(

@@ -14,10 +14,12 @@ import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import bgImage from "../../assets/images/background-image.jpg";
 import { setCookie } from "../../hooks/useCookie";
+import NotifierContext from "../../context/NotifierContext";
 
 const Home = () => {
   const navigate = useNavigate();
-
+  // Context
+  const { notifier } = useContext(NotifierContext);
   const { setToken, setUserID } = useContext(UserInfoContext);
 
   // Call back from backend
@@ -29,6 +31,7 @@ const Home = () => {
     navigate("/feed", {
       replace: true,
     });
+    notifier("Welcome back!");
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(

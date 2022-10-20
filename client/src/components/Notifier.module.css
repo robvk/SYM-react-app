@@ -1,14 +1,14 @@
 .alert {
   padding: 20px;
-  background-color: var(--green);
-  color: var(--font);
+  background-color: var(--font);
+  color: var(--green);
   text-align: center;
   text-overflow: ellipsis;
 }
 
 .closebtn {
   margin-left: 15px;
-  color: var(--font);
+  color: var(--font-light);
   font-weight: bold;
   float: right;
   font-size: 22px;
