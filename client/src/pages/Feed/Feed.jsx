@@ -5,6 +5,8 @@ import ProgressBar from "../../components/ProgressBar";
 import useFetch from "../../hooks/useFetch";
 import StatementCard from "../../components/Statement/StatementCard";
 import Error from "../../components/Error/Error";
+import { Link } from "react-router-dom";
+import { VscAdd } from "react-icons/vsc";
 
 function Feed() {
   const [statements, setStatements] = useState([]);
@@ -59,25 +61,30 @@ function Feed() {
             ref={listInnerRef}
           >
             <ul>
-              {statements ? (
-                statements?.map((statement, index) => (
-                  <li key={index}>
-                    {
-                      <StatementCard
-                        statement={statement}
-                        cardLoading={isLoading}
-                      />
-                    }
-                  </li>
-                ))
-              ) : (
-                <p>It seems like there are no statements.</p>
+              {!statements.length && (
+                <div className={style.noStatements}>
+                  <p className={appStyle.body}>
+                    Oops, looks like you&apos;re early, make a statement!
+                  </p>
+                  <Link className={style.plus} key="0" to="/statements/create">
+                    <VscAdd />
+                  </Link>
+                </div>
               )}
+              {statements?.map((statement, index) => (
+                <li key={index}>
+                  {
+                    <StatementCard
+                      statement={statement}
+                      cardLoading={isLoading}
+                    />
+                  }
+                </li>
+              ))}
             </ul>
           </div>
+          <Error error={error} transparent={true} />
         </div>
-
-        <Error error={error} transparent={true} />
       </div>
     </>
   );
