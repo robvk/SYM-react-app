@@ -7,6 +7,7 @@ import StatementCard from "../../components/Statement/StatementCard";
 import Error from "../../components/Error/Error";
 import { Link } from "react-router-dom";
 import { VscAdd } from "react-icons/vsc";
+import BackgroundImage from "../../components/BackgroundImage";
 
 function Feed() {
   const [statements, setStatements] = useState([]);
@@ -51,6 +52,7 @@ function Feed() {
   return (
     <>
       <ProgressBar loading={isLoading} />
+      <BackgroundImage />
       <div className={style.homePage}>
         <div className={style.container}>
           <h2 className={appStyle.headerOne}>Home</h2>
@@ -83,7 +85,7 @@ function Feed() {
               ))}
             </ul>
           </div>
-          <Error error={error} transparent={true} />
+          <Error error={error} />
         </div>
       </div>
     </>
