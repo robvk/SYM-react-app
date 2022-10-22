@@ -8,7 +8,7 @@ import { updateSymScore } from "./user.js";
 export const cleanUpData = async (res) => {
   try {
     const olderStatements = await Statement.find({
-      dateCreated: { $lte: new Date(Date.now() - 1 * 1 * 60 * 60 * 1000) },
+      dateCreated: { $lte: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) },
     });
     olderStatements?.map(async (statement) => {
       statement.expired = true;
