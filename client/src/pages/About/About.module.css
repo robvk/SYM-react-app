@@ -1,6 +1,16 @@
 .aboutPage {
   padding-bottom: 5px;
   color: var(--font);
+  height: calc(100vh - 55px);
+}
+
+.aboutContent {
+  height: calc(100vh - 55px);
+  overflow-x: scroll;
+}
+
+.aboutContent::-webkit-scrollbar {
+  display: none;
 }
 
 .aboutSection,
@@ -129,13 +139,44 @@
 }
 
 /*responsive*/
-@media (max-width: 740px) {
+@media screen and (max-width: 740px) {
+  .container {
+    padding: 0px;
+    padding-top: 20px;
+  }
+  .teamSection {
+    padding: 30px !important;
+  }
+  .statsSection {
+    flex-direction: column;
+  }
+
+  .paragraphContainer {
+    padding-top: 0px;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
   .container {
     flex-direction: column;
   }
+
+  .row {
+    flex-direction: column;
+  }
 }
-@media (max-width: 574px) {
+@media screen and (max-width: 574px) {
   .container {
     flex-direction: column;
+    margin: auto;
+  }
+
+  .aboutSection {
+    margin-left: -5px;
+    margin-bottom: 30px;
   }
 }
