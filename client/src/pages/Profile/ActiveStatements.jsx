@@ -48,28 +48,32 @@ const ActiveStatements = () => {
 
   return (
     <div>
-      <div>
-        <div className={style.statementInformation}>
-          <h2 className={`${style.subTitle} ${appStyle.boldBody}`}>
-            Active Statements
-          </h2>
-          <div
-            className={style.cardsDiv}
-            onScroll={onScroll}
-            ref={listInnerRef}
-          >
-            <ul>
-              {statements ? (
-                statements?.map((statement, index) => (
-                  <li key={index}>{<StatementCard statement={statement} />}</li>
-                ))
-              ) : (
-                <p>It seems like there are no statements.</p>
-              )}
-            </ul>
+      {statements.length !== 0 && (
+        <div>
+          <div className={style.statementInformation}>
+            <h2 className={`${style.subTitle} ${appStyle.boldBody}`}>
+              Active Statements
+            </h2>
+            <div
+              className={style.cardsDiv}
+              onScroll={onScroll}
+              ref={listInnerRef}
+            >
+              <ul>
+                {statements ? (
+                  statements?.map((statement, index) => (
+                    <li key={index}>
+                      {<StatementCard statement={statement} />}
+                    </li>
+                  ))
+                ) : (
+                  <p>It seems like there are no statements.</p>
+                )}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
