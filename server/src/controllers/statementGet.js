@@ -1,7 +1,10 @@
 import Statement from "../models/Statement.js";
 import { logError } from "../util/logging.js";
+import { cleanUpData } from "./databaseCleanUp.js";
 
 export const getAllStatements = async (req, res) => {
+  await cleanUpData(res);
+
   try {
     const skip = parseInt(req.query.skip);
     const limit = parseInt(req.query.limit);

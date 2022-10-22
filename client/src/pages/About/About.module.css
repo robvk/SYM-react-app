@@ -73,6 +73,10 @@
   padding-bottom: 40px;
 }
 
+.statsSection p {
+  font-size: 1.2em;
+}
+
 .statsSection .content {
   margin-top: 30px;
 }

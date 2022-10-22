@@ -1,37 +1,31 @@
 import mongoose from "mongoose";
 import Joi from "joi";
 
-const statementSchema = new mongoose.Schema({
-  userID: { type: String },
-  taggersID: [{ type: String, required: false }],
-  netTags: { type: Number, required: false },
-  fullStatement: { type: String, required: true },
+const expiredCommentSchema = new mongoose.Schema({
+  userID: { type: String, required: true },
+  authorID: { type: String, required: true },
+  statementID: { type: String, required: true },
   statementStart: { type: String, required: true },
   statementEnd: { type: String, required: true },
-  dateCreated: { type: Date, required: true },
   upVotes: [{ type: String, required: false }],
   netVotes: { type: Number, required: false },
   downVotes: [{ type: String, required: false }],
-  expired: { type: Boolean, required: true },
 });
 
-const Statement = mongoose.model("statements", statementSchema);
+const ExpiredComment = mongoose.model("expiredComments", expiredCommentSchema);
 
-export const validateStatement = (data) => {
+export const validateExpiredComment = (data) => {
   const schema = Joi.object({
     userID: Joi.string().min(1).required().label("userID"),
-    fullStatement: Joi.string().min(1).required().label("fullStatement"),
+    authorID: Joi.string().min(1).required().label("authorID"),
+    statementID: Joi.string().min(1).required().label("statementID"),
     statementStart: Joi.string().min(1).required().label("statementStart"),
     statementEnd: Joi.string().min(1).required().label("statementEnd"),
-    dateCreated: Joi.date().required().label("dateCreated"),
     upVotes: Joi.array().label("upVotes"),
     netVotes: Joi.number().label("upVotesCount"),
     downVotes: Joi.array().label("downVotes"),
-    taggersID: Joi.array().label("taggersID"),
-    netTags: Joi.number().label("netTags"),
-    expired: Joi.bool().label("expired"),
   });
   return schema.validate(data);
 };
 
-export default Statement;
+export default ExpiredComment;

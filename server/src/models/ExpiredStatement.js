@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Joi from "joi";
 
-const statementSchema = new mongoose.Schema({
+const ExpiredStatementSchema = new mongoose.Schema({
   userID: { type: String },
   taggersID: [{ type: String, required: false }],
   netTags: { type: Number, required: false },
@@ -12,12 +12,15 @@ const statementSchema = new mongoose.Schema({
   upVotes: [{ type: String, required: false }],
   netVotes: { type: Number, required: false },
   downVotes: [{ type: String, required: false }],
-  expired: { type: Boolean, required: true },
+  expired: { type: Boolean, required: false },
 });
 
-const Statement = mongoose.model("statements", statementSchema);
+const ExpiredStatement = mongoose.model(
+  "expiredStatements",
+  ExpiredStatementSchema
+);
 
-export const validateStatement = (data) => {
+export const validateExpiredStatement = (data) => {
   const schema = Joi.object({
     userID: Joi.string().min(1).required().label("userID"),
     fullStatement: Joi.string().min(1).required().label("fullStatement"),
@@ -34,4 +37,4 @@ export const validateStatement = (data) => {
   return schema.validate(data);
 };
 
-export default Statement;
+export default ExpiredStatement;

@@ -10,14 +10,16 @@ import Error from "../../components/Error/Error";
 const About = () => {
   const [users, setUsers] = useState();
   const [activeStatements, setActiveStatements] = useState();
-  const [expired, setExpired] = useState(0);
+  const [expiredStatements, setExpiredStatements] = useState();
+  const [expiredComments, setExpiredComments] = useState();
   const [tags, setTags] = useState();
 
   const onSuccess = (onReceived) => {
     setUsers(onReceived.result.countUsers);
     setActiveStatements(onReceived.result.countStatements);
     setTags(onReceived.result.countTags);
-    setExpired(0);
+    setExpiredStatements(onReceived.result.countExpiredStatements);
+    setExpiredComments(onReceived.result.countExpiredComments);
   };
 
   const { isLoading, performFetch, cancelFetch, error } = useFetch(
@@ -102,7 +104,17 @@ const About = () => {
                 <CountUp
                   className={appStyle.headerOne}
                   start={0}
-                  end={expired}
+                  end={expiredStatements}
+                />
+              </div>
+            </div>
+            <div className={style.content}>
+              <p className={appStyle.headerOne}>Expired Tags</p>
+              <div className={style.numbers}>
+                <CountUp
+                  className={appStyle.headerOne}
+                  start={0}
+                  end={expiredComments}
                 />
               </div>
             </div>

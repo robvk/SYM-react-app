@@ -64,6 +64,7 @@ export const updateStatement = async (req, res) => {
       upVotes: statement.upVotes,
       downVotes: statement.downVotes,
       netVotes: statement.netVotes,
+      expired: statement.expired,
     };
     const { error } = validateStatement(statementToValidate);
     if (error) {
@@ -114,6 +115,7 @@ export const createStatement = async (req, res) => {
       upVotes: [statement.statement.userID],
       netVotes: 1,
       netTags: 0,
+      expired: false,
     }).save();
     await updateSymScore(req, "statement");
     res
