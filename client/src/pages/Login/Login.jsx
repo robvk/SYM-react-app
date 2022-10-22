@@ -26,7 +26,7 @@ function Login() {
     navigate("/feed", {
       replace: true,
     });
-    notifier("Account successfully created!");
+    notifier("Welcome back!");
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(

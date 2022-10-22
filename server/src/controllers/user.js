@@ -183,26 +183,37 @@ export const updateUser = async (req, res) => {
 };
 
 // Update Sym Score
-export const updateSymScore = async (req, type) => {
-  const body = { ...req.body };
+export const updateSymScore = async (req, type, auth, exp) => {
+  const body = { ...req?.body };
   try {
-    if (type === "statement") {
-      let user = await User.findOne({ _id: body.statement.userID });
-
-      user.symScore = user.symScore + 2;
-
-      await user.save();
+    let user;
+    let author;
+    switch (type) {
+      case "statement":
+        user = await User.findOne({ _id: body.statement.userID });
+        user.symScore = user.symScore + 2;
+        await user.save();
+        break;
+      case "comment":
+        user = await User.findOne({ _id: body.comment.userID });
+        author = await User.findOne({ _id: body.comment.authorID });
+        user.symScore = user.symScore + 1;
+        author.symScore = author.symScore + 1;
+        await user.save();
+        await author.save();
+        break;
+      case "expired":
+        user = await User.findOne({ _id: auth });
+        user.symScore = user.symScore + exp;
+        await user.save();
+        break;
+      default:
+        user = await User.findOne({ _id: body.statement.userID });
+        user.symScore = user.symScore + 2;
+        await user.save();
+        break;
     }
 
-    if (type === "comment") {
-      let user = await User.findOne({ _id: body.comment.userID });
-      let author = await User.findOne({ _id: body.comment.authorID });
-
-      user.symScore = user.symScore + 1;
-      author.symScore = author.symScore + 1;
-
-      await user.save();
-    }
     // res.status(200).json({
     //   message: "User symScore updated successfully",
     //   success: true,
@@ -211,7 +222,7 @@ export const updateSymScore = async (req, type) => {
     //   },
     // });
   } catch (error) {
-    logError(error);
+    // logError(error);
     // res.status(500).json({
     //   success: false,
     //   message: "Unable to update the symScore, try again later",

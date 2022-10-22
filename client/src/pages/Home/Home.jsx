@@ -31,7 +31,7 @@ const Home = () => {
     navigate("/feed", {
       replace: true,
     });
-    notifier("Welcome back!");
+    notifier("Account successfully created!");
   };
 
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
