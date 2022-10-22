@@ -8,8 +8,8 @@ import Error from "../../components/Error/Error";
 import { setCookie } from "../../hooks/useCookie";
 import LogInForm from "./LoginForm";
 import ProgressBar from "../../components/ProgressBar";
-import bgImage from "../../assets/images/background-image.jpg";
 import NotifierContext from "../../context/NotifierContext";
+import BackgroundImage from "../../components/BackgroundImage";
 
 function Login() {
   const navigate = useNavigate();
@@ -52,9 +52,7 @@ function Login() {
     <div>
       <ProgressBar loading={isLoading} />
       <div className={style.loginContainer}>
-        <div className={style.bgImageContainer}>
-          <img src={bgImage} className={style.bgImage} />
-        </div>
+        <BackgroundImage />
         <div className={style.formContainer}>
           <div className={style.glassBox}>
             <h2 className={appStyle.headerOne}>WELCOME BACK, LOG IN!</h2>

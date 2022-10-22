@@ -7,6 +7,7 @@
   max-width: 700px;
   background: var(--white);
   padding: 10px;
+  background: var(--background-opacity);
 }
 
 .row {
@@ -63,6 +64,7 @@
   align-items: flex-start;
   flex-wrap: wrap;
   /* margin-bottom: -5px; */
+  color: var(--font) !important;
 }
 
 .statement a {
@@ -73,6 +75,7 @@
 .statementStart {
   font-size: 1.5rem;
   margin-bottom: 5px;
+  color: var(--font) !important;
 }
 
 .statementEnd,
@@ -82,6 +85,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
+  color: var(--font) !important;
 }
 
 .statementEndInput input {

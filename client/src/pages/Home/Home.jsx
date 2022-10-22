@@ -12,7 +12,7 @@ import appStyle from "../../App.module.css";
 import SignUpForm from "./SignUpForm";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
-import bgImage from "../../assets/images/background-image.jpg";
+import BackgroundImage from "../../components/BackgroundImage";
 import { setCookie } from "../../hooks/useCookie";
 import NotifierContext from "../../context/NotifierContext";
 
@@ -58,9 +58,7 @@ const Home = () => {
     <div>
       <ProgressBar loading={isLoading} />
       <div className={style.homeContainer}>
-        <div className={style.bgImageContainer}>
-          <img src={bgImage} className={style.bgImage} />
-        </div>
+        <BackgroundImage />
         <div className={style.formContainer}>
           <div className={style.glassBox}>
             <h2 className={appStyle.headerOne}>MAKE A STATEMENT</h2>

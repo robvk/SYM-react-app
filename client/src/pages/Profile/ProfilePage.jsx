@@ -13,6 +13,7 @@ import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import Avatar from "../../components/Avatar";
 import ProfileLevel from "./ProfileLevel";
+import BackgroundImage from "../../components/BackgroundImage";
 // Hook
 import useFetch from "../../hooks/useFetch";
 import NotifierContext from "../../context/NotifierContext";
@@ -164,8 +165,9 @@ const ProfilePage = () => {
   };
 
   return (
-    <div>
+    <div className={style.profilePage}>
       <ProgressBar loading={isLoading} />
+      <BackgroundImage space={true} />
       <div className={style.profileContainer}>
         <div className={style.profileHeader}>
           <div className={style.userSection}>
@@ -176,95 +178,97 @@ const ProfilePage = () => {
             <ProfileLevel symScore={userDetails.symScore} />
           </div>
         </div>
-        {!changePassword && (
-          <div className={style.buttonsDiv}>
-            <div className={style.singleButton}>
-              <Button
-                buttonHandler={editHandler}
-                class={editHelper ? "buttonBorder" : ""}
-              >
-                {!editHelper ? (
-                  <span>
-                    <VscEdit /> Edit Profile
-                  </span>
-                ) : (
-                  "Cancel"
-                )}
-              </Button>
-            </div>
-            {deleteHelper ? (
+        <div className={style.banner}>
+          {!changePassword && (
+            <div className={style.buttonsDiv}>
               <div className={style.singleButton}>
                 <Button
-                  class="buttonBorder"
-                  buttonHandler={() => setDeleteHelper(false)}
+                  buttonHandler={editHandler}
+                  class={editHelper ? "buttonBorder" : ""}
                 >
-                  Cancel
+                  {!editHelper ? (
+                    <span>
+                      <VscEdit /> Edit Profile
+                    </span>
+                  ) : (
+                    "Cancel"
+                  )}
                 </Button>
               </div>
-            ) : (
-              <div className={style.singleButton}>
-                <Button buttonHandler={deleteHandler}>
-                  <VscTrash /> Delete Account
-                </Button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {!changePassword && (
-          <div className={appStyle.body}>
-            {deleteHelper ? (
-              deletePrompt
-            ) : (
-              <div>
-                {!editHelper ? (
-                  <div className={style.userInformation}>
-                    <h2 className={style.subTitle}>User Details</h2>
-                    <div className={style.accountDetails}>
-                      <p className={appStyle.body}>
-                        <span className={appStyle.boldBody}>Username: </span>
-                        {userDetails.username}
-                      </p>
-                      <p className={appStyle.body}>
-                        <span className={appStyle.boldBody}>Email: </span>
-                        {userDetails.email}
-                      </p>
-                      <p className={appStyle.body}>
-                        <span className={appStyle.boldBody}>SYM Score: </span>
-                        {userDetails.symScore}
-                      </p>
-                      <p className={appStyle.body}>
-                        <span className={appStyle.boldBody}>
-                          Account created on:{" "}
-                        </span>
-                        {userDetails.dateCreated}
-                      </p>
-                    </div>
-                  </div>
-                ) : (
-                  <EditProfileForm
-                    userDetails={userDetails}
-                    onSaveDetails={editUserHandler}
-                  />
-                )}
-              </div>
-            )}
-
-            <div className={style.changePassword}>
-              <button className={appStyle.body} onClick={changePassHandler}>
-                Change password
-              </button>
+              {deleteHelper ? (
+                <div className={style.singleButton}>
+                  <Button
+                    class="buttonBorder"
+                    buttonHandler={() => setDeleteHelper(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              ) : (
+                <div className={style.singleButton}>
+                  <Button buttonHandler={deleteHandler}>
+                    <VscTrash /> Delete Account
+                  </Button>
+                </div>
+              )}
             </div>
-          </div>
-        )}
-        {changePassword && (
-          <PasswordChange
-            onSaveDetails={editUserHandler}
-            passwordChange={changePassHandler}
-          />
-        )}
-        <ActiveStatements />
-        <Error error={error} />
+          )}
+
+          {!changePassword && (
+            <div className={appStyle.body}>
+              {deleteHelper ? (
+                deletePrompt
+              ) : (
+                <div>
+                  {!editHelper ? (
+                    <div className={style.userInformation}>
+                      <h2 className={style.subTitle}>User Details</h2>
+                      <div className={style.accountDetails}>
+                        <p className={appStyle.body}>
+                          <span className={appStyle.boldBody}>Username: </span>
+                          {userDetails.username}
+                        </p>
+                        <p className={appStyle.body}>
+                          <span className={appStyle.boldBody}>Email: </span>
+                          {userDetails.email}
+                        </p>
+                        <p className={appStyle.body}>
+                          <span className={appStyle.boldBody}>SYM Score: </span>
+                          {userDetails.symScore}
+                        </p>
+                        <p className={appStyle.body}>
+                          <span className={appStyle.boldBody}>
+                            Account created on:{" "}
+                          </span>
+                          {userDetails.dateCreated}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <EditProfileForm
+                      userDetails={userDetails}
+                      onSaveDetails={editUserHandler}
+                    />
+                  )}
+                </div>
+              )}
+
+              <div className={style.changePassword}>
+                <button className={appStyle.body} onClick={changePassHandler}>
+                  Change password
+                </button>
+              </div>
+            </div>
+          )}
+          {changePassword && (
+            <PasswordChange
+              onSaveDetails={editUserHandler}
+              passwordChange={changePassHandler}
+            />
+          )}
+          <ActiveStatements />
+          <Error error={error} />
+        </div>
       </div>
     </div>
   );

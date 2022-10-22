@@ -1,0 +1,42 @@
+.bgImageContainer {
+  max-width: 100%;
+  height: calc(100vh - 55px);
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.bgSpace {
+  max-width: 100%;
+  min-height: calc(100vh - 55px);
+  max-height: calc(100vh + 400px);
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.bgImage {
+  min-width: 250%;
+  rotate: 180deg;
+  -webkit-animation: mover 120s infinite alternate;
+  animation: mover 120s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+  0% {
+    transform: translate(0%, 0%);
+  }
+
+  100% {
+    transform: translate(calc(100% - 100vw), 30%);
+  }
+}
+@keyframes mover {
+  0% {
+    transform: translate(0%, 0%);
+  }
+
+  100% {
+    transform: translate(calc(100% - 100vw), 30%);
+  }
+}
