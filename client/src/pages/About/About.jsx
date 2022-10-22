@@ -93,7 +93,7 @@ const About = () => {
               </div>
             </div>
             <div className={style.content}>
-              <p className={appStyle.headerOne}>Tags</p>
+              <p className={appStyle.headerOne}>Active Tags</p>
               <div className={style.numbers}>
                 <CountUp className={appStyle.headerOne} start={0} end={tags} />
               </div>
