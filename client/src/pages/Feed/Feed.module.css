@@ -39,7 +39,7 @@
 }
 
 .cardsDiv::-webkit-scrollbar-thumb {
-  background: var(--highlight);
+  background: var(--font-medium);
 }
 
 .cardsDiv::-webkit-scrollbar-thumb:hover {
