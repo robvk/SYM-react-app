@@ -89,14 +89,18 @@ const StatementDetails = () => {
         </div>
 
         <div className={style.tagsDiv}>
-          <h2 className={appStyle.body}>
-            How others are completing this statement
-          </h2>
-          <div className={style.statementStartDiv}>
-            <h2 className={`${style.statementStart} ${appStyle.headerOne}`}>
-              {statement && splitString(statement.statementStart, 50)}
+          {comments.length !== 0 && (
+            <h2 className={appStyle.body}>
+              How others are completing this statement
             </h2>
-          </div>
+          )}
+          {comments.length !== 0 && (
+            <div className={style.statementStartDiv}>
+              <h2 className={`${style.statementStart} ${appStyle.headerOne}`}>
+                {statement && splitString(statement.statementStart, 50)}
+              </h2>
+            </div>
+          )}
 
           <div
             className={style.commentsDiv}
@@ -104,12 +108,17 @@ const StatementDetails = () => {
             ref={listInnerRef}
           >
             <ul>
-              {comments ? (
+              {comments.length ? (
                 comments?.map((comment, index) => (
                   <li key={index}>{<Comments comment={comment} />}</li>
                 ))
               ) : (
-                <p>It seems like there are no comments, yet.</p>
+                <div className={style.noComments}>
+                  <p className={appStyle.body}>
+                    Oops, looks like you&apos;re the first one here, tag on this
+                    statement!
+                  </p>
+                </div>
               )}
             </ul>
           </div>
