@@ -28,7 +28,7 @@ const Home = () => {
     setCookie("userID", onReceived.result.userID, 7);
     setToken(onReceived.result.token);
     setUserID(onReceived.result.userID);
-    navigate("/feed", {
+    navigate("/tutorial", {
       replace: true,
     });
     notifier("Account successfully created!");

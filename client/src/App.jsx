@@ -12,6 +12,7 @@ import Feed from "./pages/Feed/Feed";
 import UserInfoContext from "./context/UserInfoContext";
 import About from "./pages/About/About";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import Tutorial from "./pages/Tutorial/Tutorial";
 
 // Style
 import style from "./App.module.css";
@@ -24,7 +25,6 @@ const App = () => {
 
   useEffect(() => {
     getCookie("token") ? setUser(true) : setUser(false);
-    // token ? setUser(true) : setUser(false);
   }, [token]);
 
   return (
@@ -33,7 +33,7 @@ const App = () => {
       <Notifier />
       <Routes>
         <Route path="/" element={!user ? <Home /> : <Feed />} />
-
+        <Route path="/tutorial" element={<Tutorial />} />
         <Route path="/login" element={<Login />} />
         {user && (
           <Route path="/statements/view/:id" element={<StatementDetails />} />
