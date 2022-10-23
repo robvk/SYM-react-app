@@ -22,6 +22,11 @@
   animation: mover 120s infinite alternate;
 }
 
+.still {
+  min-width: 250%;
+  rotate: 180deg;
+}
+
 @-webkit-keyframes mover {
   0% {
     transform: translate(0%, 0%);

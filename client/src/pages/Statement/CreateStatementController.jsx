@@ -5,6 +5,7 @@ import StatementView from "./StatementView";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import NotifierContext from "../../context/NotifierContext";
+import BackgroundImage from "../../components/BackgroundImage";
 
 const CreateStatementController = () => {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ const CreateStatementController = () => {
   return (
     <div>
       <ProgressBar loading={isLoading} />
+      <BackgroundImage still={true} space={true} />
       <StatementView statementHandler={statementHandler} />
       <Error error={error} transparent={true} />
     </div>

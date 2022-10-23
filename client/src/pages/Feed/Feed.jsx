@@ -54,7 +54,7 @@ function Feed() {
       <ProgressBar loading={isLoading} />
 
       <div className={style.homePage}>
-        <BackgroundImage />
+        <BackgroundImage still={true} />
         <div className={style.container}>
           <h2 className={appStyle.headerOne}>Home</h2>
 

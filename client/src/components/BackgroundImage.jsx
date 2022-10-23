@@ -11,17 +11,25 @@ const BackgroundImage = (props) => {
   useEffect(() => {
     props.space ? setBg(style.bgSpace) : setBg(style.bgImageContainer);
   }, []);
+
   return (
     <div>
-      <div className={bg}>
-        <img src={bgImage} className={style.bgImage} />
-      </div>
+      {props.still ? (
+        <div className={style.bgImageContainer}>
+          <img src={bgImage} className={style.still} />
+        </div>
+      ) : (
+        <div className={bg}>
+          <img src={bgImage} className={style.bgImage} />
+        </div>
+      )}
     </div>
   );
 };
 
 BackgroundImage.propTypes = {
   space: PropTypes.bool,
+  still: PropTypes.bool,
 };
 
 export default BackgroundImage;
