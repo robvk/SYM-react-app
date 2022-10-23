@@ -184,6 +184,11 @@
   color: var(--red);
 }
 
+.charCount {
+  margin-left: auto;
+  font-size: 0.9rem;
+}
+
 @media screen and (max-width: 740px) {
   .cardContainer {
     min-width: 90vw;

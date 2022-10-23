@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Button from "../../components/Button";
-import style from "./StatementView.module.css";
+import style from "./StatementForm.module.css";
 import appStyle from "../../App.module.css";
 import Input from "../../components/Input";
 import { getCookie } from "../../hooks/useCookie";
@@ -9,6 +9,9 @@ import { getCookie } from "../../hooks/useCookie";
 const StatementView = ({ statementHandler }) => {
   const statementStartInputRef = useRef();
   const statementEndInputRef = useRef();
+
+  const [charOne, setCharOne] = useState(0);
+  const [charTwo, setCharTwo] = useState(0);
 
   const submitHandler = (e) => {
     const enteredStatementStart = statementStartInputRef.current.value;
@@ -27,6 +30,14 @@ const StatementView = ({ statementHandler }) => {
     statementHandler(statement);
   };
 
+  const charCountOne = (e) => {
+    setCharOne(e.target.value.length);
+  };
+
+  const charCountTwo = (e) => {
+    setCharTwo(e.target.value.length);
+  };
+
   return (
     <div className={style.createStatementPage}>
       <div className={style.glassDiv}>
@@ -35,7 +46,7 @@ const StatementView = ({ statementHandler }) => {
           <div className={style.statementInputs}>
             <Input
               name="statementStart"
-              label="Subject (50 char max)"
+              label={`Subject (${charOne}/50)`}
               placeholder="In the morning i like to"
               type="text"
               required
@@ -43,11 +54,12 @@ const StatementView = ({ statementHandler }) => {
               reference={statementStartInputRef}
               ariaLabel="statementStart"
               length="50"
+              onChange={charCountOne}
             />
 
             <Input
               name="statementEnd"
-              label="Statement (50 char max)"
+              label={`Statement (${charTwo}/50)`}
               placeholder="start by having breakfast"
               type="text"
               required
@@ -56,6 +68,7 @@ const StatementView = ({ statementHandler }) => {
               ariaLabel="statementEnd"
               length="50"
               textArea={true}
+              onChange={charCountTwo}
             />
           </div>
           <div className={style.buttonsDiv}>
