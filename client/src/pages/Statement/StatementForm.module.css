@@ -7,7 +7,7 @@
   background: var(--background-opacity);
   border-radius: 5px;
   height: 400px;
-  width: 450px;
+  width: 500px;
   margin: auto;
   padding: 30px 20px 0px 20px;
 }
@@ -59,12 +59,12 @@ form h2 {
   border-radius: 0px;
   background-color: transparent;
   border: 1px solid transparent;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--font);
 }
 
 .statementInputs div {
   width: 40vw;
-  max-width: 35ch;
+  max-width: 40ch;
   margin: auto;
 }
 

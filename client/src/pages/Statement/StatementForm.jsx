@@ -10,8 +10,8 @@ const StatementView = ({ statementHandler }) => {
   const statementStartInputRef = useRef();
   const statementEndInputRef = useRef();
 
-  const [charOne, setCharOne] = useState(50);
-  const [charTwo, setCharTwo] = useState(50);
+  const [charOne, setCharOne] = useState(0);
+  const [charTwo, setCharTwo] = useState(0);
 
   const submitHandler = (e) => {
     const enteredStatementStart = statementStartInputRef.current.value;
@@ -31,12 +31,11 @@ const StatementView = ({ statementHandler }) => {
   };
 
   const charCountOne = (e) => {
-    const remainingChar = 50 - e.target.value.length;
-    setCharOne(remainingChar);
+    setCharOne(e.target.value.length);
   };
+
   const charCountTwo = (e) => {
-    const remainingChar = 50 - e.target.value.length;
-    setCharTwo(remainingChar);
+    setCharTwo(e.target.value.length);
   };
 
   return (
@@ -47,7 +46,7 @@ const StatementView = ({ statementHandler }) => {
           <div className={style.statementInputs}>
             <Input
               name="statementStart"
-              label={`Subject (${charOne} char max)`}
+              label={`Subject (${charOne}/50)`}
               placeholder="In the morning i like to"
               type="text"
               required
@@ -60,7 +59,7 @@ const StatementView = ({ statementHandler }) => {
 
             <Input
               name="statementEnd"
-              label={`Statement (${charTwo} char max)`}
+              label={`Statement (${charTwo}/50)`}
               placeholder="start by having breakfast"
               type="text"
               required

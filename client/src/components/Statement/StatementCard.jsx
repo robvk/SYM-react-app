@@ -33,6 +33,7 @@ function StatementCard(props) {
   const statementIDRef = useRef();
   const statementStartRef = useRef();
   // State
+  const [charOne, setCharOne] = useState(0);
   const [tag, setTag] = useState(false);
   const [upButton, setUpButton] = useState("");
   const [downButton, setDownButton] = useState("");
@@ -200,6 +201,7 @@ function StatementCard(props) {
 
   const onChange = (e) => {
     enteredInputRef.current = e.target.value;
+    setCharOne(e.target.value.length);
   };
 
   return (
@@ -228,6 +230,11 @@ function StatementCard(props) {
                 >
                   {author.username}
                 </Link>
+                {tag && (
+                  <div className={`${style.charCount} ${appStyle.body}`}>
+                    {charOne}/50
+                  </div>
+                )}
               </div>
               <div className={style.statement}>
                 <Link to={`/statements/view/${props.statement._id}`}>
