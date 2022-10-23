@@ -14,15 +14,16 @@ import ProgressBar from "../../components/ProgressBar";
 import Avatar from "../../components/Avatar";
 import ProfileLevel from "./ProfileLevel";
 import BackgroundImage from "../../components/BackgroundImage";
-// Hook
-import useFetch from "../../hooks/useFetch";
-import NotifierContext from "../../context/NotifierContext";
 import EditProfileForm from "./EditProfileForm";
-import UserInfoContext from "../../context/UserInfoContext";
-import { deleteCookie, getCookie } from "../../hooks/useCookie";
 import PasswordChange from "./PasswordChange";
 import ActiveStatements from "./ActiveStatements";
 import DeletePrompt from "./DeletePrompt";
+// Hook
+import useFetch from "../../hooks/useFetch";
+import { deleteCookie, getCookie } from "../../hooks/useCookie";
+// Context
+import NotifierContext from "../../context/NotifierContext";
+import UserInfoContext from "../../context/UserInfoContext";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
