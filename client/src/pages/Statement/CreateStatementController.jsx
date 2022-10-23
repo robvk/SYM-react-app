@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import StatementView from "./StatementView";
+import StatementForm from "./StatementForm";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import NotifierContext from "../../context/NotifierContext";
@@ -44,7 +44,7 @@ const CreateStatementController = () => {
     <div>
       <ProgressBar loading={isLoading} />
       <BackgroundImage still={true} space={true} />
-      <StatementView statementHandler={statementHandler} />
+      <StatementForm statementHandler={statementHandler} />
       <Error error={error} transparent={true} />
     </div>
   );
