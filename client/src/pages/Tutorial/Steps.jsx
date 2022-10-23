@@ -69,8 +69,8 @@ export const stepFour = (
     <p className={appStyle.body}>
       To check out your SYM score you can navigate to your profile. On your
       profile you can edit your details, change your password and delete your
-      account. There you will see the current rank of your profile and how much
-      your SYM score is.
+      account. There you will see the current rank of your profile which is also
+      determined by your current SYM score.
     </p>
   </div>
 );

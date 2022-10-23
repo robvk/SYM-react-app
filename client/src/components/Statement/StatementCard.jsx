@@ -317,5 +317,5 @@ export default StatementCard;
 
 StatementCard.propTypes = {
   statement: PropTypes.object.isRequired,
-  commentLoading: PropTypes.bool.isRequired,
+  commentLoading: PropTypes.bool,
 };

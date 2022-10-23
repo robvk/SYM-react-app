@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import BackgroundImage from "../../components/BackgroundImage";
 import ProgressBar from "../../components/ProgressBar";
 import style from "./Tutorial.module.css";
 import appStyle from "../../App.module.css";
 import {
-  BsFillArrowDownLeftSquareFill,
   BsFillArrowLeftCircleFill,
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
