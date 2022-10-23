@@ -12,6 +12,7 @@ import StatementCard from "../../components/Statement/StatementCard";
 
 import Comments from "../../components/Statement/Comments";
 import splitString from "../../util/stringSplitting";
+import BackgroundImage from "../../components/BackgroundImage";
 
 const StatementDetails = () => {
   const { id } = useParams();
@@ -82,6 +83,7 @@ const StatementDetails = () => {
   return (
     <>
       <ProgressBar loading={isLoading || commentsLoading} />
+      <BackgroundImage still={true} />
       <div className={style.statementPage}>
         <h2 className={appStyle.headerOne}>Original Post</h2>
         <div className={style.cardsDiv}>
