@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+.active {
+  color: var(--green) !important;
+}
+
 .allLinks {
   display: flex;
   margin-right: 10px;

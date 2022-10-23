@@ -89,6 +89,9 @@ const Nav = () => {
                     <Link key="4" to={`/profile/${getCookie("userID")}`}>
                       <span>Profile</span>
                     </Link>
+                    <Link key="6" to="/tutorial">
+                      <span>Help</span>
+                    </Link>
                     <Link onClick={logOut} key="5" to="/">
                       <span>Logout</span>
                     </Link>
