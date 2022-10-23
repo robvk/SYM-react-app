@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import Button from "../../components/Button";
-import styles from "./StatementView.module.css";
-import appStyles from "../../App.module.css";
+import style from "./StatementView.module.css";
+import appStyle from "../../App.module.css";
 import Input from "../../components/Input";
 import { getCookie } from "../../hooks/useCookie";
 
@@ -28,48 +28,50 @@ const StatementView = ({ statementHandler }) => {
   };
 
   return (
-    <div className={styles.createStatementPage}>
-      <form className={styles.formClass} name="newStatement">
-        <h2 className={appStyles.headerOne}>Share with the world!</h2>
-        <div className={styles.statementInputs}>
-          <Input
-            name="statementStart"
-            label="Subject (50 char max)"
-            placeholder="In the morning i like to"
-            type="text"
-            required
-            id="statementStart"
-            reference={statementStartInputRef}
-            ariaLabel="statementStart"
-            length="50"
-          />
+    <div className={style.createStatementPage}>
+      <div className={style.glassDiv}>
+        <form className={style.formClass} name="newStatement">
+          <h2 className={appStyle.headerOne}>Share with the world!</h2>
+          <div className={style.statementInputs}>
+            <Input
+              name="statementStart"
+              label="Subject (50 char max)"
+              placeholder="In the morning i like to"
+              type="text"
+              required
+              id="statementStart"
+              reference={statementStartInputRef}
+              ariaLabel="statementStart"
+              length="50"
+            />
 
-          <Input
-            name="statementEnd"
-            label="Statement (50 char max)"
-            placeholder="start by having breakfast"
-            type="text"
-            required
-            id="statementEnd"
-            reference={statementEndInputRef}
-            ariaLabel="statementEnd"
-            length="50"
-            textArea={true}
-          />
-        </div>
-        <div className={styles.buttonsDiv}>
-          <div className={styles.singleButton}>
-            <Button type="submit" buttonHandler={submitHandler}>
-              Post
-            </Button>
+            <Input
+              name="statementEnd"
+              label="Statement (50 char max)"
+              placeholder="start by having breakfast"
+              type="text"
+              required
+              id="statementEnd"
+              reference={statementEndInputRef}
+              ariaLabel="statementEnd"
+              length="50"
+              textArea={true}
+            />
           </div>
-          <div className={styles.singleButton}>
-            <Button type="button" path="/feed" class="buttonBorder">
-              Cancel
-            </Button>
+          <div className={style.buttonsDiv}>
+            <div className={style.singleButton}>
+              <Button type="submit" buttonHandler={submitHandler}>
+                Post
+              </Button>
+            </div>
+            <div className={style.singleButton}>
+              <Button type="button" path="/feed" class="buttonBorder">
+                Cancel
+              </Button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

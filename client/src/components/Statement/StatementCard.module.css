@@ -1,7 +1,7 @@
 .cardContainer {
   border: 2px solid var(--highlight);
   border-radius: 5px;
-  margin: 0px auto 20px auto;
+  margin: 0px auto;
   color: var(--font) !important;
   width: 40vw;
   max-width: 700px;

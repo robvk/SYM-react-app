@@ -1,6 +1,16 @@
 .createStatementPage {
-  height: calc(100vh - 130px);
-  background: var(--background);
+  height: calc(100vh - 160px);
+  /* background: var(--background); */
+}
+
+.glassDiv {
+  margin-top: 100px !important;
+  background: var(--background-opacity);
+  border-radius: 5px;
+  height: 400px;
+  width: 450px;
+  margin: auto;
+  padding: 30px 20px 0px 20px;
 }
 
 form h2 {
@@ -28,6 +38,7 @@ form h2 {
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-evenly;
+  margin-bottom: 20px;
 }
 
 .statementInputs {
@@ -35,7 +46,7 @@ form h2 {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  width: 60vw;
+  width: 100%;
   margin: auto;
   height: 200px;
 }
