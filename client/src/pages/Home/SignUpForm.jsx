@@ -1,15 +1,18 @@
 // React
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 // Style
 import style from "./Home.module.css";
 import appStyle from "../../App.module.css";
+// Icon
 import envelop from "../../assets/icons/message-icon.svg";
 import password from "../../assets/icons/lock-icon.svg";
 import person from "../../assets/icons/person-icon.svg";
+// Component
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { Link } from "react-router-dom";
+// Hooks
 import useDate from "../../hooks/useDate";
 
 const SignUpForm = (props) => {
@@ -41,7 +44,8 @@ const SignUpForm = (props) => {
 
     props.onUserSignUp(userData);
   };
-
+  // Checks for each input
+  // Make sure all passwords match each other
   const passwordMatch = () => {
     if (
       passwordInputRef.current.value !==
@@ -55,7 +59,7 @@ const SignUpForm = (props) => {
       setIsConfirmPasswordFilled("");
     }
   };
-
+  // Is email filled?
   const emailChecker = (e) => {
     if (!e.target.value) {
       setIsEmailFilled(style.notFilled);
@@ -63,6 +67,7 @@ const SignUpForm = (props) => {
       setIsEmailFilled("");
     }
   };
+  // Is username filled?
   const usernameChecker = (e) => {
     if (!e.target.value) {
       setIsUsernameFilled(style.notFilled);
@@ -70,7 +75,7 @@ const SignUpForm = (props) => {
       setIsUsernameFilled("");
     }
   };
-
+  // Is password filled?
   const passwordChecker = (e) => {
     passwordMatch();
     if (!e.target.value) {
@@ -79,7 +84,7 @@ const SignUpForm = (props) => {
       setIsPasswordFilled("");
     }
   };
-
+  // Is password confirmed?
   const confirmPasswordChecker = (e) => {
     if (
       !e.target.value ||

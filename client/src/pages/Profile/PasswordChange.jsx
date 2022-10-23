@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+// Component
+import Input from "../../components/Input";
 import Button from "../../components/Button";
 // Style
 import style from "./PasswordChange.module.css";
 import appStyle from "../../App.module.css";
-import Input from "../../components/Input";
+// Icon
 import password from "../../assets/icons/lock-icon.svg";
-
 export default function PasswordChange(props) {
   const [isDisabled, setIsDisabled] = useState(true);
   const passwordInputRef = useRef();
@@ -18,15 +19,12 @@ export default function PasswordChange(props) {
 
   function submitHandler(e) {
     e.preventDefault();
-
     const currentPassword = passwordInputRef.current.value;
     const newPassword = newPasswordInputRef.current.value;
-
     const password = {
       currentPassword: currentPassword,
       newPassword: newPassword,
     };
-
     props.onSaveDetails(password);
   }
 

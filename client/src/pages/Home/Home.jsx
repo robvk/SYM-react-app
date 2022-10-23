@@ -5,15 +5,16 @@ import { useNavigate } from "react-router-dom";
 import UserInfoContext from "../../context/UserInfoContext";
 // Hooks
 import useFetch from "../../hooks/useFetch";
-
+import { setCookie } from "../../hooks/useCookie";
 // Style
 import style from "./Home.module.css";
 import appStyle from "../../App.module.css";
+// Component
 import SignUpForm from "./SignUpForm";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import BackgroundImage from "../../components/BackgroundImage";
-import { setCookie } from "../../hooks/useCookie";
+// Context
 import NotifierContext from "../../context/NotifierContext";
 
 const Home = () => {
@@ -21,7 +22,6 @@ const Home = () => {
   // Context
   const { notifier } = useContext(NotifierContext);
   const { setToken, setUserID } = useContext(UserInfoContext);
-
   // Call back from backend
   const onSuccess = (onReceived) => {
     setCookie("token", onReceived.result.token, 7);
@@ -33,12 +33,10 @@ const Home = () => {
     });
     notifier("Account successfully created!");
   };
-
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/user/create",
     onSuccess
   );
-
   // Post request on user Sign up
   const onUserSignUp = (user) => {
     performFetch({
@@ -49,7 +47,6 @@ const Home = () => {
       body: JSON.stringify({ user }),
     });
   };
-
   useEffect(() => {
     return cancelFetch;
   }, []);

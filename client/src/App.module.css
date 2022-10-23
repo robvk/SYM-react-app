@@ -6,7 +6,6 @@
   --background-opacity: rgb(242, 248, 248, 0.7);
   --green: #9fc892;
   --red: #e96e5d;
-  /* --highlight: #d2d6ef; */
   --highlight: #d2d6ef84;
   --shadow: #34435e;
 }
@@ -14,7 +13,9 @@
 .darkTheme {
   --font-light: #34435e;
   --font: #f2f8f8;
+  --font-medium: rgb(242, 248, 248, 0.5);
   --background: #34435e;
+  --background-opacity: rgb(52, 67, 94, 0.7);
   --green: #9fc892;
   --red: #e96e5d;
   --highlight: #d2d6ef;
@@ -76,6 +77,7 @@ html {
   background-size: cover;
 }
 
+/* Media Queries */
 @media screen and (max-width: 450px) {
   .headerOne {
     font-size: 24px;

@@ -1,8 +1,10 @@
+// React
 import React, { useContext, useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+// Components
 import Nav from "./components/Header/Nav";
 import Home from "./pages/Home/Home";
-import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import Login from "./pages/Login/Login";
 import CreateStatementController from "./pages/Statement/CreateStatementController";
@@ -13,7 +15,6 @@ import UserInfoContext from "./context/UserInfoContext";
 import About from "./pages/About/About";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import Tutorial from "./pages/Tutorial/Tutorial";
-
 // Style
 import style from "./App.module.css";
 import { getCookie } from "./hooks/useCookie";

@@ -1,9 +1,13 @@
+// React
 import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
+// Style
 import style from "./About.module.css";
 import appStyle from "../../App.module.css";
+// Hooks
 import useFetch from "../../hooks/useFetch";
+// Components
 import ProgressBar from "../../components/ProgressBar";
-import CountUp from "react-countup";
 import bgImage from "../../assets/images/background-image.jpg";
 import Error from "../../components/Error/Error";
 
@@ -21,12 +25,10 @@ const About = () => {
     setExpiredStatements(onReceived.result.countExpiredStatements);
     setExpiredComments(onReceived.result.countExpiredComments);
   };
-
   const { isLoading, performFetch, cancelFetch, error } = useFetch(
     "/database/all",
     onSuccess
   );
-
   useEffect(() => {
     performFetch({
       method: "GET",
