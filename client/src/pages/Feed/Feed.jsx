@@ -1,13 +1,17 @@
+// React
 import React, { useEffect, useState, useRef } from "react";
-import style from "./Feed.module.css";
-import appStyle from "../../App.module.css";
-import ProgressBar from "../../components/ProgressBar";
-import useFetch from "../../hooks/useFetch";
-import StatementCard from "../../components/Statement/StatementCard";
-import Error from "../../components/Error/Error";
 import { Link } from "react-router-dom";
 import { VscAdd } from "react-icons/vsc";
+// Style
+import style from "./Feed.module.css";
+import appStyle from "../../App.module.css";
+// Components
+import ProgressBar from "../../components/ProgressBar";
+import StatementCard from "../../components/Statement/StatementCard";
+import Error from "../../components/Error/Error";
 import BackgroundImage from "../../components/BackgroundImage";
+// Hooks
+import useFetch from "../../hooks/useFetch";
 
 function Feed() {
   const [statements, setStatements] = useState([]);
@@ -21,13 +25,11 @@ function Feed() {
       setIsDone(true);
     }
   };
-
   const limit = 10;
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     `/statements/?skip=${page}&limit=${limit}`,
     onSuccess
   );
-
   useEffect(() => {
     if (!isDone) {
       performFetch({
@@ -52,19 +54,17 @@ function Feed() {
   return (
     <>
       <ProgressBar loading={isLoading} />
-
       <div className={style.homePage}>
         <BackgroundImage still={true} />
         <div className={style.container}>
           <h2 className={appStyle.headerOne}>Home</h2>
-
           <div
             className={style.cardsDiv}
             onScroll={onScroll}
             ref={listInnerRef}
           >
             <ul>
-              {!statements.length && (
+              {!statements.length && error && (
                 <div className={style.noStatements}>
                   <p className={appStyle.body}>
                     Oops, looks like you&apos;re early, make a statement!

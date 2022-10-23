@@ -1,18 +1,21 @@
+// React
 import React, { useRef } from "react";
-import style from "./StatementDetails.module.css";
-import appStyle from "../../App.module.css";
-import useFetch from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
-import Error from "../../components/Error/Error";
-
 import { useEffect } from "react";
 import { useState } from "react";
+// Style
+import style from "./StatementDetails.module.css";
+import appStyle from "../../App.module.css";
+// Hook
+import useFetch from "../../hooks/useFetch";
+// Component
+import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
 import StatementCard from "../../components/Statement/StatementCard";
-
 import Comments from "../../components/Statement/Comments";
-import splitString from "../../util/stringSplitting";
 import BackgroundImage from "../../components/BackgroundImage";
+// Utils
+import splitString from "../../util/stringSplitting";
 
 const StatementDetails = () => {
   const { id } = useParams();
@@ -47,7 +50,6 @@ const StatementDetails = () => {
       setIsDone(true);
     }
   };
-
   useEffect(() => {
     if (!isDone) {
       commentsFetch({
@@ -103,7 +105,6 @@ const StatementDetails = () => {
               </h2>
             </div>
           )}
-
           <div
             className={style.commentsDiv}
             onScroll={onScroll}
@@ -125,7 +126,6 @@ const StatementDetails = () => {
             </ul>
           </div>
         </div>
-
         <Error error={error || commentsError} transparent={true} />
       </div>
     </>

@@ -166,7 +166,7 @@
 }
 
 .cardsDiv {
-  max-height: calc(150px * 3);
+  max-height: calc(185px * 2);
   width: 40vw;
   max-width: 700px;
   margin: auto;
@@ -185,6 +185,7 @@
   padding: 0px;
 }
 
+/* Media Queries */
 @media screen and (max-width: 740px) {
   .banner {
     background-color: var(--background-opacity);
@@ -196,7 +197,6 @@
     min-width: 95vw;
     margin: auto;
     margin-top: 0px;
-    /* margin-right: 1%; */
   }
 
   .statementInformation h2,

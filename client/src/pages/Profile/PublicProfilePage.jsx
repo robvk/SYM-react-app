@@ -20,20 +20,17 @@ const PublicProfilePage = () => {
     symScore: "",
     dateCreated: "",
   });
-
   const { id } = useParams();
-
+  // Fetch logic
   const onSuccess = (onReceived) => {
     if (userDetails.username === "") {
       setUserDetails(onReceived.result);
     }
   };
-
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     `/profile/public/${id}`,
     onSuccess
   );
-
   useEffect(() => {
     performFetch({
       method: "GET",
@@ -66,7 +63,6 @@ const PublicProfilePage = () => {
             <ProfileLevel symScore={userDetails.symScore} />
           </div>
         </div>
-
         <div className={`${style.userInformation} ${appStyle.body}`}>
           <h3 className={style.subTitle}>User Details</h3>
           <div className={style.accountDetails}>

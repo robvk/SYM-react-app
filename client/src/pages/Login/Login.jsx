@@ -1,14 +1,19 @@
+// React
 import React, { useEffect, useContext } from "react";
-import useFetch from "../../hooks/useFetch";
-import style from "./Login.module.css";
-import UserInfoContext from "../../context/UserInfoContext";
 import { useNavigate } from "react-router-dom";
-import appStyle from "../../App.module.css";
-import Error from "../../components/Error/Error";
+// Hooks
+import useFetch from "../../hooks/useFetch";
 import { setCookie } from "../../hooks/useCookie";
+// Style
+import style from "./Login.module.css";
+import appStyle from "../../App.module.css";
+// Context
+import UserInfoContext from "../../context/UserInfoContext";
+import NotifierContext from "../../context/NotifierContext";
+// Component
+import Error from "../../components/Error/Error";
 import LogInForm from "./LoginForm";
 import ProgressBar from "../../components/ProgressBar";
-import NotifierContext from "../../context/NotifierContext";
 import BackgroundImage from "../../components/BackgroundImage";
 
 function Login() {
@@ -16,7 +21,7 @@ function Login() {
   // Context
   const { notifier } = useContext(NotifierContext);
   const { setToken, setUserID, setUsername } = useContext(UserInfoContext);
-
+  // Login success callback
   const onSuccess = (res) => {
     setCookie("token", res.data, 7);
     setCookie("userID", res.id, 7);
@@ -28,17 +33,14 @@ function Login() {
     });
     notifier("Welcome back!");
   };
-
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/authentication",
     onSuccess
   );
-
   useEffect(() => {
     return cancelFetch;
   }, []);
-
-  function onUserLogIn(user) {
+  const onUserLogIn = (user) => {
     performFetch({
       method: "POST",
       headers: {
@@ -46,7 +48,7 @@ function Login() {
       },
       body: JSON.stringify({ email: user.email, password: user.password }),
     });
-  }
+  };
 
   return (
     <div>

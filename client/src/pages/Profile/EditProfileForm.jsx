@@ -1,5 +1,7 @@
+// React
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
+// Component
 import Button from "../../components/Button";
 // Style
 import style from "./ProfilePage.module.css";
@@ -9,18 +11,14 @@ export default function EditProfileForm(props) {
   const usernameInputRef = useRef();
   function submitHandler(e) {
     e.preventDefault();
-
     const enteredEmail = emailInputRef.current.value;
     const enteredUsername = usernameInputRef.current.value;
-
     const userData = {
       email: enteredEmail,
       username: enteredUsername,
     };
-
     props.onSaveDetails(userData);
   }
-
   return (
     <div className={style.userInformation}>
       <h2 className={style.subTitle}>Edit Your Details</h2>
@@ -70,7 +68,6 @@ export default function EditProfileForm(props) {
     </div>
   );
 }
-
 EditProfileForm.propTypes = {
   onSaveDetails: PropTypes.func,
   userDetails: PropTypes.object,

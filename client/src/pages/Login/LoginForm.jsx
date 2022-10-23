@@ -1,37 +1,34 @@
 // React
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 // Style
 import style from "./Login.module.css";
 import appStyle from "../../App.module.css";
+// Icon
 import envelop from "../../assets/icons/message-icon.svg";
 import password from "../../assets/icons/lock-icon.svg";
+// Component
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { Link } from "react-router-dom";
 
 const LogInForm = (props) => {
   const [isEmailFilled, setIsEmailFilled] = useState();
-
   const [isPasswordFilled, setIsPasswordFilled] = useState();
-
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
   const logInHandler = (e) => {
     e.preventDefault();
-
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
-
     const userData = {
       email: enteredEmail,
       password: enteredPassword,
     };
-
     props.onUserLogIn(userData);
   };
-
+  // Is email filled in?
   const emailChecker = (e) => {
     if (!e.target.value) {
       setIsEmailFilled(style.notFilled);
@@ -39,7 +36,7 @@ const LogInForm = (props) => {
       setIsEmailFilled("");
     }
   };
-
+  // Is password filled in?
   const passwordChecker = (e) => {
     if (!e.target.value) {
       setIsPasswordFilled(style.notFilled);

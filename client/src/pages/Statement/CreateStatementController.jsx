@@ -1,33 +1,34 @@
+// React
 import React, { useContext, useEffect } from "react";
-import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+// Hooks
+import useFetch from "../../hooks/useFetch";
+// Component
 import StatementForm from "./StatementForm";
 import Error from "../../components/Error/Error";
 import ProgressBar from "../../components/ProgressBar";
-import NotifierContext from "../../context/NotifierContext";
 import BackgroundImage from "../../components/BackgroundImage";
+// Context
+import NotifierContext from "../../context/NotifierContext";
 
 const CreateStatementController = () => {
   const navigate = useNavigate();
   // Context
   const { notifier } = useContext(NotifierContext);
-
   const onSuccess = () => {
     navigate("/feed", {
       replace: true,
     });
     notifier("Statement successfully posted!");
   };
-
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/statements/create",
     onSuccess
   );
-
+  // Cancel fetch
   useEffect(() => {
     return cancelFetch;
   }, []);
-
   const statementHandler = (statement) => {
     performFetch({
       method: "POST",

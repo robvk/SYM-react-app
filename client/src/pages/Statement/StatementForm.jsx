@@ -1,23 +1,25 @@
+// React
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+// Component
 import Button from "../../components/Button";
+import Input from "../../components/Input";
+// Style
 import style from "./StatementForm.module.css";
 import appStyle from "../../App.module.css";
-import Input from "../../components/Input";
+// Hooks
 import { getCookie } from "../../hooks/useCookie";
 
 const StatementView = ({ statementHandler }) => {
   const statementStartInputRef = useRef();
   const statementEndInputRef = useRef();
-
   const [charOne, setCharOne] = useState(0);
   const [charTwo, setCharTwo] = useState(0);
-
+  // Submit form
   const submitHandler = (e) => {
     const enteredStatementStart = statementStartInputRef.current.value;
     const enteredStatementEnd = statementEndInputRef.current.value;
     const dateNow = new Date();
-
     const statement = {
       userID: getCookie("userID"),
       statementStart: enteredStatementStart,
@@ -25,15 +27,12 @@ const StatementView = ({ statementHandler }) => {
       fullStatement: enteredStatementStart + " " + enteredStatementEnd,
       dateCreated: dateNow,
     };
-
     e.preventDefault();
     statementHandler(statement);
   };
-
   const charCountOne = (e) => {
     setCharOne(e.target.value.length);
   };
-
   const charCountTwo = (e) => {
     setCharTwo(e.target.value.length);
   };
@@ -56,7 +55,6 @@ const StatementView = ({ statementHandler }) => {
               length="50"
               onChange={charCountOne}
             />
-
             <Input
               name="statementEnd"
               label={`Statement (${charTwo}/50)`}

@@ -1,9 +1,13 @@
+// React
 import React, { useEffect, useRef, useState } from "react";
-import appStyle from "../../App.module.css";
-import useFetch from "../../hooks/useFetch";
-import StatementCard from "../../components/Statement/StatementCard";
-import style from "../Profile/ProfilePage.module.css";
 import { useParams } from "react-router-dom";
+// Style
+import appStyle from "../../App.module.css";
+import style from "../Profile/ProfilePage.module.css";
+// Hooks
+import useFetch from "../../hooks/useFetch";
+// Component
+import StatementCard from "../../components/Statement/StatementCard";
 
 const ActiveStatements = () => {
   const { id } = useParams();
@@ -37,6 +41,7 @@ const ActiveStatements = () => {
     return cancelFetch;
   }, [page]);
 
+  // Detect when the user scrolls to the bottom of the div
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;

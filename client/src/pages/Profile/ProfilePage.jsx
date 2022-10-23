@@ -22,10 +22,10 @@ import UserInfoContext from "../../context/UserInfoContext";
 import { deleteCookie, getCookie } from "../../hooks/useCookie";
 import PasswordChange from "./PasswordChange";
 import ActiveStatements from "./ActiveStatements";
+import DeletePrompt from "./DeletePrompt";
 
 const ProfilePage = () => {
   const { setToken, setUsername } = useContext(UserInfoContext);
-
   const [userDetails, setUserDetails] = useState({
     userID: "",
     email: "",
@@ -33,13 +33,11 @@ const ProfilePage = () => {
     symScore: "",
     dateCreated: "",
   });
-
   const [deleteHelper, setDeleteHelper] = useState(false);
   const [editHelper, setEditHelper] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const { id } = useParams();
   const { notifier } = useContext(NotifierContext);
-
   // Check if the user's ID matches the profile
   if (id !== getCookie("userID")) {
     return (
@@ -50,7 +48,7 @@ const ProfilePage = () => {
       </div>
     );
   }
-
+  // Profile Fetch
   const onSuccess = (onReceived) => {
     changePassword && setChangePassword(false);
     if (onReceived.isDelete) {
@@ -59,22 +57,17 @@ const ProfilePage = () => {
       setToken("");
       return;
     }
-
     setUsername(onReceived.result.username);
-
     if (userDetails.username === "") {
       setUserDetails(onReceived.result);
     }
-
     setEditHelper(false);
     if (onReceived.message) notifier(onReceived.message);
   };
-
   const { error, isLoading, performFetch, cancelFetch } = useFetch(
     `/profile/${id}`,
     onSuccess
   );
-
   useEffect(() => {
     if (id === getCookie("userID")) {
       performFetch({
@@ -87,39 +80,13 @@ const ProfilePage = () => {
     }
   }, [userDetails]);
 
-  let deletePrompt = (
-    <div className={style.deletePrompt}>
-      <div className={style.userInformation}>
-        <h2 className={style.subTitle}>Delete Profile</h2>
-        <div className={style.padding}>
-          <p className={appStyle.boldBody}>
-            Are you sure you would like to delete your profile?
-          </p>
-          <div className={style.red}>
-            <p className={appStyle.body}>This action cannot be undone</p>
-          </div>
-        </div>
-
-        <div className={style.buttonsDiv}>
-          <div className={style.singleButton}>
-            <Button path="/" buttonHandler={() => deleteProfile()}>
-              Delete
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   const changePassHandler = () => {
     changePassword ? setChangePassword(false) : setChangePassword(true);
   };
-
   const deleteHandler = () => {
     setDeleteHelper(true);
     setEditHelper(false);
   };
-
   const deleteProfile = () => {
     performFetch({
       method: "DELETE",
@@ -130,12 +97,10 @@ const ProfilePage = () => {
 
     return cancelFetch;
   };
-
   const editHandler = () => {
     editHelper ? setEditHelper(false) : setEditHelper(true);
     setDeleteHelper(false);
   };
-
   const editUserHandler = (userData) => {
     if (changePassHandler) {
       performFetch({
@@ -217,7 +182,7 @@ const ProfilePage = () => {
           {!changePassword && (
             <div className={appStyle.body}>
               {deleteHelper ? (
-                deletePrompt
+                <DeletePrompt deleteProfile={deleteProfile} />
               ) : (
                 <div>
                   {!editHelper ? (
